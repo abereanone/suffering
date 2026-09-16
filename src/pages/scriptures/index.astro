@@ -1,9 +1,13 @@
 ---
 import Main from "@/layouts/Main.astro";
-import { listScriptureBookGroups } from "@/lib/scriptures";
+import { listScriptures } from "@/lib/scriptures";
 import { siteSettings } from "@/config/siteSettings";
 
-const bookGroups = listScriptureBookGroups();
+// One flat list in canonical order. This catechism cites ~110 references, few enough
+// that grouping them by book cost more than it gave: most books held one or two cards,
+// so the page read as mostly headings.
+const entries = listScriptures();
+
 const oldTestamentCodes = new Set([
   "gen",
   "exo",
@@ -45,8 +49,7 @@ const oldTestamentCodes = new Set([
   "zec",
   "mal",
 ]);
-const oldTestamentGroups = bookGroups.filter((group) => oldTestamentCodes.has(group.bookCode));
-const newTestamentGroups = bookGroups.filter((group) => !oldTestamentCodes.has(group.bookCode));
+
 const siteName = siteSettings.branding.siteName;
 ---
 
@@ -56,7 +59,7 @@ const siteName = siteSettings.branding.siteName;
     <p>Browse the scripture references cited in proof sections and see which questions use them.</p>
 
     {
-      bookGroups.length ? (
+      entries.length ? (
         <>
           <div class="scripture-testament-picker" aria-label="Choose testament">
             <button
@@ -71,6 +74,7 @@ const siteName = siteSettings.branding.siteName;
             <button
               type="button"
               class="scripture-testament-button"
+              aria-pressed="false"
               data-testament-button
               data-testament-target="ot"
             >
@@ -79,12 +83,14 @@ const siteName = siteSettings.branding.siteName;
             <button
               type="button"
               class="scripture-testament-button"
+              aria-pressed="false"
               data-testament-button
               data-testament-target="nt"
             >
               New Testament
             </button>
           </div>
+
           <label class="scripture-filter">
             <span class="scripture-filter-label">Filter references</span>
             <input
@@ -94,144 +100,29 @@ const siteName = siteSettings.branding.siteName;
               data-scripture-filter
             />
           </label>
-          <div class="scripture-search-results" data-search-results hidden>
-            <div class="scripture-book-groups" data-search-groups>
-              {bookGroups.map((group) => (
-                <section
-                  class="scripture-book-group"
-                  data-search-group
-                  data-book-code={group.bookCode}
-                >
-                  <header class="scripture-book-header">
-                    <h2>{group.bookName}</h2>
-                    <p>
-                      {group.entries.length === 1
-                        ? "1 reference"
-                        : `${group.entries.length} references`}
-                    </p>
-                  </header>
-                  <ul class="scripture-grid">
-                    {group.entries.map((entry) => (
-                      <li
-                        data-search-item
-                        data-scripture-text={entry.searchText}
-                        data-book-code={entry.bookCode}
-                        data-book-search={entry.bookSearchText}
-                        data-reference-search={entry.referencePart}
-                      >
-                        <a class="scripture-card card-panel" href={`/scriptures/${entry.slug}`}>
-                          <span class="scripture-reference">{entry.reference}</span>
-                          <span class="scripture-count">
-                            {entry.questionCount === 1
-                              ? "1 question"
-                              : `${entry.questionCount} questions`}
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
-            </div>
-          </div>
-          <div class="scripture-testament-panel" data-testament-panel="ot">
-            <nav class="scripture-book-jump" aria-label="Jump to Old Testament book">
-              {oldTestamentGroups.map((group) => (
-                <a
-                  href={`#book-${group.bookCode}`}
-                  data-scripture-jump-link
-                  data-book-code={group.bookCode}
-                >
-                  {group.bookName}
+
+          <ul class="scripture-grid">
+            {entries.map((entry) => (
+              <li
+                data-scripture-item
+                data-testament={oldTestamentCodes.has(entry.bookCode) ? "ot" : "nt"}
+                data-book-code={entry.bookCode}
+                data-book-search={entry.bookSearchText}
+                data-reference-search={entry.referencePart}
+              >
+                <a class="scripture-card card-panel" href={`/scriptures/${entry.slug}`}>
+                  <span class="scripture-reference">{entry.reference}</span>
+                  <span class="scripture-count">
+                    {entry.questionCount === 1 ? "1 question" : `${entry.questionCount} questions`}
+                  </span>
                 </a>
-              ))}
-            </nav>
-            <div class="scripture-book-groups" data-scripture-groups="ot">
-              {oldTestamentGroups.map((group) => (
-                <section
-                  class="scripture-book-group"
-                  data-scripture-group
-                  data-testament="ot"
-                  id={`book-${group.bookCode}`}
-                >
-                  <header class="scripture-book-header">
-                    <h2>{group.bookName}</h2>
-                    <p>
-                      {group.entries.length === 1
-                        ? "1 reference"
-                        : `${group.entries.length} references`}
-                    </p>
-                  </header>
-                  <ul class="scripture-grid">
-                    {group.entries.map((entry) => (
-                      <li data-scripture-item data-scripture-text={entry.searchText}>
-                        <a class="scripture-card card-panel" href={`/scriptures/${entry.slug}`}>
-                          <span class="scripture-reference">{entry.reference}</span>
-                          <span class="scripture-count">
-                            {entry.questionCount === 1
-                              ? "1 question"
-                              : `${entry.questionCount} questions`}
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  <p class="scripture-back-top">
-                    <a href="#scripture-index-top">Back to top</a>
-                  </p>
-                </section>
-              ))}
-            </div>
-          </div>
-          <div class="scripture-testament-panel" data-testament-panel="nt">
-            <nav class="scripture-book-jump" aria-label="Jump to New Testament book">
-              {newTestamentGroups.map((group) => (
-                <a
-                  href={`#book-${group.bookCode}`}
-                  data-scripture-jump-link
-                  data-book-code={group.bookCode}
-                >
-                  {group.bookName}
-                </a>
-              ))}
-            </nav>
-            <div class="scripture-book-groups" data-scripture-groups="nt">
-              {newTestamentGroups.map((group) => (
-                <section
-                  class="scripture-book-group"
-                  data-scripture-group
-                  data-testament="nt"
-                  id={`book-${group.bookCode}`}
-                >
-                  <header class="scripture-book-header">
-                    <h2>{group.bookName}</h2>
-                    <p>
-                      {group.entries.length === 1
-                        ? "1 reference"
-                        : `${group.entries.length} references`}
-                    </p>
-                  </header>
-                  <ul class="scripture-grid">
-                    {group.entries.map((entry) => (
-                      <li data-scripture-item data-scripture-text={entry.searchText}>
-                        <a class="scripture-card card-panel" href={`/scriptures/${entry.slug}`}>
-                          <span class="scripture-reference">{entry.reference}</span>
-                          <span class="scripture-count">
-                            {entry.questionCount === 1
-                              ? "1 question"
-                              : `${entry.questionCount} questions`}
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  <p class="scripture-back-top">
-                    <a href="#scripture-index-top">Back to top</a>
-                  </p>
-                </section>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </ul>
+
+          <p class="scripture-empty-state" data-scripture-empty hidden>
+            <em>No references match that search.</em>
+          </p>
         </>
       ) : (
         <p>
@@ -243,21 +134,11 @@ const siteName = siteSettings.branding.siteName;
 
   <script type="module" is:inline>
     const input = document.querySelector("[data-scripture-filter]");
-    const browseItems = [...document.querySelectorAll("[data-scripture-item]")];
-    const browseGroups = [...document.querySelectorAll("[data-scripture-group]")];
-    const searchResults = document.querySelector("[data-search-results]");
-    const searchItems = [...document.querySelectorAll("[data-search-item]")];
-    const searchGroups = [...document.querySelectorAll("[data-search-group]")];
+    const items = [...document.querySelectorAll("[data-scripture-item]")];
     const buttons = [...document.querySelectorAll("[data-testament-button]")];
-    const panels = [...document.querySelectorAll("[data-testament-panel]")];
-    const jumpLinks = [...document.querySelectorAll("[data-scripture-jump-link]")];
-    const hashLinks = [...document.querySelectorAll('a[href^="#"]')];
-    // "all" shows both panels at once; there are few enough references that picking a
-    // testament first is friction rather than help.
-    let activeTestament = "all";
-    let browseTestament = "all";
-    const matchesTestament = (value) => activeTestament === "all" || value === activeTestament;
+    const emptyState = document.querySelector("[data-scripture-empty]");
     const singleChapterBooks = new Set(["oba", "phm", "2jn", "3jn", "jud"]);
+    let activeTestament = "all";
 
     const normalizeSearchValue = (value) =>
       value
@@ -438,161 +319,64 @@ const siteName = siteSettings.branding.siteName;
       });
     };
 
-    const scrollWithOffset = (target) => {
-      if (!target) {
-        return;
+    const matchesSearch = (item, queryTokens) => {
+      if (!queryTokens.length) {
+        return true;
       }
 
-      const header = document.querySelector(".navbar");
-      const headerHeight = header ? header.getBoundingClientRect().height : 0;
-      const targetTop = window.scrollY + target.getBoundingClientRect().top - headerHeight - 16;
+      const aliasTokenSets = parseBookAliases(item.getAttribute("data-book-search") || "");
+      const matchedAliasLength = findMatchedAliasLength(queryTokens, aliasTokenSets);
+      const hasAlphaQuery = queryTokens.some((token) => /[a-z]/.test(token));
 
-      window.scrollTo({
-        top: Math.max(targetTop, 0),
-        behavior: "smooth",
-      });
-    };
-
-    const syncTestament = (target) => {
-      activeTestament = target;
-      browseTestament = target;
-      if (searchResults) {
-        searchResults.hidden = true;
-      }
-      buttons.forEach((button) => {
-        const isActive = button.getAttribute("data-testament-target") === target;
-        button.classList.toggle("is-active", isActive);
-        button.setAttribute("aria-pressed", String(isActive));
-      });
-      panels.forEach((panel) => {
-        panel.hidden = !matchesTestament(panel.getAttribute("data-testament-panel"));
-      });
-    };
-
-    const syncSearchMode = (hasQuery) => {
-      if (!hasQuery) {
-        activeTestament = browseTestament;
-        buttons.forEach((button) => {
-          const isActive = button.getAttribute("data-testament-target") === activeTestament;
-          button.classList.toggle("is-active", isActive);
-          button.setAttribute("aria-pressed", String(isActive));
-        });
-        return;
+      // A worded query naming no book this card belongs to cannot match it.
+      if (hasAlphaQuery && matchedAliasLength === 0) {
+        return false;
       }
 
-      activeTestament = null;
-      buttons.forEach((button) => {
-        button.classList.remove("is-active");
-        button.setAttribute("aria-pressed", "false");
-      });
+      const remainingTokens =
+        matchedAliasLength > 0 ? queryTokens.slice(matchedAliasLength) : queryTokens;
+      const bookCode = String(item.getAttribute("data-book-code") || "");
+      const isSingleChapterBook = singleChapterBooks.has(bookCode);
+      const queryReference = parseReferenceQuery(remainingTokens, isSingleChapterBook);
+      const referencePart = String(item.getAttribute("data-reference-search") || "").trim();
+
+      return matchesReferenceQuery(referencePart, queryReference, isSingleChapterBook);
     };
 
     const applyFilter = () => {
       const query = input ? input.value.trim().toLowerCase() : "";
-      const hasQuery = query.length > 0;
-      const queryTokens = hasQuery ? normalizeSearchValue(query).split(/\s+/).filter(Boolean) : [];
-      syncSearchMode(hasQuery);
+      const queryTokens = query ? normalizeSearchValue(query).split(/\s+/).filter(Boolean) : [];
 
-      searchItems.forEach((item) => {
-        const aliasTokenSets = parseBookAliases(item.getAttribute("data-book-search") || "");
-        const matchedAliasLength = findMatchedAliasLength(queryTokens, aliasTokenSets);
-        const hasAlphaQuery = queryTokens.some((token) => /[a-z]/.test(token));
-
-        if (hasAlphaQuery && matchedAliasLength === 0) {
-          item.hidden = hasQuery;
-          return;
-        }
-
-        const remainingTokens =
-          matchedAliasLength > 0 ? queryTokens.slice(matchedAliasLength) : queryTokens;
-        const bookCode = String(item.getAttribute("data-book-code") || "");
-        const isSingleChapterBook = singleChapterBooks.has(bookCode);
-        const queryReference = parseReferenceQuery(remainingTokens, isSingleChapterBook);
-        const referencePart = String(item.getAttribute("data-reference-search") || "").trim();
-        const matchesQuery = hasQuery
-          ? matchesReferenceQuery(referencePart, queryReference, isSingleChapterBook)
-          : true;
-        item.hidden = hasQuery && !matchesQuery;
-      });
-
-      searchGroups.forEach((group) => {
-        const groupItems = [...group.querySelectorAll("[data-search-item]")];
-        const visibleItems = groupItems.filter((item) => !item.hidden);
-        group.classList.toggle("is-hidden", !hasQuery || visibleItems.length === 0);
-      });
-
-      browseItems.forEach((item) => {
-        item.hidden = false;
-      });
-
-      browseGroups.forEach((group) => {
-        const groupItems = [...group.querySelectorAll("[data-scripture-item]")];
-        const visibleItems = groupItems.filter((item) => !item.hidden);
-        const testamentMatches = hasQuery
-          ? true
-          : !activeTestament || matchesTestament(group.getAttribute("data-testament"));
-        group.classList.toggle("is-hidden", !testamentMatches || visibleItems.length === 0);
-      });
-
-      jumpLinks.forEach((link) => {
-        const code = link.getAttribute("data-book-code");
-        if (!code) {
-          return;
-        }
-        const group = document.querySelector(`[data-scripture-group][id="book-${code}"]`);
-        link.hidden = !group || group.classList.contains("is-hidden");
-      });
-
-      panels.forEach((panel) => {
-        const jumpNav = panel.querySelector(".scripture-book-jump");
-        if (jumpNav) {
-          const visibleLinks = [...jumpNav.querySelectorAll("[data-scripture-jump-link]")].filter(
-            (link) => !link.hidden
-          );
-          jumpNav.hidden = hasQuery || visibleLinks.length === 0;
-        }
-
-        if (hasQuery) {
-          panel.hidden = true;
-        } else {
-          panel.hidden = !matchesTestament(panel.getAttribute("data-testament-panel"));
+      let visible = 0;
+      items.forEach((item) => {
+        const testament = item.getAttribute("data-testament");
+        const shown =
+          (activeTestament === "all" || testament === activeTestament) &&
+          matchesSearch(item, queryTokens);
+        item.hidden = !shown;
+        if (shown) {
+          visible += 1;
         }
       });
 
-      if (searchResults) {
-        const visibleSearchGroups = searchGroups.filter(
-          (group) => !group.classList.contains("is-hidden")
-        );
-        searchResults.hidden = !hasQuery || visibleSearchGroups.length === 0;
+      if (emptyState) {
+        emptyState.hidden = visible > 0;
       }
     };
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        syncTestament(button.getAttribute("data-testament-target"));
+        activeTestament = button.getAttribute("data-testament-target") || "all";
+        buttons.forEach((other) => {
+          const isActive = other === button;
+          other.classList.toggle("is-active", isActive);
+          other.setAttribute("aria-pressed", String(isActive));
+        });
         applyFilter();
       });
     });
 
-    hashLinks.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const href = link.getAttribute("href");
-        if (!href || href === "#") {
-          return;
-        }
-
-        const target = document.querySelector(href);
-        if (!target) {
-          return;
-        }
-
-        event.preventDefault();
-        history.replaceState(null, "", href);
-        scrollWithOffset(target);
-      });
-    });
-
-    if (input && searchItems.length) {
+    if (input && items.length) {
       window.setTimeout(() => {
         input.focus();
       }, 0);
@@ -614,153 +398,108 @@ const siteName = siteSettings.branding.siteName;
     }
 
     .scripture-testament-button {
-      padding: 0.45rem 0.95rem;
-      border-radius: var(--radius-pill);
       border: 1px solid var(--chip-border);
       background: var(--chip-bg);
-      color: var(--color-text);
+      color: inherit;
       font: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-pill);
       cursor: pointer;
-      transition: var(--transition-border-bg);
-    }
-
-    .scripture-testament-button.is-active {
-      border-color: var(--chip-hover-border);
-      background: var(--chip-hover-bg);
+      transition: var(--transition-border-bg-color);
     }
 
     .scripture-testament-button:hover,
     .scripture-testament-button:focus-visible {
-      border-color: var(--chip-hover-border);
-      background: var(--chip-hover-bg);
-      outline: none;
-    }
-
-    .scripture-empty-state {
-      margin: 1rem 0 1.5rem;
-      color: var(--color-text-soft);
-    }
-
-    .scripture-testament-panel[hidden] {
-      display: none;
-    }
-
-    .scripture-book-group.is-hidden {
-      display: none;
-    }
-
-    .scripture-book-jump {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin: 1rem 0 1.25rem;
-    }
-
-    .scripture-book-jump a {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--chip-border);
-      text-decoration: none;
-      color: inherit;
-      background: var(--chip-bg);
-      font-size: 0.9rem;
-      transition: var(--transition-border-bg);
-    }
-
-    .scripture-book-jump a:hover,
-    .scripture-book-jump a:focus-visible {
       background: var(--chip-hover-bg);
       border-color: var(--chip-hover-border);
+    }
+
+    .scripture-testament-button.is-active {
+      background: var(--accent-bg);
+      border-color: var(--accent-bg);
+      color: var(--accent-text);
+      font-weight: 600;
     }
 
     .scripture-filter {
       display: block;
-      margin: 0 0 1.25rem;
+      margin: 0 0 1.4rem;
     }
 
     .scripture-filter-label {
       display: block;
-      margin-bottom: 0.4rem;
       font-weight: 600;
+      margin-bottom: 0.4rem;
     }
 
     .scripture-filter-input {
-      width: 100%;
-      max-width: 420px;
-      padding: 0.75rem 0.9rem;
-      border-radius: 0.85rem;
-      border: 1px solid var(--surface-border);
-      background: var(--surface-panel);
-      color: var(--color-text);
+      width: min(100%, 26rem);
+      padding: 0.6rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      font: inherit;
     }
 
-    .scripture-book-groups {
-      display: grid;
-      gap: 1.5rem;
+    .scripture-filter-input::placeholder {
+      color: var(--input-placeholder);
     }
 
-    .scripture-book-group {
-      display: grid;
-      gap: 0.85rem;
+    .scripture-empty-state {
+      margin: 1.5rem 0 0;
+      color: var(--meta-text);
     }
 
-    .scripture-book-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .scripture-book-header h2,
-    .scripture-book-header p {
-      margin: 0;
-    }
-
-    .scripture-book-header p {
-      color: var(--color-text-soft);
-    }
-
+    /* Four across, stepping down as the row narrows. Explicit track counts rather than
+       auto-fit: auto-fit collapses the tracks it cannot fill, which let a short filtered
+       result stretch its cards across the whole row. */
     .scripture-grid {
       list-style: none;
       padding: 0;
       margin: 0;
       display: grid;
       gap: 0.9rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .scripture-grid > li[hidden] {
+      display: none;
     }
 
     .scripture-card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+      display: grid;
+      gap: 0.3rem;
+      padding: 0.85rem 1rem;
       text-decoration: none;
+      color: inherit;
+      height: 100%;
     }
 
     .scripture-reference {
       font-weight: 700;
-      color: var(--color-text);
     }
 
     .scripture-count {
-      color: var(--color-text-soft);
+      font-size: 0.85rem;
+      color: var(--meta-text);
     }
 
-    .scripture-back-top {
-      margin: 0;
-    }
-
-    .scripture-back-top a {
-      text-decoration: none;
-      font-weight: 600;
+    @media (max-width: 900px) {
+      .scripture-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 640px) {
-      .scripture-book-jump {
-        margin-top: 0.75rem;
+      .scripture-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .scripture-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>
