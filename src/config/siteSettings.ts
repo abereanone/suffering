@@ -14,7 +14,7 @@ const defaultSiteUrl = "https://suffering.catechize.ing";
 export const siteSettings = {
   version: appVersion,
   branding,
-  issueReportURL: "https://github.com/abereanone/suffering.catechize.ing/issues/new",
+  issueReportURL: "https://github.com/abereanone/suffering/issues/new",
   integrations: {
     googleAnalyticsId: "",
   },
