@@ -6,7 +6,7 @@ and answers on affliction, in six sections, with the Scripture proofs under ever
 
 The booklet is freely given by its author: "You can copy, translate, modify, and distribute this
 resource without restriction and without needing to ask permission." The complete original is at
-[books.freely.giving](https://books.freelygiv.ing/books/catechism-of-suffering).
+[books.freely.giving](https://books.freely.giving/books/matthew-statler/catechism-of-suffering/).
 
 The site publishes the questions as browsable, searchable Q&A with category pages, an author page,
 and a Scripture index that reverse-looks-up every proof text.

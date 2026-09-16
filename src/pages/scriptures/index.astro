@@ -61,6 +61,15 @@ const siteName = siteSettings.branding.siteName;
           <div class="scripture-testament-picker" aria-label="Choose testament">
             <button
               type="button"
+              class="scripture-testament-button is-active"
+              aria-pressed="true"
+              data-testament-button
+              data-testament-target="all"
+            >
+              All
+            </button>
+            <button
+              type="button"
               class="scripture-testament-button"
               data-testament-button
               data-testament-target="ot"
@@ -125,7 +134,7 @@ const siteName = siteSettings.branding.siteName;
               ))}
             </div>
           </div>
-          <div class="scripture-testament-panel" data-testament-panel="ot" hidden>
+          <div class="scripture-testament-panel" data-testament-panel="ot">
             <nav class="scripture-book-jump" aria-label="Jump to Old Testament book">
               {oldTestamentGroups.map((group) => (
                 <a
@@ -174,7 +183,7 @@ const siteName = siteSettings.branding.siteName;
               ))}
             </div>
           </div>
-          <div class="scripture-testament-panel" data-testament-panel="nt" hidden>
+          <div class="scripture-testament-panel" data-testament-panel="nt">
             <nav class="scripture-book-jump" aria-label="Jump to New Testament book">
               {newTestamentGroups.map((group) => (
                 <a
@@ -242,10 +251,12 @@ const siteName = siteSettings.branding.siteName;
     const buttons = [...document.querySelectorAll("[data-testament-button]")];
     const panels = [...document.querySelectorAll("[data-testament-panel]")];
     const jumpLinks = [...document.querySelectorAll("[data-scripture-jump-link]")];
-    const emptyState = document.querySelector("[data-testament-empty]");
     const hashLinks = [...document.querySelectorAll('a[href^="#"]')];
-    let activeTestament = null;
-    let browseTestament = null;
+    // "all" shows both panels at once; there are few enough references that picking a
+    // testament first is friction rather than help.
+    let activeTestament = "all";
+    let browseTestament = "all";
+    const matchesTestament = (value) => activeTestament === "all" || value === activeTestament;
     const singleChapterBooks = new Set(["oba", "phm", "2jn", "3jn", "jud"]);
 
     const normalizeSearchValue = (value) =>
@@ -454,11 +465,8 @@ const siteName = siteSettings.branding.siteName;
         button.setAttribute("aria-pressed", String(isActive));
       });
       panels.forEach((panel) => {
-        panel.hidden = panel.getAttribute("data-testament-panel") !== target;
+        panel.hidden = !matchesTestament(panel.getAttribute("data-testament-panel"));
       });
-      if (emptyState) {
-        emptyState.hidden = Boolean(target);
-      }
     };
 
     const syncSearchMode = (hasQuery) => {
@@ -473,7 +481,6 @@ const siteName = siteSettings.branding.siteName;
       }
 
       activeTestament = null;
-      browseTestament = null;
       buttons.forEach((button) => {
         button.classList.remove("is-active");
         button.setAttribute("aria-pressed", "false");
@@ -523,7 +530,7 @@ const siteName = siteSettings.branding.siteName;
         const visibleItems = groupItems.filter((item) => !item.hidden);
         const testamentMatches = hasQuery
           ? true
-          : !activeTestament || group.getAttribute("data-testament") === activeTestament;
+          : !activeTestament || matchesTestament(group.getAttribute("data-testament"));
         group.classList.toggle("is-hidden", !testamentMatches || visibleItems.length === 0);
       });
 
@@ -548,7 +555,7 @@ const siteName = siteSettings.branding.siteName;
         if (hasQuery) {
           panel.hidden = true;
         } else {
-          panel.hidden = panel.getAttribute("data-testament-panel") !== activeTestament;
+          panel.hidden = !matchesTestament(panel.getAttribute("data-testament-panel"));
         }
       });
 
@@ -557,10 +564,6 @@ const siteName = siteSettings.branding.siteName;
           (group) => !group.classList.contains("is-hidden")
         );
         searchResults.hidden = !hasQuery || visibleSearchGroups.length === 0;
-      }
-
-      if (emptyState) {
-        emptyState.hidden = hasQuery || Boolean(activeTestament);
       }
     };
 
@@ -598,6 +601,8 @@ const siteName = siteSettings.branding.siteName;
         applyFilter();
       });
     }
+
+    applyFilter();
   </script>
 
   <style>
