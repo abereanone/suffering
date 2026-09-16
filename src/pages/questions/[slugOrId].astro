@@ -311,21 +311,24 @@ function buildStructuredData(entry: Question): string | null {
       <article class="question-article card-panel">
         <section class="question-header">
           <h1 class="page-title">{question.title}</h1>
-          {showQuestionId ? (
-            <div class="question-meta-row">
-              <p class="question-meta">
-                <span
-                  class="question-meta-id"
-                  data-question-group={activeGroupCode ? activeGroupCode.toLowerCase() : undefined}
-                >
-                  #{questionIdentifierLabel}
-                </span>
-              </p>
-            </div>
-          ) : null}
         </section>
 
         <QuestionAnswer answerHtml={question.answerHtml} />
+
+        {/* Below the answer and its proofs: the id labels the whole Q&A, so it reads as
+            a footnote to it rather than as something to get past on the way in. */}
+        {showQuestionId ? (
+          <div class="question-meta-row">
+            <p class="question-meta">
+              <span
+                class="question-meta-id"
+                data-question-group={activeGroupCode ? activeGroupCode.toLowerCase() : undefined}
+              >
+                #{questionIdentifierLabel}
+              </span>
+            </p>
+          </div>
+        ) : null}
 
         {/* Below the answer so nothing interrupts question -> answer. */}
         <div class="question-share-row">
