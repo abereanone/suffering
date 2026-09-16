@@ -12,6 +12,7 @@
     "check:questions": "node ./scripts/check-questions.mjs",
     "import:suffering": "node ./scripts/import-suffering-catechism.mjs",
     "new:question": "node ./scripts/new-question.mjs",
+    "precheck:types": "npm run build:questions && npm run build:bible",
     "check:types": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
