@@ -1,0 +1,9 @@
+# Cloudflare Pages redirect rules. This file is copied verbatim into dist/.
+#
+# NOTE: this deployment builds as Cloudflare Pages, which skips wrangler.toml
+# ("does not appear to be valid ... Skipping file and continuing" in the build log),
+# so worker.js does NOT run in production. Redirects have to live here.
+#
+# Legacy alias: /q/<slugOrId> used to be a generated meta-refresh page.
+# The splat also covers the old /q/<id>.html URLs, since /questions/<id>.html exists.
+/q/* /questions/:splat 301

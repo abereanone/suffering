@@ -1,0 +1,38 @@
+[
+  {
+    "id": "reality",
+    "name": "The Reality of Suffering",
+    "sortOrder": 10,
+    "groupCode": "real"
+  },
+  {
+    "id": "reigns",
+    "name": "The God Who Reigns",
+    "sortOrder": 20,
+    "groupCode": "reign"
+  },
+  {
+    "id": "nearness",
+    "name": "The God Who Draws Near",
+    "sortOrder": 30,
+    "groupCode": "near"
+  },
+  {
+    "id": "purpose",
+    "name": "The Purpose of Suffering",
+    "sortOrder": 40,
+    "groupCode": "purp"
+  },
+  {
+    "id": "comfort",
+    "name": "The Comfort of the Saints",
+    "sortOrder": 50,
+    "groupCode": "comf"
+  },
+  {
+    "id": "glory",
+    "name": "The Glory to Come",
+    "sortOrder": 60,
+    "groupCode": "glory"
+  }
+]

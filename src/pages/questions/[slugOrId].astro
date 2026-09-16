@@ -1,0 +1,485 @@
+---
+import Main from "@/layouts/Main.astro";
+import type { Question } from "@/lib/questions";
+import {
+  findQuestion,
+  findQuestionByGroupKey,
+  formatQuestionIdentifier,
+  getPublishedQuestions,
+  getQuestionCategories,
+  getRelatedQuestions,
+  getQuestionAuthor,
+  getQuestionsByNumericId,
+  findAuthor,
+} from "@/lib/questions";
+import InlineSearchBox from "@/components/InlineSearchBox.astro";
+import QuestionAnswer from "@/components/QuestionAnswer.astro";
+import QuestionNav from "@/components/QuestionNav.astro";
+import QuestionShare from "@/components/QuestionShare.astro";
+import BibleReferencesScript from "@/components/BibleReferencesScript.astro";
+import QuestionReferenceHighlightScript from "@/components/QuestionReferenceHighlightScript.astro";
+import { siteSettings } from "@/config/siteSettings";
+
+// Only the canonical slug is built as a page. The numeric (/questions/41) and grouped
+// (/questions/FOUND41) forms are emitted as 301s into dist/_redirects by the
+// question-redirects integration in astro.config.mjs.
+export function getStaticPaths() {
+  return getPublishedQuestions().map((question) => ({
+    params: { slugOrId: question.slug },
+  }));
+}
+
+const { slugOrId } = Astro.params;
+
+let question = slugOrId ? findQuestion(slugOrId) : null;
+let activeGroupCode: string | null = null;
+let listingMatches: Question[] | null = null;
+let listingId: number | null = null;
+
+if (!question && slugOrId) {
+  const groupMatch = findQuestionByGroupKey(slugOrId);
+  if (groupMatch) {
+    question = groupMatch;
+    activeGroupCode = resolveGroupCodeFromParam(slugOrId, groupMatch);
+  } else {
+    const maybeId = Number(slugOrId);
+    if (!Number.isNaN(maybeId)) {
+      const matches = getQuestionsByNumericId(maybeId);
+      if (matches.length === 1) {
+        question = matches[0];
+        const codes = Array.isArray(question.groupCodes) ? question.groupCodes : [];
+        activeGroupCode = codes.length ? codes[0] : null;
+      } else if (matches.length) {
+        listingMatches = matches;
+        listingId = maybeId;
+      }
+    }
+  }
+}
+
+if (!question && !listingMatches) {
+  throw new Error(`Question not found for identifier "${slugOrId}".`);
+}
+
+const siteName = siteSettings.branding.siteName;
+const showAuthors = siteSettings.showAuthor;
+
+let questionSlug = "";
+let useIdLinks = false;
+let questionCategories: ReturnType<typeof getQuestionCategories> = [];
+let author = null;
+let showAuthorCard = false;
+let questionNumber: number | null = null;
+let questionIdentifierLabel: string | null = null;
+let previousQuestion: Question | null = null;
+let nextQuestion: Question | null = null;
+let questionGroupCodes: string[] = [];
+const allPublishedQuestions = getPublishedQuestions();
+
+if (question) {
+  questionSlug = question.slug;
+  questionCategories = getQuestionCategories(question);
+  author = getQuestionAuthor(question);
+  showAuthorCard = showAuthors && !question.suppressAuthor && author;
+  questionGroupCodes = Array.isArray(question.groupCodes) ? [...question.groupCodes] : [];
+
+  if (!activeGroupCode && questionGroupCodes.length === 1) {
+    activeGroupCode = questionGroupCodes[0];
+  }
+
+  const baseQuestions = allPublishedQuestions;
+
+  const currentIndex = baseQuestions.findIndex((entry) => entry.slug === question.slug);
+  const fallbackIndex = currentIndex + 1;
+
+  questionNumber =
+    typeof question.id === "number" ? question.id : fallbackIndex > 0 ? fallbackIndex : null;
+
+  questionIdentifierLabel = formatQuestionIdentifier(question, {
+    groupCode: activeGroupCode,
+    fallback: questionNumber,
+  });
+
+  useIdLinks =
+    !activeGroupCode && typeof question.id === "number" && slugOrId === String(question.id);
+  previousQuestion = currentIndex > 0 ? baseQuestions[currentIndex - 1] : null;
+  nextQuestion =
+    currentIndex >= 0 && currentIndex < baseQuestions.length - 1
+      ? baseQuestions[currentIndex + 1]
+      : null;
+}
+
+const showQuestionId = siteSettings.showQuestionId && questionIdentifierLabel !== null;
+
+// Slug is the only built page, so every internal link points straight at it rather
+// than at a numeric/grouped URL that would cost the reader a redirect hop.
+const buildQuestionHref = (target: typeof question | null) =>
+  target ? `/questions/${target.slug}` : "#";
+
+const buildQuestionSnippet = (text: string | null, maxLength = 60) => {
+  if (!text) {
+    return null;
+  }
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (!normalized) {
+    return null;
+  }
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+  return `${normalized.slice(0, maxLength).trim()}…`;
+};
+
+const listingItems = listingMatches
+  ? [...listingMatches].sort((a, b) => {
+      const codeA = Array.isArray(a.groupCodes) && a.groupCodes[0] ? String(a.groupCodes[0]) : "";
+      const codeB = Array.isArray(b.groupCodes) && b.groupCodes[0] ? String(b.groupCodes[0]) : "";
+      if (codeA !== codeB) {
+        return codeA.localeCompare(codeB);
+      }
+      const idA = typeof a.id === "number" ? a.id : Number.MAX_SAFE_INTEGER;
+      const idB = typeof b.id === "number" ? b.id : Number.MAX_SAFE_INTEGER;
+      if (idA !== idB) {
+        return idA - idB;
+      }
+      return a.title.localeCompare(b.title);
+    })
+  : null;
+
+const relatedQuestions = question ? getRelatedQuestions(question) : [];
+const questionSnippet = question ? buildQuestionSnippet(question.excerpt, 60) : null;
+const questionOgDescription =
+  questionSnippet ?? (question ? question.title : null) ?? siteSettings.branding.description;
+const canonicalQuestionPath = question ? `/questions/${question.slug}` : undefined;
+const shareUrl = canonicalQuestionPath
+  ? `${siteSettings.openGraph.url}${canonicalQuestionPath}`
+  : siteSettings.openGraph.url;
+const shareText = question ? question.title : siteSettings.branding.siteName;
+const RELATED_PREVIEW_LENGTH = 200;
+
+// schema.org FAQPage: one site-authored question with one authoritative answer.
+// Emitted only when we actually have answer text, since acceptedAnswer.text is required.
+const structuredDataJson = question ? buildStructuredData(question) : null;
+
+function resolveGroupCodeFromParam(
+  param: string | undefined,
+  target: Question | null
+): string | null {
+  if (!param || !target || typeof target.id !== "number") {
+    return null;
+  }
+  const codes = Array.isArray(target.groupCodes) ? target.groupCodes : [];
+  if (!codes.length) {
+    return null;
+  }
+  const normalized = param.toUpperCase();
+  for (const code of codes) {
+    const key = `${String(code).toUpperCase()}${target.id}`;
+    if (normalized === key) {
+      return String(code);
+    }
+  }
+  return null;
+}
+
+function getQuestionLink(entry: Question) {
+  return `/questions/${entry.slug}`;
+}
+
+function getPrimaryGroupCode(entry: Question) {
+  return Array.isArray(entry.groupCodes) && entry.groupCodes.length ? entry.groupCodes[0] : null;
+}
+
+function stripHtml(value: string): string {
+  return value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getAnswerPreview(entry: Question, maxLength = RELATED_PREVIEW_LENGTH): string {
+  const answerHtml = typeof entry.answerHtml === "string" ? entry.answerHtml : "";
+  const answerBeforeProofs = answerHtml.split(/<h2[^>]*>\s*Proofs\s*<\/h2>/i)[0] ?? "";
+  const source = stripHtml(answerBeforeProofs) || (entry.excerpt ?? "").trim();
+
+  if (!source) {
+    return "";
+  }
+
+  if (source.length <= maxLength) {
+    return source;
+  }
+
+  return `${source.slice(0, maxLength).trimEnd()}...`;
+}
+
+function buildStructuredData(entry: Question): string | null {
+  const answerText = stripHtml(typeof entry.answerHtml === "string" ? entry.answerHtml : "");
+
+  if (!entry.title || !answerText) {
+    return null;
+  }
+
+  const entryUrl = `${siteSettings.openGraph.url}/questions/${entry.slug}`;
+
+  const payload = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "en",
+    mainEntity: {
+      "@type": "Question",
+      name: entry.title,
+      url: entryUrl,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answerText,
+        url: entryUrl,
+      },
+    },
+  };
+
+  // Escape "<" so the payload can never terminate the surrounding <script> element.
+  return JSON.stringify(payload).replace(/</g, "\\u003c");
+}
+---
+
+{
+  listingItems ? (
+    <Main title={`Question ${listingId} | ${siteName}`}>
+      <section class="question-hub card-panel">
+        <h1>Question #{listingId}</h1>
+        <p>Multiple answers share this identifier. Choose a version below.</p>
+        <ul class="question-list">
+          {listingItems.map((entry) => {
+            const primaryGroup =
+              Array.isArray(entry.groupCodes) && entry.groupCodes.length
+                ? entry.groupCodes[0]
+                : null;
+            const displayLabel =
+              formatQuestionIdentifier(entry, { groupCode: primaryGroup }) ??
+              formatQuestionIdentifier(entry, {});
+            const entryCategories = getQuestionCategories(entry);
+            const groupName =
+              entryCategories.find((cat) => cat.groupCode === primaryGroup)?.name ?? null;
+            return (
+              <li>
+                <a
+                  class="question-card card-panel"
+                  data-question-group={primaryGroup ? primaryGroup.toLowerCase() : undefined}
+                  href={getQuestionLink(entry)}
+                >
+                  {displayLabel ? <span class="question-id">#{displayLabel}</span> : null}
+                  <span class="question-title">
+                    {entry.title}
+                    {groupName ? <span class="question-group-label"> ({groupName})</span> : null}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    </Main>
+  ) : question ? (
+    <Main
+      title={`${question.title} - ${siteName}`}
+      openGraph={{
+        title: question.title,
+        description: questionOgDescription,
+        url: canonicalQuestionPath,
+      }}
+    >
+      {structuredDataJson ? (
+        <script type="application/ld+json" is:inline set:html={structuredDataJson} />
+      ) : null}
+
+      {previousQuestion || nextQuestion ? (
+        <QuestionNav
+          variant="top"
+          prevHref={previousQuestion ? buildQuestionHref(previousQuestion) : null}
+          nextHref={nextQuestion ? buildQuestionHref(nextQuestion) : null}
+          searchId={`question-search-${questionSlug}`}
+        />
+      ) : (
+        <InlineSearchBox
+          id={`question-search-${questionSlug}`}
+          label="Search for another question"
+          placeholder="Search other questions..."
+        />
+      )}
+      <article class="question-article card-panel">
+        <section class="question-header">
+          <h1 class="page-title">{question.title}</h1>
+          {showQuestionId ? (
+            <div class="question-meta-row">
+              <p class="question-meta">
+                <span
+                  class="question-meta-id"
+                  data-question-group={activeGroupCode ? activeGroupCode.toLowerCase() : undefined}
+                >
+                  #{questionIdentifierLabel}
+                </span>
+              </p>
+            </div>
+          ) : null}
+        </section>
+
+        <QuestionAnswer answerHtml={question.answerHtml} />
+
+        {/* Below the answer so nothing interrupts question -> answer. */}
+        <div class="question-share-row">
+          <QuestionShare shareUrl={shareUrl} shareText={shareText} />
+        </div>
+
+        {previousQuestion || nextQuestion ? (
+          <QuestionNav
+            variant="bottom"
+            prevHref={previousQuestion ? buildQuestionHref(previousQuestion) : null}
+            nextHref={nextQuestion ? buildQuestionHref(nextQuestion) : null}
+          />
+        ) : null}
+
+        {relatedQuestions.length ? (
+          <section class="related-questions">
+            <h2>Related questions</h2>
+            <ul class="question-list">
+              {relatedQuestions.map((entry) => {
+                const primaryGroup = getPrimaryGroupCode(entry);
+                const displayLabel = primaryGroup
+                  ? formatQuestionIdentifier(entry, { groupCode: primaryGroup })
+                  : null;
+                const entryCategories = primaryGroup ? getQuestionCategories(entry) : [];
+                const groupName = primaryGroup
+                  ? (entryCategories.find((cat) => cat.groupCode === primaryGroup)?.name ?? null)
+                  : null;
+                const answerPreview = getAnswerPreview(entry);
+
+                return (
+                  <li>
+                    <a
+                      class="question-card card-panel"
+                      data-question-group={primaryGroup ? primaryGroup.toLowerCase() : undefined}
+                      href={getQuestionLink(entry)}
+                    >
+                      {displayLabel ? <span class="question-id">#{displayLabel}</span> : null}
+                      <span class="question-card-body">
+                        <span class="question-title">
+                          {entry.title}
+                          {groupName ? (
+                            <span class="question-group-label"> ({groupName})</span>
+                          ) : null}
+                        </span>
+                        {answerPreview ? (
+                          <span class="question-preview">{answerPreview}</span>
+                        ) : null}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
+      </article>
+
+      {showAuthorCard ? (
+        <div class="resource-card card-panel question-author-card">
+          <h2>{author!.name}</h2>
+          {author!.bio ? <p class="resource-bio">{author!.bio}</p> : null}
+
+          <div class="resource-actions">
+            {typeof author!.count === "number" && author!.count > 0 ? (
+              <a class="resource-link" href={`/authors/${author!.id}`}>
+                View Answers ({author!.count})
+              </a>
+            ) : null}
+            {author!.url ? (
+              <a class="resource-link" href={author!.url} target="_blank" rel="noopener noreferrer">
+                Visit website
+              </a>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
+      {questionCategories.length ? (
+        <div class="category-meta category-footer">
+          <a class="category-chip" href="/categories">
+            All Categories
+          </a>
+          <ul class="category-list">
+            {questionCategories.map((category) => (
+              <li>
+                <a
+                  class="category-chip"
+                  data-category-group={
+                    category.groupCode ? category.groupCode.toLowerCase() : undefined
+                  }
+                  href={`/categories/${category.id}`}
+                >
+                  {category.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p class="category-placeholder category-footer">Uncategorized</p>
+      )}
+
+      <BibleReferencesScript />
+      <QuestionReferenceHighlightScript />
+    </Main>
+  ) : null
+}
+
+<style is:global>
+  /* Page-level rules for the question hub and header meta. is:global preserves the
+     previous behaviour: this block sat inside a template expression, so Astro emitted
+     it unscoped. Hoisting it to the template root gets it bundled and cached instead
+     of inlined into every generated question page. */
+  .question-hub,
+  .question-hub.card-panel,
+  .question-hub.card-panel:hover,
+  .question-hub.card-panel:focus-within {
+    margin: 0 auto;
+    max-width: 720px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+    transform: none;
+  }
+
+  .question-hub p {
+    margin-bottom: 1rem;
+  }
+
+  .question-group-label {
+    font-size: 0.9rem;
+    color: var(--question-group-label-color);
+  }
+
+  .question-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .question-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  @media (max-width: 640px) {
+    .question-meta-row {
+      align-items: flex-start;
+    }
+  }
+</style>

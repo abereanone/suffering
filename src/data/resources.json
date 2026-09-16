@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mstatler",
+    "name": "Matthew Statler",
+    "url": "https://books.freelygiv.ing/people/matthew-statler",
+    "title": "Author",
+    "bio": "Pastor and biblical counselor at Sierra Vista Baptist Church, glorifying God through shepherding His people, applying the Word to trauma and suffering, and training others to counsel biblically. He wrote the Catechism of Suffering first for himself.",
+    "sortOrder": 10
+  },
+  {
+    "id": "book",
+    "name": "Catechism of Suffering (booklet)",
+    "url": "https://books.freelygiv.ing/books/catechism-of-suffering",
+    "title": "Read Online or Download",
+    "bio": "The complete booklet as the author published it, free to read online or download as a PDF from books.freely.giving.",
+    "sortOrder": 20
+  },
+  {
+    "id": "rcs",
+    "name": "Reformed Catechisms",
+    "url": "https://catechize.ing",
+    "title": "Site",
+    "bio": "Our sister site, displaying reformed catechism question and answers.",
+    "sortOrder": 30
+  },
+  {
+    "id": "usa",
+    "name": "A Patriot's Catechism",
+    "url": "https://usa.catechize.ing",
+    "title": "Site",
+    "bio": "Questions and answers about the United States Constitution.",
+    "sortOrder": 40
+  },
+  {
+    "id": "rconfess",
+    "name": "Reformed Confessions",
+    "url": "https://confess.catechize.ing/",
+    "title": "Website",
+    "bio": "Easily read, study and compare reformed confessions, reverse lookup scripture, and read the Bible online for FREE.",
+    "sortOrder": 50
+  },
+  {
+    "id": "mac-links",
+    "name": "Sites managed by the curator of suffering.catechize.ing",
+    "url": "https://michaelcoughlin.net/links",
+    "title": "Link Directory",
+    "bio": "A directory of the other websites Michael Coughlin builds and maintains.",
+    "sortOrder": 60
+  }
+]

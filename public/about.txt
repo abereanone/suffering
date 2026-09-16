@@ -1,0 +1,9 @@
+The site logo, OG card and favicon are hand-authored SVGs in this repo:
+
+- public/images/site-logo.svg       wordmark, dark theme
+- public/images/site-logo-light.svg wordmark, light theme
+- public/images/og-card.svg         social card; og-card.png is rendered from it
+- public/favicon.svg                app icon; the .ico and .png sizes are rendered from it
+
+The PNG sizes were rasterised from those SVGs with headless Chrome at
+16, 32, 180, 192 and 512 pixels. Re-render them if the SVGs change.

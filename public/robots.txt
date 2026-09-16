@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Redirect stubs, not content.
+Disallow: /q/
+Disallow: /random
+
+Sitemap: https://suffering.catechize.ing/sitemap-index.xml

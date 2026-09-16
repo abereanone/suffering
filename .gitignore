@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# Astro build output
+dist/
+.astro/
+src/generated/questions.json
+src/generated/bible-cited.json
+public/assets/search-index.json
+
+# Local Wrangler/Miniflare state (cache + observability SQLite) from `wrangler dev`
+.wrangler/
+
+# environment files
+.env
+.env.*
+
+# system files
+.DS_Store
+Thumbs.db
+
+# random stuff not needed
+devserver*.err
+devserver*.log
+.tmp-beddome-import/
+
+# The KDP PDF the catechism was extracted from is kept outside the repo; the text
+# pulled out of it (scripts/catechism_suffering_extracted.txt) IS tracked, because
+# scripts/import-suffering-catechism.mjs reads it.
+Catechism_Suffering_KDP.pdf

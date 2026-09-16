@@ -1,0 +1,118 @@
+---
+const {
+  currentPage,
+  pageCount,
+  basePath,
+  pageSegment = "page",
+  labels = { previous: "Previous", next: "Next" },
+} = Astro.props;
+
+const normalizedBase =
+  typeof basePath === "string" && basePath.length
+    ? basePath === "/" || basePath === ""
+      ? "/"
+      : basePath.endsWith("/") && basePath !== "/"
+        ? basePath.slice(0, -1)
+        : basePath
+    : "/";
+
+const totalPages = Number.isFinite(pageCount) ? Math.max(1, Math.floor(pageCount)) : 1;
+const activePage =
+  Number.isFinite(currentPage) && currentPage >= 1
+    ? Math.min(Math.floor(currentPage), totalPages)
+    : 1;
+
+type PaginationItem = { type: "page"; value: number } | { type: "ellipsis"; key: string };
+
+function getVisiblePages(total: number, current: number): PaginationItem[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, index) => ({
+      type: "page",
+      value: index + 1,
+    }));
+  }
+
+  const visible = new Set<number>([1, total, current - 1, current, current + 1]);
+  const clamped = Array.from(visible)
+    .filter((page) => page >= 1 && page <= total)
+    .sort((a, b) => a - b);
+
+  const items: PaginationItem[] = [];
+
+  for (let index = 0; index < clamped.length; index += 1) {
+    const page = clamped[index];
+    const previous = clamped[index - 1];
+
+    if (index > 0 && previous !== undefined && page - previous > 1) {
+      items.push({ type: "ellipsis", key: `ellipsis-${previous}-${page}` });
+    }
+
+    items.push({ type: "page", value: page });
+  }
+
+  return items;
+}
+
+const paginationItems = getVisiblePages(totalPages, activePage);
+
+function buildHref(page: number): string {
+  if (page <= 1) {
+    return normalizedBase === "" ? "/" : normalizedBase;
+  }
+
+  const prefix = normalizedBase === "/" ? "" : normalizedBase;
+  return `${prefix}/${pageSegment}/${page}`;
+}
+---
+
+{
+  totalPages > 1 ? (
+    <nav class="pagination" aria-label="Pagination">
+      <ul>
+        <li>
+          {activePage > 1 ? (
+            <a class="pagination-link prev" href={buildHref(activePage - 1)}>
+              {labels.previous}
+            </a>
+          ) : (
+            <span class="pagination-link prev disabled" aria-disabled="true">
+              {labels.previous}
+            </span>
+          )}
+        </li>
+
+        {paginationItems.map((item) => (
+          <li>
+            {item.type === "page" ? (
+              item.value === activePage ? (
+                <span class="pagination-link current" aria-current="page">
+                  {item.value}
+                </span>
+              ) : (
+                <a class="pagination-link" href={buildHref(item.value)}>
+                  {item.value}
+                </a>
+              )
+            ) : (
+              <span class="pagination-ellipsis" aria-hidden="true">
+                ...
+              </span>
+            )}
+          </li>
+        ))}
+
+        <li>
+          {activePage < totalPages ? (
+            <a class="pagination-link next" href={buildHref(activePage + 1)}>
+              {labels.next}
+            </a>
+          ) : (
+            <span class="pagination-link next disabled" aria-disabled="true">
+              {labels.next}
+            </span>
+          )}
+        </li>
+      </ul>
+    </nav>
+  ) : null
+}

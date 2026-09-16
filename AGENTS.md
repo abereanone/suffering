@@ -1,0 +1,5 @@
+- Keep responses concise
+- Do not break HTML
+- Prefer minimal changes
+- Do not do a build unless I tell you to
+- Warn me when you think I need to stop npm run dev and start it again

@@ -1,0 +1,11 @@
+---
+interface Props {
+  answerHtml: string;
+}
+
+const { answerHtml } = Astro.props;
+
+const html = answerHtml || "<p><em>Content not found.</em></p>";
+---
+
+<div class="question-body" data-bible-autolink set:html={html} />
