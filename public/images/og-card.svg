@@ -22,23 +22,31 @@
   <path d="M92 92H1108" stroke="#e0b878" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" />
   <path d="M92 572H1108" stroke="#e0b878" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" />
 
-  <text x="600" y="178" text-anchor="middle" fill="#e0b878" font-family="Cormorant Garamond, Georgia, serif" font-size="46" font-weight="700" letter-spacing="12">
+  <g transform="translate(600 150) scale(0.30) translate(-256 -256)">
+    <path
+      d="M256,58 C348,168 360,300 316,378 C298,410 214,410 196,378 C152,300 164,168 256,58 Z"
+      fill="#f3e3c2"
+    />
+    <path d="M256,150 C286,222 288,318 256,370 C224,318 226,222 256,150 Z" fill="#2a1b0d" />
+  </g>
+
+  <text x="600" y="240" text-anchor="middle" fill="#e0b878" font-family="Cormorant Garamond, Georgia, serif" font-size="42" font-weight="700" letter-spacing="12">
     CATECHISM
   </text>
 
-  <text x="600" y="332" text-anchor="middle" fill="#faf2e3" font-family="Cormorant Garamond, Georgia, serif">
+  <text x="600" y="376" text-anchor="middle" fill="#faf2e3" font-family="Cormorant Garamond, Georgia, serif">
     <tspan font-size="88" font-style="italic" font-weight="600" letter-spacing="2">of</tspan>
     <tspan dx="18" font-size="160" font-weight="700" letter-spacing="6">Suffering</tspan>
   </text>
 
-  <path d="M294 386H906" stroke="#c46a2a" stroke-width="8" stroke-linecap="round" />
-  <path d="M348 404H852" stroke="#b3862c" stroke-width="5" stroke-linecap="round" />
+  <path d="M294 424H906" stroke="#c46a2a" stroke-width="8" stroke-linecap="round" />
+  <path d="M348 442H852" stroke="#b3862c" stroke-width="5" stroke-linecap="round" />
 
-  <text x="600" y="480" text-anchor="middle" fill="#f2e6d0" font-family="Lora, Georgia, serif" font-size="38">
+  <text x="600" y="508" text-anchor="middle" fill="#f2e6d0" font-family="Lora, Georgia, serif" font-size="38">
     The God Who Comforts and Conforms
   </text>
 
-  <text x="600" y="540" text-anchor="middle" fill="#c9b494" font-family="Lora, Georgia, serif" font-size="24" letter-spacing="3">
+  <text x="600" y="558" text-anchor="middle" fill="#c9b494" font-family="Lora, Georgia, serif" font-size="24" letter-spacing="3">
     60 QUESTIONS &#8226; MATTHEW STATLER
   </text>
 </svg>

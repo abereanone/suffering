@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Catechism of Suffering">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+    <!-- One gradient in user space, referenced by both the ground and the seam, so the
+         seam reads as a clean cut through the flame rather than a painted-on stripe. -->
+    <linearGradient id="ground" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#8a4a18" />
-      <stop offset="100%" stop-color="#2a1b0d" />
+      <stop offset="100%" stop-color="#241a0d" />
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="96" fill="url(#bg)" />
-  <path d="M224 88h64v96h96v64h-96v176h-64V248h-96v-64h96z" fill="#f0d9a8" />
+  <rect width="512" height="512" rx="96" fill="url(#ground)" />
+  <!-- Refiner's fire: pointed at the top, full and rounded at the bottom. The asymmetry
+       is what keeps it from reading as an eye. -->
+  <path
+    d="M256,58 C348,168 360,300 316,378 C298,410 214,410 196,378 C152,300 164,168 256,58 Z"
+    fill="#f3e3c2"
+  />
+  <path d="M256,150 C286,222 288,318 256,370 C224,318 226,222 256,150 Z" fill="url(#ground)" />
+  <rect x="96" y="442" width="320" height="32" rx="16" fill="#c9962a" />
 </svg>
