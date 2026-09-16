@@ -6,89 +6,92 @@
 :root {
   color-scheme: dark;
 
-  /* Typography */
-  --font-body: "Arial", sans-serif;
-  --font-heading: "Cormorant Garamond", serif;
-  --font-weight-body: 500;
-  --font-size-body: 1.15rem;
-  --font-size-main: 1.4rem;
-  --line-height-body: 1.75;
-  --line-height-body-mobile: 1.7;
+  /* Typography. Cormorant Garamond is a high-contrast Garamond revival -- the regal
+     display face. Lora carries the body: its calligraphic, brush-drawn curves give the
+     same feeling at reading sizes, where a true script would be unreadable. */
+  --font-body: "Lora", Georgia, serif;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-weight-body: 400;
+  --font-size-body: 1.1rem;
+  --font-size-main: 1.35rem;
+  --line-height-body: 1.8;
+  --line-height-body-mobile: 1.72;
   --heading-line-height: 1.15;
   --heading-font-weight: 700;
 
-  /* Core colors */
-  --color-bg: #0a1630;
-  --color-text: #f4f7ff;
-  --color-heading: #ffffff;
-  --color-muted: #c2cfe4;
-  --color-link: #ffccd3;
-  --color-link-hover: #ffffff;
-  --color-link-contrast: #ffffff;
-  --color-nav-bg: rgba(7, 18, 42, 0.94);
-  --color-nav-text: #f3f7ff;
-  --color-footer-bg: rgba(96, 14, 27, 0.96);
-  --color-footer-text: #e5ecfb;
+  /* Core colors. Dark theme is late autumn after dusk: espresso ground, warm cream
+     text, ochre and burnt sienna for anything that acts. */
+  --color-bg: #15100a;
+  --color-text: #ece0cd;
+  --color-heading: #faf2e3;
+  --color-muted: #bcab92;
+  --color-link: #e8b163;
+  --color-link-hover: #f8d9a6;
+  --color-link-contrast: #fff7ec;
+  --color-nav-bg: rgba(18, 13, 8, 0.94);
+  --color-nav-text: #f3e9d8;
+  --color-footer-bg: rgba(59, 33, 16, 0.96);
+  --color-footer-text: #eddfc8;
 
   /* Surface colors */
-  --surface-border: rgba(125, 160, 224, 0.22);
-  --surface-border-strong: rgba(161, 190, 244, 0.42);
-  --surface-border-soft: rgba(125, 160, 224, 0.12);
-  --surface-border-faint: rgba(125, 160, 224, 0.08);
-  --surface-bg-muted: rgba(255, 255, 255, 0.06);
-  --surface-bg-strong: rgba(70, 88, 131, 0.34);
-  --surface-bg-hover: rgba(137, 33, 49, 0.18);
-  --surface-result-bg: rgba(233, 240, 255, 0.06);
-  --surface-result-border: rgba(161, 190, 244, 0.12);
-  --surface-highlight: rgba(161, 190, 244, 0.14);
-  --tooltip-bg: rgba(248, 250, 255, 0.98);
-  --tooltip-text: #132344;
-  --tooltip-border: rgba(88, 118, 179, 0.28);
+  --surface-border: rgba(206, 170, 118, 0.22);
+  --surface-border-strong: rgba(224, 186, 132, 0.42);
+  --surface-border-soft: rgba(206, 170, 118, 0.12);
+  --surface-border-faint: rgba(206, 170, 118, 0.08);
+  --surface-bg-muted: rgba(255, 248, 235, 0.06);
+  --surface-bg-strong: rgba(120, 88, 52, 0.34);
+  --surface-bg-hover: rgba(168, 87, 31, 0.2);
+  --surface-result-bg: rgba(255, 248, 235, 0.06);
+  --surface-result-border: rgba(224, 186, 132, 0.12);
+  --surface-highlight: rgba(224, 186, 132, 0.16);
+  --tooltip-bg: rgba(252, 247, 238, 0.98);
+  --tooltip-text: #2c2013;
+  --tooltip-border: rgba(150, 110, 60, 0.3);
 
   /* Inputs */
-  --input-bg: #102145;
-  --input-border: rgba(125, 160, 224, 0.24);
-  --input-text: #f4f7ff;
-  --input-placeholder: #a6b5d2;
+  --input-bg: #1f1710;
+  --input-border: rgba(206, 170, 118, 0.24);
+  --input-text: #ece0cd;
+  --input-placeholder: #a6947b;
 
   /* Text accents */
-  --meta-text: #d6e0f4;
-  --secondary-text: #e3ebfb;
-  --highlight-text: #ffe5b3;
+  --meta-text: #d5c6ad;
+  --secondary-text: #e0d3bc;
+  --highlight-text: #f2c98a;
 
   /* Accent */
-  --accent-bg: #b22234;
-  --accent-bg-hover: #cd3346;
-  --accent-text: #ffffff;
+  --accent-bg: #a8571f;
+  --accent-bg-hover: #c46a2a;
+  --accent-text: #fff7ec;
 
   /* Pills / chips */
-  --pill-bg: rgba(255, 255, 255, 0.12);
-  --pill-bg-secondary: rgba(255, 255, 255, 0.06);
-  --pill-bg-hover: rgba(255, 225, 230, 0.18);
-  --chip-bg: rgba(18, 35, 70, 0.56);
-  --chip-border: rgba(177, 195, 232, 0.26);
-  --chip-hover-bg: rgba(87, 24, 36, 0.34);
-  --chip-hover-border: rgba(255, 213, 220, 0.4);
+  --pill-bg: rgba(255, 248, 235, 0.12);
+  --pill-bg-secondary: rgba(255, 248, 235, 0.06);
+  --pill-bg-hover: rgba(240, 190, 130, 0.2);
+  --chip-bg: rgba(40, 28, 17, 0.56);
+  --chip-border: rgba(206, 170, 118, 0.26);
+  --chip-hover-bg: rgba(168, 87, 31, 0.32);
+  --chip-hover-border: rgba(240, 190, 130, 0.42);
 
   /* Cards */
-  --card-bg: linear-gradient(180deg, rgba(19, 36, 72, 0.97), rgba(8, 18, 40, 0.99));
-  --card-border: rgba(125, 160, 224, 0.18);
-  --card-hover-border: rgba(179, 198, 242, 0.38);
-  --card-hover-bg: rgba(128, 28, 43, 0.18);
-  --question-card-hover-bg: rgba(128, 28, 43, 0.14);
-  --category-card-hover-bg: rgba(128, 28, 43, 0.16);
-  --resource-card-hover-bg: rgba(128, 28, 43, 0.14);
+  --card-bg: linear-gradient(180deg, rgba(38, 27, 17, 0.97), rgba(19, 13, 8, 0.99));
+  --card-border: rgba(206, 170, 118, 0.18);
+  --card-hover-border: rgba(224, 186, 132, 0.38);
+  --card-hover-bg: rgba(168, 87, 31, 0.2);
+  --question-card-hover-bg: rgba(168, 87, 31, 0.16);
+  --category-card-hover-bg: rgba(168, 87, 31, 0.18);
+  --resource-card-hover-bg: rgba(168, 87, 31, 0.16);
 
   /* Question & answer emphasis: sets the Q&A apart from surrounding page text. */
-  --qa-accent: rgba(205, 51, 70, 0.85);
-  --qa-answer-bg: rgba(255, 255, 255, 0.05);
-  --qa-answer-border: rgba(161, 190, 244, 0.16);
+  --qa-accent: rgba(196, 106, 42, 0.85);
+  --qa-answer-bg: rgba(255, 248, 235, 0.05);
+  --qa-answer-border: rgba(224, 186, 132, 0.16);
 
   /* Misc */
-  --question-group-label-color: rgba(255, 255, 255, 0.75);
-  --question-id-color: rgba(255, 255, 255, 0.7);
-  --question-accent-bg: rgba(255, 255, 255, 0.08);
-  --question-accent-border: rgba(190, 206, 236, 0.26);
+  --question-group-label-color: rgba(255, 248, 235, 0.75);
+  --question-id-color: rgba(255, 248, 235, 0.7);
+  --question-accent-bg: rgba(255, 248, 235, 0.08);
+  --question-accent-border: rgba(224, 186, 132, 0.26);
   --question-accent-text: var(--question-id-color);
   --logo-filter: invert(0);
 
@@ -111,74 +114,75 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  /* Core colors */
-  --color-bg: #f7f9ff;
-  --color-text: #1d2b45;
-  --color-heading: #10203b;
-  --color-muted: #61708d;
-  --color-link: #9f1c2c;
-  --color-link-hover: #7f1320;
-  --color-link-contrast: #ffffff;
-  --color-nav-bg: rgba(250, 252, 255, 0.94);
-  --color-nav-text: #152544;
-  --color-footer-bg: rgba(232, 239, 255, 0.95);
-  --color-footer-text: #152544;
+  /* Core colors. Light theme is the same autumn at midday: parchment ground, dark
+     walnut text, the same ochre and sienna darkened enough to hold contrast on paper. */
+  --color-bg: #faf4e8;
+  --color-text: #3b2e1d;
+  --color-heading: #2a2013;
+  --color-muted: #7a6a53;
+  --color-link: #96540f;
+  --color-link-hover: #713d08;
+  --color-link-contrast: #fffdf8;
+  --color-nav-bg: rgba(253, 249, 240, 0.94);
+  --color-nav-text: #33271a;
+  --color-footer-bg: rgba(242, 232, 214, 0.95);
+  --color-footer-text: #33271a;
 
   /* Surface colors */
-  --surface-border: rgba(89, 121, 184, 0.18);
-  --surface-border-strong: rgba(89, 121, 184, 0.32);
-  --surface-border-soft: rgba(89, 121, 184, 0.1);
-  --surface-border-faint: rgba(89, 121, 184, 0.08);
-  --surface-bg-muted: rgba(255, 255, 255, 0.7);
-  --surface-bg-strong: rgba(115, 140, 190, 0.14);
-  --surface-bg-hover: rgba(178, 34, 52, 0.1);
-  --surface-result-bg: rgba(252, 253, 255, 0.96);
-  --surface-result-border: rgba(89, 121, 184, 0.12);
-  --surface-highlight: rgba(89, 121, 184, 0.12);
-  --tooltip-bg: rgba(14, 28, 57, 0.97);
-  --tooltip-text: #f5f8ff;
-  --tooltip-border: rgba(111, 142, 202, 0.28);
+  --surface-border: rgba(146, 114, 66, 0.18);
+  --surface-border-strong: rgba(146, 114, 66, 0.32);
+  --surface-border-soft: rgba(146, 114, 66, 0.1);
+  --surface-border-faint: rgba(146, 114, 66, 0.08);
+  --surface-bg-muted: rgba(255, 253, 248, 0.7);
+  --surface-bg-strong: rgba(170, 140, 95, 0.14);
+  --surface-bg-hover: rgba(168, 87, 31, 0.1);
+  --surface-result-bg: rgba(253, 250, 244, 0.96);
+  --surface-result-border: rgba(146, 114, 66, 0.12);
+  --surface-highlight: rgba(146, 114, 66, 0.14);
+  --tooltip-bg: rgba(41, 30, 18, 0.97);
+  --tooltip-text: #f8f2e6;
+  --tooltip-border: rgba(160, 124, 72, 0.3);
 
   /* Inputs */
-  --input-bg: #fbfcff;
-  --input-border: rgba(89, 121, 184, 0.18);
-  --input-text: #1b2b49;
-  --input-placeholder: rgba(40, 60, 98, 0.52);
+  --input-bg: #fffdf8;
+  --input-border: rgba(146, 114, 66, 0.18);
+  --input-text: #362a1a;
+  --input-placeholder: rgba(74, 58, 36, 0.52);
 
   /* Text accents */
-  --meta-text: rgba(24, 40, 71, 0.76);
-  --secondary-text: rgba(24, 40, 71, 0.68);
-  --highlight-text: #b22234;
+  --meta-text: rgba(53, 41, 25, 0.76);
+  --secondary-text: rgba(53, 41, 25, 0.68);
+  --highlight-text: #a8571f;
 
   /* Pills / chips */
-  --pill-bg: rgba(255, 255, 255, 0.85);
-  --pill-bg-secondary: rgba(255, 255, 255, 0.52);
-  --pill-bg-hover: rgba(178, 34, 52, 0.08);
-  --chip-bg: rgba(255, 255, 255, 0.82);
-  --chip-border: rgba(89, 121, 184, 0.16);
-  --chip-hover-bg: rgba(178, 34, 52, 0.08);
-  --chip-hover-border: rgba(159, 28, 44, 0.3);
+  --pill-bg: rgba(255, 253, 248, 0.85);
+  --pill-bg-secondary: rgba(255, 253, 248, 0.52);
+  --pill-bg-hover: rgba(168, 87, 31, 0.1);
+  --chip-bg: rgba(255, 253, 248, 0.82);
+  --chip-border: rgba(146, 114, 66, 0.16);
+  --chip-hover-bg: rgba(168, 87, 31, 0.1);
+  --chip-hover-border: rgba(150, 84, 15, 0.3);
 
   /* Cards */
-  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(238, 244, 255, 0.98));
-  --card-border: rgba(89, 121, 184, 0.16);
-  --card-hover-border: rgba(76, 104, 161, 0.28);
-  --card-hover-bg: rgba(178, 34, 52, 0.08);
-  --question-card-hover-bg: rgba(178, 34, 52, 0.05);
-  --category-card-hover-bg: rgba(178, 34, 52, 0.06);
-  --resource-card-hover-bg: rgba(178, 34, 52, 0.05);
+  --card-bg: linear-gradient(180deg, rgba(255, 254, 250, 0.99), rgba(246, 238, 224, 0.98));
+  --card-border: rgba(146, 114, 66, 0.16);
+  --card-hover-border: rgba(130, 100, 58, 0.28);
+  --card-hover-bg: rgba(168, 87, 31, 0.08);
+  --question-card-hover-bg: rgba(168, 87, 31, 0.05);
+  --category-card-hover-bg: rgba(168, 87, 31, 0.06);
+  --resource-card-hover-bg: rgba(168, 87, 31, 0.05);
 
   /* Question & answer emphasis. A white tint would vanish against the light card,
-     so the answer is tinted with the blue-grey surface hue instead. */
-  --qa-accent: #9f1c2c;
-  --qa-answer-bg: rgba(89, 121, 184, 0.07);
-  --qa-answer-border: rgba(89, 121, 184, 0.18);
+     so the answer is tinted with the warm surface hue instead. */
+  --qa-accent: #96540f;
+  --qa-answer-bg: rgba(146, 114, 66, 0.08);
+  --qa-answer-border: rgba(146, 114, 66, 0.2);
 
   /* Misc */
-  --question-group-label-color: rgba(15, 23, 42, 0.65);
-  --question-id-color: rgba(15, 23, 42, 0.9);
-  --question-accent-bg: rgba(255, 255, 255, 0.88);
-  --question-accent-border: rgba(110, 133, 180, 0.24);
+  --question-group-label-color: rgba(44, 32, 19, 0.65);
+  --question-id-color: rgba(44, 32, 19, 0.9);
+  --question-accent-bg: rgba(255, 253, 248, 0.88);
+  --question-accent-border: rgba(146, 114, 66, 0.26);
   --question-accent-text: var(--question-id-color);
   --logo-filter: none;
 }
@@ -186,9 +190,9 @@
 /* === Global Styles === */
 body {
   background:
-    radial-gradient(circle at top left, rgba(178, 34, 52, 0.22), transparent 30%),
-    radial-gradient(circle at top right, rgba(72, 112, 190, 0.28), transparent 32%),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.06), transparent 42%),
+    radial-gradient(circle at top left, rgba(168, 87, 31, 0.26), transparent 30%),
+    radial-gradient(circle at top right, rgba(179, 134, 44, 0.26), transparent 32%),
+    radial-gradient(circle at 50% 0%, rgba(255, 248, 235, 0.06), transparent 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.05)), var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -456,147 +460,147 @@ ul {
 }
 
 .question-card[data-question-group="real"] {
-  --question-accent-bg: rgba(188, 34, 52, 0.18);
-  --question-accent-border: rgba(246, 106, 122, 0.56);
-  --question-accent-text: #ffd4da;
+  --question-accent-bg: rgba(176, 58, 46, 0.22);
+  --question-accent-border: rgba(232, 124, 104, 0.56);
+  --question-accent-text: #f7cfc4;
 }
 
 .question-card[data-question-group="reign"] {
-  --question-accent-bg: rgba(214, 170, 72, 0.18);
-  --question-accent-border: rgba(244, 209, 111, 0.56);
-  --question-accent-text: #ffe69b;
+  --question-accent-bg: rgba(201, 150, 42, 0.22);
+  --question-accent-border: rgba(240, 199, 104, 0.56);
+  --question-accent-text: #f8e3b0;
 }
 
 .question-card[data-question-group="near"] {
-  --question-accent-bg: rgba(32, 88, 182, 0.18);
-  --question-accent-border: rgba(109, 165, 255, 0.56);
-  --question-accent-text: #c7deff;
+  --question-accent-bg: rgba(125, 132, 56, 0.22);
+  --question-accent-border: rgba(182, 191, 108, 0.56);
+  --question-accent-text: #e8edc2;
 }
 
 .question-card[data-question-group="purp"] {
-  --question-accent-bg: rgba(93, 67, 191, 0.18);
-  --question-accent-border: rgba(157, 133, 255, 0.56);
-  --question-accent-text: #ddd2ff;
+  --question-accent-bg: rgba(63, 122, 85, 0.22);
+  --question-accent-border: rgba(122, 190, 148, 0.56);
+  --question-accent-text: #cbe9d6;
 }
 
 .question-card[data-question-group="comf"] {
-  --question-accent-bg: rgba(14, 125, 128, 0.18);
-  --question-accent-border: rgba(90, 211, 201, 0.54);
-  --question-accent-text: #c9fff5;
+  --question-accent-bg: rgba(47, 115, 131, 0.22);
+  --question-accent-border: rgba(110, 180, 198, 0.56);
+  --question-accent-text: #c6e6ef;
 }
 
 .question-card[data-question-group="glory"] {
-  --question-accent-bg: rgba(135, 55, 143, 0.18);
-  --question-accent-border: rgba(212, 122, 219, 0.54);
-  --question-accent-text: #f8d0ff;
+  --question-accent-bg: rgba(138, 66, 102, 0.22);
+  --question-accent-border: rgba(200, 132, 172, 0.56);
+  --question-accent-text: #f3d3e5;
 }
 
 .question-meta-id[data-question-group="real"] {
-  --question-id-bg: rgba(188, 34, 52, 0.18);
-  --question-id-border: rgba(246, 106, 122, 0.56);
-  --question-id-pill-color: #ffd4da;
+  --question-id-bg: rgba(176, 58, 46, 0.22);
+  --question-id-border: rgba(232, 124, 104, 0.56);
+  --question-id-pill-color: #f7cfc4;
 }
 
 .question-meta-id[data-question-group="reign"] {
-  --question-id-bg: rgba(214, 170, 72, 0.18);
-  --question-id-border: rgba(244, 209, 111, 0.56);
-  --question-id-pill-color: #ffe69b;
+  --question-id-bg: rgba(201, 150, 42, 0.22);
+  --question-id-border: rgba(240, 199, 104, 0.56);
+  --question-id-pill-color: #f8e3b0;
 }
 
 .question-meta-id[data-question-group="near"] {
-  --question-id-bg: rgba(32, 88, 182, 0.18);
-  --question-id-border: rgba(109, 165, 255, 0.56);
-  --question-id-pill-color: #c7deff;
+  --question-id-bg: rgba(125, 132, 56, 0.22);
+  --question-id-border: rgba(182, 191, 108, 0.56);
+  --question-id-pill-color: #e8edc2;
 }
 
 .question-meta-id[data-question-group="purp"] {
-  --question-id-bg: rgba(93, 67, 191, 0.18);
-  --question-id-border: rgba(157, 133, 255, 0.56);
-  --question-id-pill-color: #ddd2ff;
+  --question-id-bg: rgba(63, 122, 85, 0.22);
+  --question-id-border: rgba(122, 190, 148, 0.56);
+  --question-id-pill-color: #cbe9d6;
 }
 
 .question-meta-id[data-question-group="comf"] {
-  --question-id-bg: rgba(14, 125, 128, 0.18);
-  --question-id-border: rgba(90, 211, 201, 0.54);
-  --question-id-pill-color: #c9fff5;
+  --question-id-bg: rgba(47, 115, 131, 0.22);
+  --question-id-border: rgba(110, 180, 198, 0.56);
+  --question-id-pill-color: #c6e6ef;
 }
 
 .question-meta-id[data-question-group="glory"] {
-  --question-id-bg: rgba(135, 55, 143, 0.18);
-  --question-id-border: rgba(212, 122, 219, 0.54);
-  --question-id-pill-color: #f8d0ff;
+  --question-id-bg: rgba(138, 66, 102, 0.22);
+  --question-id-border: rgba(200, 132, 172, 0.56);
+  --question-id-pill-color: #f3d3e5;
 }
 
 [data-theme="light"] .question-card[data-question-group="real"] {
-  --question-accent-bg: rgba(188, 34, 52, 0.11);
-  --question-accent-border: rgba(159, 29, 44, 0.34);
-  --question-accent-text: #921625;
+  --question-accent-bg: rgba(176, 58, 46, 0.14);
+  --question-accent-border: rgba(150, 46, 34, 0.36);
+  --question-accent-text: #9c3323;
 }
 
 [data-theme="light"] .question-card[data-question-group="reign"] {
-  --question-accent-bg: rgba(214, 170, 72, 0.18);
-  --question-accent-border: rgba(181, 136, 33, 0.38);
-  --question-accent-text: #8b6407;
+  --question-accent-bg: rgba(201, 150, 42, 0.22);
+  --question-accent-border: rgba(163, 120, 24, 0.36);
+  --question-accent-text: #8a6410;
 }
 
 [data-theme="light"] .question-card[data-question-group="near"] {
-  --question-accent-bg: rgba(32, 88, 182, 0.1);
-  --question-accent-border: rgba(29, 79, 157, 0.32);
-  --question-accent-text: #1f55ae;
+  --question-accent-bg: rgba(125, 132, 56, 0.14);
+  --question-accent-border: rgba(100, 106, 42, 0.36);
+  --question-accent-text: #5f6620;
 }
 
 [data-theme="light"] .question-card[data-question-group="purp"] {
-  --question-accent-bg: rgba(93, 67, 191, 0.11);
-  --question-accent-border: rgba(89, 63, 172, 0.34);
-  --question-accent-text: #573cb7;
+  --question-accent-bg: rgba(63, 122, 85, 0.14);
+  --question-accent-border: rgba(46, 100, 66, 0.36);
+  --question-accent-text: #2c6344;
 }
 
 [data-theme="light"] .question-card[data-question-group="comf"] {
-  --question-accent-bg: rgba(14, 125, 128, 0.11);
-  --question-accent-border: rgba(17, 112, 115, 0.34);
-  --question-accent-text: #0f7274;
+  --question-accent-bg: rgba(47, 115, 131, 0.14);
+  --question-accent-border: rgba(33, 94, 110, 0.36);
+  --question-accent-text: #216070;
 }
 
 [data-theme="light"] .question-card[data-question-group="glory"] {
-  --question-accent-bg: rgba(135, 55, 143, 0.11);
-  --question-accent-border: rgba(121, 52, 128, 0.34);
-  --question-accent-text: #7b2f86;
+  --question-accent-bg: rgba(138, 66, 102, 0.14);
+  --question-accent-border: rgba(116, 52, 85, 0.36);
+  --question-accent-text: #7a3a5a;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="real"] {
-  --question-id-bg: rgba(188, 34, 52, 0.11);
-  --question-id-border: rgba(159, 29, 44, 0.34);
-  --question-id-pill-color: #921625;
+  --question-id-bg: rgba(176, 58, 46, 0.14);
+  --question-id-border: rgba(150, 46, 34, 0.36);
+  --question-id-pill-color: #9c3323;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="reign"] {
-  --question-id-bg: rgba(214, 170, 72, 0.18);
-  --question-id-border: rgba(181, 136, 33, 0.38);
-  --question-id-pill-color: #8b6407;
+  --question-id-bg: rgba(201, 150, 42, 0.22);
+  --question-id-border: rgba(163, 120, 24, 0.36);
+  --question-id-pill-color: #8a6410;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="near"] {
-  --question-id-bg: rgba(32, 88, 182, 0.1);
-  --question-id-border: rgba(29, 79, 157, 0.32);
-  --question-id-pill-color: #1f55ae;
+  --question-id-bg: rgba(125, 132, 56, 0.14);
+  --question-id-border: rgba(100, 106, 42, 0.36);
+  --question-id-pill-color: #5f6620;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="purp"] {
-  --question-id-bg: rgba(93, 67, 191, 0.11);
-  --question-id-border: rgba(89, 63, 172, 0.34);
-  --question-id-pill-color: #573cb7;
+  --question-id-bg: rgba(63, 122, 85, 0.14);
+  --question-id-border: rgba(46, 100, 66, 0.36);
+  --question-id-pill-color: #2c6344;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="comf"] {
-  --question-id-bg: rgba(14, 125, 128, 0.11);
-  --question-id-border: rgba(17, 112, 115, 0.34);
-  --question-id-pill-color: #0f7274;
+  --question-id-bg: rgba(47, 115, 131, 0.14);
+  --question-id-border: rgba(33, 94, 110, 0.36);
+  --question-id-pill-color: #216070;
 }
 
 [data-theme="light"] .question-meta-id[data-question-group="glory"] {
-  --question-id-bg: rgba(135, 55, 143, 0.11);
-  --question-id-border: rgba(121, 52, 128, 0.34);
-  --question-id-pill-color: #7b2f86;
+  --question-id-bg: rgba(138, 66, 102, 0.14);
+  --question-id-border: rgba(116, 52, 85, 0.36);
+  --question-id-pill-color: #7a3a5a;
 }
 
 /* === Question Detail === */
@@ -689,39 +693,39 @@ ul {
 }
 
 .category-chip[data-category-group="real"] {
-  background-color: rgba(188, 34, 52, 0.18);
-  border-color: rgba(246, 106, 122, 0.56);
-  color: #ffd4da;
+  background-color: rgba(176, 58, 46, 0.22);
+  border-color: rgba(232, 124, 104, 0.56);
+  color: #f7cfc4;
 }
 
 .category-chip[data-category-group="reign"] {
-  background-color: rgba(214, 170, 72, 0.18);
-  border-color: rgba(244, 209, 111, 0.56);
-  color: #ffe69b;
+  background-color: rgba(201, 150, 42, 0.22);
+  border-color: rgba(240, 199, 104, 0.56);
+  color: #f8e3b0;
 }
 
 .category-chip[data-category-group="near"] {
-  background-color: rgba(32, 88, 182, 0.18);
-  border-color: rgba(109, 165, 255, 0.56);
-  color: #c7deff;
+  background-color: rgba(125, 132, 56, 0.22);
+  border-color: rgba(182, 191, 108, 0.56);
+  color: #e8edc2;
 }
 
 .category-chip[data-category-group="purp"] {
-  background-color: rgba(93, 67, 191, 0.18);
-  border-color: rgba(157, 133, 255, 0.56);
-  color: #ddd2ff;
+  background-color: rgba(63, 122, 85, 0.22);
+  border-color: rgba(122, 190, 148, 0.56);
+  color: #cbe9d6;
 }
 
 .category-chip[data-category-group="comf"] {
-  background-color: rgba(14, 125, 128, 0.18);
-  border-color: rgba(90, 211, 201, 0.54);
-  color: #c9fff5;
+  background-color: rgba(47, 115, 131, 0.22);
+  border-color: rgba(110, 180, 198, 0.56);
+  color: #c6e6ef;
 }
 
 .category-chip[data-category-group="glory"] {
-  background-color: rgba(135, 55, 143, 0.18);
-  border-color: rgba(212, 122, 219, 0.54);
-  color: #f8d0ff;
+  background-color: rgba(138, 66, 102, 0.22);
+  border-color: rgba(200, 132, 172, 0.56);
+  color: #f3d3e5;
 }
 
 .category-chip[data-category-group="real"]:hover,
@@ -740,39 +744,39 @@ ul {
 }
 
 [data-theme="light"] .category-chip[data-category-group="real"] {
-  background-color: rgba(188, 34, 52, 0.11);
-  border-color: rgba(159, 29, 44, 0.34);
-  color: #921625;
+  background-color: rgba(176, 58, 46, 0.14);
+  border-color: rgba(150, 46, 34, 0.36);
+  color: #9c3323;
 }
 
 [data-theme="light"] .category-chip[data-category-group="reign"] {
-  background-color: rgba(214, 170, 72, 0.18);
-  border-color: rgba(181, 136, 33, 0.38);
-  color: #8b6407;
+  background-color: rgba(201, 150, 42, 0.22);
+  border-color: rgba(163, 120, 24, 0.36);
+  color: #8a6410;
 }
 
 [data-theme="light"] .category-chip[data-category-group="near"] {
-  background-color: rgba(32, 88, 182, 0.1);
-  border-color: rgba(29, 79, 157, 0.32);
-  color: #1f55ae;
+  background-color: rgba(125, 132, 56, 0.14);
+  border-color: rgba(100, 106, 42, 0.36);
+  color: #5f6620;
 }
 
 [data-theme="light"] .category-chip[data-category-group="purp"] {
-  background-color: rgba(93, 67, 191, 0.11);
-  border-color: rgba(89, 63, 172, 0.34);
-  color: #573cb7;
+  background-color: rgba(63, 122, 85, 0.14);
+  border-color: rgba(46, 100, 66, 0.36);
+  color: #2c6344;
 }
 
 [data-theme="light"] .category-chip[data-category-group="comf"] {
-  background-color: rgba(14, 125, 128, 0.11);
-  border-color: rgba(17, 112, 115, 0.34);
-  color: #0f7274;
+  background-color: rgba(47, 115, 131, 0.14);
+  border-color: rgba(33, 94, 110, 0.36);
+  color: #216070;
 }
 
 [data-theme="light"] .category-chip[data-category-group="glory"] {
-  background-color: rgba(135, 55, 143, 0.11);
-  border-color: rgba(121, 52, 128, 0.34);
-  color: #7b2f86;
+  background-color: rgba(138, 66, 102, 0.14);
+  border-color: rgba(116, 52, 85, 0.36);
+  color: #7a3a5a;
 }
 
 .category-placeholder {
@@ -880,75 +884,75 @@ ul {
 }
 
 .category-card[data-category-group="real"] {
-  border-left: 3px solid rgba(246, 106, 122, 0.56);
+  border-left: 3px solid rgba(232, 124, 104, 0.56);
 }
 
 .category-card[data-category-group="reign"] {
-  border-left: 3px solid rgba(244, 209, 111, 0.56);
+  border-left: 3px solid rgba(240, 199, 104, 0.56);
 }
 
 .category-card[data-category-group="near"] {
-  border-left: 3px solid rgba(109, 165, 255, 0.56);
+  border-left: 3px solid rgba(182, 191, 108, 0.56);
 }
 
 .category-card[data-category-group="purp"] {
-  border-left: 3px solid rgba(157, 133, 255, 0.56);
+  border-left: 3px solid rgba(122, 190, 148, 0.56);
 }
 
 .category-card[data-category-group="comf"] {
-  border-left: 3px solid rgba(90, 211, 201, 0.54);
+  border-left: 3px solid rgba(110, 180, 198, 0.56);
 }
 
 .category-card[data-category-group="glory"] {
-  border-left: 3px solid rgba(212, 122, 219, 0.54);
+  border-left: 3px solid rgba(200, 132, 172, 0.56);
 }
 
 .category-card[data-category-group="real"] .category-name {
-  color: #ffd4da;
+  color: #f7cfc4;
 }
 
 .category-card[data-category-group="reign"] .category-name {
-  color: #ffe69b;
+  color: #f8e3b0;
 }
 
 .category-card[data-category-group="near"] .category-name {
-  color: #c7deff;
+  color: #e8edc2;
 }
 
 .category-card[data-category-group="purp"] .category-name {
-  color: #ddd2ff;
+  color: #cbe9d6;
 }
 
 .category-card[data-category-group="comf"] .category-name {
-  color: #c9fff5;
+  color: #c6e6ef;
 }
 
 .category-card[data-category-group="glory"] .category-name {
-  color: #f8d0ff;
+  color: #f3d3e5;
 }
 
 [data-theme="light"] .category-card[data-category-group="real"] .category-name {
-  color: #921625;
+  color: #9c3323;
 }
 
 [data-theme="light"] .category-card[data-category-group="reign"] .category-name {
-  color: #8b6407;
+  color: #8a6410;
 }
 
 [data-theme="light"] .category-card[data-category-group="near"] .category-name {
-  color: #1f55ae;
+  color: #5f6620;
 }
 
 [data-theme="light"] .category-card[data-category-group="purp"] .category-name {
-  color: #573cb7;
+  color: #2c6344;
 }
 
 [data-theme="light"] .category-card[data-category-group="comf"] .category-name {
-  color: #0f7274;
+  color: #216070;
 }
 
 [data-theme="light"] .category-card[data-category-group="glory"] .category-name {
-  color: #7b2f86;
+  color: #7a3a5a;
 }
 
 .category-grid {

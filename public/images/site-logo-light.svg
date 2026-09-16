@@ -5,26 +5,21 @@
     <text
       x="490"
       y="62"
-      fill="#5c4372"
-      font-family="Source Sans 3, Arial, sans-serif"
-      font-size="28"
+      fill="#96540f"
+      font-family="Cormorant Garamond, Georgia, serif"
+      font-size="30"
       font-weight="700"
-      letter-spacing="6"
+      letter-spacing="9"
     >
       CATECHISM
     </text>
 
-    <text
-      x="490"
-      y="204"
-      fill="#3a2a4d"
-      font-family="Cormorant Garamond, Georgia, serif"
-    >
+    <text x="490" y="204" fill="#2a2013" font-family="Cormorant Garamond, Georgia, serif">
       <tspan font-size="82" font-weight="600" font-style="italic" letter-spacing="2">of</tspan>
       <tspan dx="16" font-size="132" font-weight="700" letter-spacing="4">Suffering</tspan>
     </text>
 
-    <path d="M230 232h520" fill="none" stroke="#8a6a9c" stroke-width="8" stroke-linecap="round" />
-    <path d="M278 246h424" fill="none" stroke="#3a2a4d" stroke-width="5" stroke-linecap="round" />
+    <path d="M230 232h520" fill="none" stroke="#a8571f" stroke-width="8" stroke-linecap="round" />
+    <path d="M278 246h424" fill="none" stroke="#b3862c" stroke-width="5" stroke-linecap="round" />
   </g>
 </svg>
