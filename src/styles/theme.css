@@ -190,6 +190,63 @@
   --logo-filter: none;
 }
 
+/* Long-form prose (about, copyright). Nothing here was styled: there is no `p`,
+   `blockquote` or `cite` rule anywhere in this sheet, so running text fell to browser
+   defaults, and the global `ul` reset above -- which exists for nav and card lists --
+   stripped the markers and indent off prose lists too, leaving them as flush, unmarked,
+   tightly stacked lines.
+
+   Margins are set on the elements directly rather than with a `.prose > * + *` owl:
+   `.prose p` outranks `.prose > * + *` on specificity, so the two fight and the owl
+   loses. */
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote {
+  margin: 0 0 1.1rem;
+}
+
+.prose p {
+  line-height: var(--line-height-body);
+}
+
+.prose h2 {
+  margin: 2.3rem 0 0.85rem;
+  font-size: 1.7rem;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose ul {
+  list-style: disc;
+  padding-left: 1.7rem;
+}
+
+.prose li + li {
+  margin-top: 0.45rem;
+}
+
+.prose blockquote {
+  padding: 0.15rem 0 0.15rem 1.15rem;
+  border-left: 3px solid var(--qa-accent);
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose cite {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--meta-text);
+}
+
 /* === Global Styles === */
 body {
   background:
