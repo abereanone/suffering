@@ -16,7 +16,7 @@ export const siteSettings = {
   branding,
   issueReportURL: "https://github.com/abereanone/suffering/issues/new",
   integrations: {
-    googleAnalyticsId: "",
+    googleAnalyticsId: "G-8WGWSDD1T2",
   },
   openGraph: {
     title: branding.siteName,
