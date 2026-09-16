@@ -53,9 +53,9 @@ const oldTestamentCodes = new Set([
 const siteName = siteSettings.branding.siteName;
 ---
 
-<Main title={`Scripture Index | ${siteName}`}>
+<Main title={`Scriptures | ${siteName}`}>
   <section class="card-panel" id="scripture-index-top">
-    <h1>Scripture Index</h1>
+    <h1>Scriptures</h1>
     <p>Browse the scripture references cited in proof sections and see which questions use them.</p>
 
     {
@@ -463,17 +463,26 @@ const siteName = siteSettings.branding.siteName;
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    /* Stretch the card by making the cell a grid, not with height: 100%. This template
+       has no box-sizing reset, so height: 100% set the card's CONTENT box to the cell
+       height and then added padding and border on top -- every card overflowed its cell
+       by ~21px and sat on the row below. border-box here guards against a reprise. */
+    .scripture-grid > li {
+      display: grid;
+    }
+
     .scripture-grid > li[hidden] {
       display: none;
     }
 
     .scripture-card {
+      box-sizing: border-box;
       display: grid;
+      align-content: start;
       gap: 0.15rem;
       padding: 0.6rem 0.8rem;
       text-decoration: none;
       color: inherit;
-      height: 100%;
     }
 
     .scripture-reference {
