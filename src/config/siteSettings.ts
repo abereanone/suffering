@@ -28,7 +28,7 @@ export const siteSettings = {
     twitterCard: "summary_large_image",
   },
   showQuestionId: true,
-  showAuthor: false,
+  showAuthor: true,
   enablePagination: true,
   questionsPerPage: 30,
 } as const;
