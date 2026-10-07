@@ -1,6 +1,7 @@
 [
   {
     "id": "mstatler",
+    "photo": "/images/resources/mstatler.jpg",
     "name": "Matthew Statler",
     "url": "https://books.freely.giving/people/matthew-statler/",
     "title": "Author",
@@ -9,6 +10,7 @@
   },
   {
     "id": "book",
+    "logo": "/images/resources/book.jpg",
     "name": "Catechism of Suffering (booklet)",
     "url": "https://books.freely.giving/books/matthew-statler/catechism-of-suffering/",
     "title": "Read Online or Download",
@@ -17,6 +19,7 @@
   },
   {
     "id": "rcs",
+    "logo": "/images/resources/rcs.png",
     "name": "Reformed Catechisms",
     "url": "https://catechize.ing",
     "title": "Site",
@@ -25,6 +28,7 @@
   },
   {
     "id": "usa",
+    "logo": "/images/resources/usa.png",
     "name": "A Patriot's Catechism",
     "url": "https://usa.catechize.ing",
     "title": "Site",
@@ -33,6 +37,7 @@
   },
   {
     "id": "rconfess",
+    "logo": "/images/resources/rconfess.png",
     "name": "Reformed Confessions",
     "url": "https://confess.catechize.ing/",
     "title": "Website",
@@ -41,6 +46,7 @@
   },
   {
     "id": "mac-links",
+    "photo": "/images/resources/mac.jpg",
     "name": "Sites managed by the curator of suffering.catechize.ing",
     "url": "https://michaelcoughlin.net/links",
     "title": "Link Directory",
