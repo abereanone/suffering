@@ -116,6 +116,9 @@ function fileURLToPathCompat(dir) {
 
 export default defineConfig({
   site: "https://suffering.catechize.ing",
+  // Astro 7 defaults to "jsx", which drops the line break between text and an inline
+  // tag ("enjoy<a>x</a>and" renders as "enjoyxand"). true keeps the Astro 6 behaviour.
+  compressHTML: true,
   build: {
     format: "file",
   },
