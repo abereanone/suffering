@@ -13,7 +13,7 @@ and a Scripture index that reverse-looks-up every proof text.
 
 ## Stack
 
-- [Astro](https://astro.build/) 6.x
+- [Astro](https://astro.build/) 7.x
 - TypeScript project configuration (`tsconfig.json`)
 - Markdown content in `src/content/questions/`
 - Generated question/search/Bible artifacts for fast page rendering
@@ -96,7 +96,7 @@ They are intended to be untracked build artifacts, not source files.
 
 ## Local Development
 
-Requirements: Node.js 22.12.0+ and npm (Astro 6 requirement).
+Requirements: Node.js 22.22.0+ and npm (Astro 7; see `engines` in `package.json`).
 
 ```bash
 npm install
@@ -162,7 +162,11 @@ The six `groupCode` values are also what the per-section card and chip colours k
 - `npm run new:question -- "Title"` - scaffold a new question Markdown file with the next numeric ID.
 - `npm run build` - production build.
 - `npm run preview` - preview the production build locally.
+- `npm run check:types` - rebuild the generated artifacts, then run `astro check`.
+- `npm run format` / `npm run format:check` - run Prettier over the repo (write / check only).
 - `npm run astro ...` - run the Astro CLI directly.
+
+`scripts/lib/questions-core.mjs` is the shared code behind `build-questions`, `check-questions`, `new-question` and the import script (paths, slugs, frontmatter serialising, loading and validating the question files). Identical copies exist in `usa`, `catechize.ing` and `abolition.ing`; keep them in step. `scripts/catechism_suffering_extracted.txt` is the extracted booklet text that `import:suffering` parses (it expects exactly 60 questions).
 
 ## Deployment
 
