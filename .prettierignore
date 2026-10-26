@@ -21,3 +21,6 @@ scripts/catechism_suffering_extracted.txt
 #   QuestionAnswer.astro - toggle script must not ship when the toggle is unused
 src/layouts/Main.astro
 src/components/QuestionAnswer.astro
+
+# Generated monthly by site-stats/scripts/publish-pages.ps1
+public/site-stats.html
