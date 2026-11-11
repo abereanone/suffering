@@ -9,7 +9,9 @@ import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeStringify from "rehype-stringify";
 
-import { questionFrontmatterSchema } from "../../src/lib/question-schema.js";
+import { QUESTION_LONG_ANSWER_MARKER, questionFrontmatterSchema } from "../../src/lib/question-schema.js";
+// The one place a site may differ from the others; see scripts/shared-tooling.mjs.
+import siteConfig from "../site.config.mjs";
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT_DIR = path.resolve(currentDir, "..", "..");
@@ -34,6 +36,43 @@ export function slugify(value = "") {
     .replace(/^-+|-+$/g, "");
 }
 
+export function splitQuestionBody(body = "", sourceLabel = "question") {
+  const normalized = normalizeNewlines(body).trim();
+  const firstMarkerIndex = normalized.indexOf(QUESTION_LONG_ANSWER_MARKER);
+
+  if (firstMarkerIndex === -1) {
+    return {
+      answerMarkdown: normalized,
+      longMarkdown: "",
+    };
+  }
+
+  // A site whose pages have no place for a long answer must not quietly drop one.
+  if (siteConfig.longAnswers === false) {
+    throw new Error(
+      `${sourceLabel} has a ${QUESTION_LONG_ANSWER_MARKER} section, but this site does not show long answers ` +
+        `(longAnswers is false in scripts/site.config.mjs).`
+    );
+  }
+
+  const secondMarkerIndex = normalized.indexOf(
+    QUESTION_LONG_ANSWER_MARKER,
+    firstMarkerIndex + QUESTION_LONG_ANSWER_MARKER.length
+  );
+
+  if (secondMarkerIndex !== -1) {
+    throw new Error(`${sourceLabel} contains multiple ${QUESTION_LONG_ANSWER_MARKER} markers.`);
+  }
+
+  const answerMarkdown = normalized.slice(0, firstMarkerIndex).trim();
+  const longMarkdown = normalized.slice(firstMarkerIndex + QUESTION_LONG_ANSWER_MARKER.length).trim();
+
+  return {
+    answerMarkdown,
+    longMarkdown,
+  };
+}
+
 export function serializeQuestionFrontmatter(frontmatter) {
   const data = {};
 
@@ -55,6 +94,10 @@ export function serializeQuestionFrontmatter(frontmatter) {
 
   if (frontmatter.published === false) {
     data.published = false;
+  }
+
+  if (frontmatter.longAuthorId) {
+    data.longAuthorId = String(frontmatter.longAuthorId);
   }
 
   if (frontmatter.suppressAuthor === true) {
@@ -87,11 +130,12 @@ export async function loadQuestionDocuments() {
     const raw = await fs.readFile(sourcePath, "utf-8");
     const { frontmatter, body } = parseQuestionMarkdown(raw, fileName);
     const parsedFrontmatter = questionFrontmatterSchema.parse(frontmatter);
-    const answerMarkdown = normalizeNewlines(body).trim();
+    const { answerMarkdown, longMarkdown } = splitQuestionBody(body, fileName);
     const slug = parsedFrontmatter.slug || slugify(path.basename(fileName, ".md"));
     const groupCodes = deriveGroupCodes(parsedFrontmatter.categories, categories);
+    const combinedMarkdown = [answerMarkdown, longMarkdown].filter(Boolean).join("\n\n");
     const cleanedAnswer = cleanMarkdown(answerMarkdown);
-    const cleanedCombined = cleanedAnswer;
+    const cleanedCombined = cleanMarkdown(combinedMarkdown);
 
     documents.push({
       sourcePath,
@@ -99,6 +143,7 @@ export async function loadQuestionDocuments() {
       slug,
       frontmatter: parsedFrontmatter,
       answerMarkdown,
+      longMarkdown,
       cleanedAnswer,
       cleanedCombined,
       excerpt: buildExcerpt(cleanedAnswer),
@@ -142,6 +187,7 @@ export async function buildQuestionArtifacts() {
 
   for (const document of documents) {
     const answerHtml = await renderMarkdown(document.answerMarkdown);
+    const longHtml = await renderMarkdown(document.longMarkdown);
     const question = {
       id: document.frontmatter.id ?? null,
       slug: document.slug,
@@ -149,10 +195,12 @@ export async function buildQuestionArtifacts() {
       categories: [...document.frontmatter.categories],
       authorId: document.frontmatter.authorId ?? null,
       published: document.frontmatter.published !== false,
+      longAuthorId: document.frontmatter.longAuthorId ?? null,
       suppressAuthor: document.frontmatter.suppressAuthor === true,
       relatedAnswers: [...document.frontmatter.relatedAnswers],
       excerpt: document.excerpt,
       answerHtml,
+      longHtml,
       groupCodes: document.groupCodes,
     };
 
@@ -242,6 +290,7 @@ async function renderMarkdown(markdown = "") {
 
 function cleanMarkdown(markdown = "") {
   return normalizeNewlines(markdown)
+    .replace(new RegExp(escapeRegExp(QUESTION_LONG_ANSWER_MARKER), "g"), " ")
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/`[^`]*`/g, " ")
     .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
@@ -286,22 +335,15 @@ function deriveAuthorIds(question) {
   if (question.authorId) {
     ids.add(String(question.authorId));
   }
+  if (question.longAuthorId) {
+    ids.add(String(question.longAuthorId));
+  }
   return [...ids];
 }
 
 function compareQuestionArtifacts(a, b) {
-  const aId =
-    typeof a.id === "number"
-      ? a.id
-      : typeof a.frontmatter?.id === "number"
-        ? a.frontmatter.id
-        : Number.MAX_SAFE_INTEGER;
-  const bId =
-    typeof b.id === "number"
-      ? b.id
-      : typeof b.frontmatter?.id === "number"
-        ? b.frontmatter.id
-        : Number.MAX_SAFE_INTEGER;
+  const aId = typeof a.id === "number" ? a.id : typeof a.frontmatter?.id === "number" ? a.frontmatter.id : Number.MAX_SAFE_INTEGER;
+  const bId = typeof b.id === "number" ? b.id : typeof b.frontmatter?.id === "number" ? b.frontmatter.id : Number.MAX_SAFE_INTEGER;
 
   if (aId !== bId) {
     return aId - bId;
@@ -343,9 +385,7 @@ function validateQuestionDocuments(documents) {
       keys.forEach((key) => {
         const composite = `${id}:${key}`;
         if (seenKeys.has(composite)) {
-          errors.push(
-            `Duplicate numeric ID "${id}" within group "${key}" in ${bucket.map((entry) => entry.fileName).join(", ")}`
-          );
+          errors.push(`Duplicate numeric ID "${id}" within group "${key}" in ${bucket.map((entry) => entry.fileName).join(", ")}`);
         } else {
           seenKeys.add(composite);
         }

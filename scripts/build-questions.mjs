@@ -3,6 +3,5 @@ import { buildQuestionArtifacts, writeQuestionArtifacts } from "./lib/questions-
 const artifacts = await buildQuestionArtifacts();
 await writeQuestionArtifacts(artifacts);
 
-console.log(
-  `Generated ${artifacts.questions.length} questions and ${artifacts.searchDocuments.length} search documents.`
-);
+console.log(`Generated ${artifacts.questions.length} questions and ${artifacts.searchDocuments.length} search documents.`);
+

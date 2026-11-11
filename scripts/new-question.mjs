@@ -1,6 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import siteConfig from "./site.config.mjs";
+
 import {
   QUESTION_CONTENT_DIR,
   detectFirstAvailableQuestionId,
@@ -41,9 +43,22 @@ const frontmatter = serializeQuestionFrontmatter({
   authorId: "chatgpt",
 });
 
-const template = `${frontmatter}
+// Only sites that show long answers get the long section in a new file.
+const template =
+  siteConfig.longAnswers === false
+    ? `${frontmatter}
 
 Write the answer here.
+`
+    : `${frontmatter}
+
+Write the short answer here.
+
+${"<!-- LONG_ANSWER -->"}
+
+## Long Explanation
+
+Expand the answer here if needed.
 `;
 
 await fs.writeFile(targetPath, template);
