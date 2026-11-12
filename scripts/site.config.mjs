@@ -8,4 +8,8 @@ export default {
   // file that has that line fails the check, because its long part would be
   // left off the page without a word.
   longAnswers: false,
+
+  // Author of a file started by `npm run new:question`. Without this setting
+  // the shared script uses "mac"; every answer here is Matthew Statler's.
+  defaultAuthorId: "mstatler",
 };

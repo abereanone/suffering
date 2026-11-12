@@ -18,6 +18,15 @@
     "sortOrder": 20
   },
   {
+    "id": "biblicalcounsel",
+    "logo": "/images/resources/biblicalcounsel.png",
+    "name": "Biblical Counseling",
+    "url": "https://biblicalcounsel.ing",
+    "title": "Site",
+    "bio": "Our sister site: questions and answers on counseling from the sufficient Word of God. Its Suffering and Hope answers draw on Matthew Statler's work.",
+    "sortOrder": 25
+  },
+  {
     "id": "rcs",
     "logo": "/images/resources/rcs.png",
     "name": "Reformed Catechisms",
