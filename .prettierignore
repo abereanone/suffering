@@ -24,3 +24,11 @@ src/components/QuestionAnswer.astro
 
 # Generated monthly by site-stats/scripts/publish-pages.ps1
 public/site-stats.html
+
+# Shared question tooling: the same file in every question site, changed only in catechize.ing (see scripts/shared-tooling.mjs).
+scripts/shared-tooling.mjs
+scripts/lib/questions-core.mjs
+scripts/build-questions.mjs
+scripts/check-questions.mjs
+scripts/new-question.mjs
+src/lib/question-schema.js
