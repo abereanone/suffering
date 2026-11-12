@@ -32,3 +32,4 @@ scripts/build-questions.mjs
 scripts/check-questions.mjs
 scripts/new-question.mjs
 src/lib/question-schema.js
+src/components/QuestionCount.astro
