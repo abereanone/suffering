@@ -214,10 +214,11 @@ export function initBibleReferences() {
       // A tap on the verse box closes it too (on a phone the box covers the text right below the
       // reference, so that is where "tapping off" lands); only a link inside the box is left to work.
       if (shownRef.contains(event.target)) return;
-      if (tip && tip.contains(event.target) && event.target.closest && event.target.closest("a")) return;
+      if (tip && tip.contains(event.target) && event.target.closest && event.target.closest("a"))
+        return;
       hideRef(shownRef);
     },
-    true,
+    true
   );
   document.addEventListener("astro:before-swap", () => {
     if (shownRef) hideRef(shownRef);
