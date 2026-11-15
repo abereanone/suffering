@@ -197,9 +197,10 @@ export function initBibleReferences() {
     (event) => {
       if (!pinnedRef) return;
       const tip = pinnedRef.__tooltipElement;
-      if (!pinnedRef.contains(event.target) && !(tip && tip.contains(event.target))) hideRef(pinnedRef);
+      if (!pinnedRef.contains(event.target) && !(tip && tip.contains(event.target)))
+        hideRef(pinnedRef);
     },
-    true,
+    true
   );
   document.addEventListener("astro:before-swap", () => {
     if (pinnedRef) hideRef(pinnedRef);
