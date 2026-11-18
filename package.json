@@ -19,7 +19,7 @@
     "predev": "npm run build:questions && npm run build:bible",
     "dev": "astro dev",
     "prebuild": "npm run build:questions && npm run build:bible",
-    "build": "astro build",
+    "build": "astro build && node scripts/go-links.mjs dist --base /go/ --own suffering.catechize.ing",
     "preview": "astro preview",
     "astro": "astro"
   },
