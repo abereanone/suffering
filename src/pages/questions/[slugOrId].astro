@@ -13,6 +13,7 @@ import {
   findAuthor,
 } from "@/lib/questions";
 import InlineSearchBox from "@/components/InlineSearchBox.astro";
+import QuestionSwipe from "@/components/QuestionSwipe.astro";
 import QuestionAnswer from "@/components/QuestionAnswer.astro";
 import QuestionNav from "@/components/QuestionNav.astro";
 import QuestionShare from "@/components/QuestionShare.astro";
@@ -293,6 +294,11 @@ function buildStructuredData(entry: Question): string | null {
       {structuredDataJson ? (
         <script type="application/ld+json" is:inline set:html={structuredDataJson} />
       ) : null}
+
+      <QuestionSwipe
+        prevHref={previousQuestion ? buildQuestionHref(previousQuestion) : null}
+        nextHref={nextQuestion ? buildQuestionHref(nextQuestion) : null}
+      />
 
       {previousQuestion || nextQuestion ? (
         <QuestionNav
