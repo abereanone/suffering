@@ -6,9 +6,17 @@ interface Props {
   prevHref?: string | null;
   nextHref?: string | null;
   searchId?: string;
+  /** Label for the /random link. */
+  randomLabel?: string;
 }
 
-const { variant, prevHref = null, nextHref = null, searchId } = Astro.props;
+const {
+  variant,
+  prevHref = null,
+  nextHref = null,
+  searchId,
+  randomLabel = "God's Choice",
+} = Astro.props;
 
 const isTop = variant === "top";
 const navClass = isTop ? "question-top-nav" : "question-bottom-nav";
@@ -30,7 +38,7 @@ const navLabel = isTop ? "Question navigation" : "Question pagination";
     isTop ? (
       <>
         <a class="question-top-link random-link" href="/random">
-          God's Choice
+          {randomLabel}
         </a>
         <div class="question-top-search">
           <InlineSearchBox
