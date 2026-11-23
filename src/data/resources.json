@@ -9,6 +9,15 @@
     "sortOrder": 10
   },
   {
+    "id": "cwp",
+    "logo": "/images/resources/cwp.png",
+    "name": "Common Weal Press",
+    "url": "https://commonwealpress.org/",
+    "title": "Website",
+    "bio": "Classic Christian books, carefully edited for today's readers. Free to read and download!",
+    "sortOrder": 11
+  },
+  {
     "id": "book",
     "logo": "/images/resources/book.jpg",
     "name": "Catechism of Suffering (booklet)",
