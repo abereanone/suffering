@@ -1,7 +1,8 @@
 ---
-// The question's quote card (public/quotes/<slug>.jpg, made by scripts/quote-cards/render.mjs),
-// full size, with Download and Share. Used on the image page, /quotes/<slug>. Share sends the
-// picture itself where the browser can (phones), otherwise it copies or downloads it.
+// The question's share image (public/quotes/<slug>.jpg, made by scripts/quote-cards/render.mjs),
+// full size, with Share and Download. Used on the image page, /quotes/<slug>.
+// Class names start with "share-card": the site already uses "question-card" for its
+// related-question links, with a side-by-side layout.
 interface Props {
   slug: string;
   title: string;
@@ -9,46 +10,67 @@ interface Props {
 }
 const { slug, title, alt } = Astro.props;
 const src = `/quotes/${slug}.jpg`;
+const thumb = `/quotes/${slug}-480.jpg`;
 ---
 
-<figure class="question-card">
-  <img src={src} alt={alt} width="1080" height="1080" />
-  <figcaption class="question-card-actions">
+<figure class="share-card">
+  {
+    /* The small version paints at once as the background; the full one covers it when it arrives. */
+  }
+  <img
+    class="share-card-image"
+    src={src}
+    alt={alt}
+    width="1080"
+    height="1080"
+    fetchpriority="high"
+    decoding="async"
+    style={`background-image:url('${thumb}')`}
+  />
+  <figcaption class="share-card-actions">
     <button
       type="button"
-      class="question-card-button"
+      class="share-card-button"
       data-card-share={src}
       data-card-name={`${slug}.jpg`}
       data-card-text={title}
     >
       Share image
     </button>
-    <a class="question-card-button" href={src} download={`${slug}.jpg`}>Download</a>
-    <p class="question-card-status" role="status" aria-live="polite"></p>
+    <a class="share-card-button" href={src} download={`${slug}.jpg`}>Download</a>
+    <p class="share-card-status" role="status" aria-live="polite"></p>
   </figcaption>
 </figure>
 
 <script>
-  // Same approach as the books.freely.giving quote page. The picture is fetched when the page
-  // loads, because phones only open the share menu straight from a tap: waiting for a download
-  // after the tap loses that permission and the menu never opens.
-  // Phones: share menu with the picture and a link. Computers: copy the picture. Else: save it.
+  // Phones open the share menu only straight from a tap: anything the tap has to wait for
+  // (a download) makes Android refuse, so the first tap did nothing. So the picture is fetched
+  // once the page's image has loaded (from the browser's cache, no second download) and kept
+  // ready; the tap then shares at once. Computers copy the picture; failing that, save it.
   document.querySelectorAll<HTMLButtonElement>("[data-card-share]").forEach((button) => {
-    const status = button.parentElement!.querySelector<HTMLElement>(".question-card-status")!;
+    const figure = button.closest("figure")!;
+    const img = figure.querySelector("img")!;
+    const status = figure.querySelector<HTMLElement>(".share-card-status")!;
     const say = (t: string) => (status.textContent = t);
     const name = button.dataset.cardName!;
-    let blob: Promise<Blob> | null = null;
+    let ready: Blob | null = null;
+    let pending: Promise<Blob> | null = null;
     const getBlob = () =>
-      (blob ||= fetch(button.dataset.cardShare!)
-        .then((r) => {
-          if (!r.ok) throw new Error(String(r.status));
-          return r.blob();
-        })
-        .catch((e) => {
-          blob = null;
-          throw e;
-        }));
-    getBlob().catch(() => {});
+      ready
+        ? Promise.resolve(ready)
+        : (pending ||= fetch(button.dataset.cardShare!)
+            .then((r) => {
+              if (!r.ok) throw new Error(String(r.status));
+              return r.blob();
+            })
+            .then((b) => (ready = b))
+            .catch((e) => {
+              pending = null;
+              throw e;
+            }));
+    if (img.complete) getBlob().catch(() => {});
+    else img.addEventListener("load", () => getBlob().catch(() => {}), { once: true });
+
     const save = (b: Blob) => {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(b);
@@ -59,11 +81,18 @@ const src = `/quotes/${slug}.jpg`;
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
     };
     const isPhone = matchMedia("(pointer: coarse)").matches;
+
     button.addEventListener("click", async () => {
       say("");
       try {
         if (isPhone && navigator.canShare) {
-          const file = new File([await getBlob()], name, { type: "image/jpeg" });
+          if (!ready) {
+            // Still downloading: wait for it, then ask for one more tap (the wait used up this one).
+            say("Getting the picture…");
+            await getBlob();
+            return say("Ready. Tap Share image again.");
+          }
+          const file = new File([ready], name, { type: "image/jpeg" });
           const withLink = { files: [file], text: `${button.dataset.cardText} ${location.href}` };
           if (navigator.canShare(withLink)) return await navigator.share(withLink);
           if (navigator.canShare({ files: [file] }))
@@ -100,18 +129,20 @@ const src = `/quotes/${slug}.jpg`;
 </script>
 
 <style>
-  .question-card {
+  .share-card {
     margin: 0 auto;
     max-width: 540px;
   }
-  .question-card img {
+  .share-card-image {
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 1;
     border-radius: 6px;
     border: 1px solid var(--surface-border);
+    background-size: cover;
   }
-  .question-card-actions {
+  .share-card-actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -119,11 +150,7 @@ const src = `/quotes/${slug}.jpg`;
     gap: 0.6rem;
     margin-top: 1rem;
   }
-  .question-card-status {
-    flex-basis: 100%;
-    text-align: center;
-  }
-  .question-card-button {
+  .share-card-button {
     font: inherit;
     font-size: 0.95rem;
     padding: 0.45rem 0.9rem;
@@ -134,16 +161,18 @@ const src = `/quotes/${slug}.jpg`;
     text-decoration: none;
     cursor: pointer;
   }
-  .question-card-button:hover {
+  .share-card-button:hover {
     background: var(--surface-bg-hover);
     color: var(--color-link-hover);
   }
-  .question-card-status {
+  .share-card-status {
+    flex-basis: 100%;
     margin: 0;
+    text-align: center;
     font-size: 0.85rem;
     color: var(--color-muted);
   }
-  .question-card-status:empty {
+  .share-card-status:empty {
     display: none;
   }
 </style>

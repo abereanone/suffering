@@ -3,14 +3,24 @@
 // Share row and from the Images page.
 import Main from "@/layouts/Main.astro";
 import QuestionCard from "@/components/QuestionCard.astro";
+import QuestionSwipe from "@/components/QuestionSwipe.astro";
 import { siteSettings } from "@/config/siteSettings";
 import cards from "@/data/quote-cards.json";
 
+// Cards in question order; previous/next follow it (wrapping at the ends).
 export function getStaticPaths() {
-  return cards.map((card) => ({ params: { slug: card.slug }, props: { card } }));
+  const ordered = [...cards].sort((a, b) => a.id - b.id);
+  return ordered.map((card, i) => ({
+    params: { slug: card.slug },
+    props: {
+      card,
+      prev: ordered[(i - 1 + ordered.length) % ordered.length].slug,
+      next: ordered[(i + 1) % ordered.length].slug,
+    },
+  }));
 }
 
-const { card } = Astro.props;
+const { card, prev, next } = Astro.props;
 const siteName = siteSettings.branding.siteName;
 ---
 
@@ -25,19 +35,31 @@ const siteName = siteSettings.branding.siteName;
     imageAlt: `${card.question} ${card.answer}`,
   }}
 >
+  <QuestionSwipe prevHref={`/quotes/${prev}`} nextHref={`/quotes/${next}`} />
   <QuestionCard slug={card.slug} title={card.question} alt={`${card.question} ${card.answer}`} />
-  <p class="quote-links">
+  <nav class="quote-links" aria-label="Images">
+    <a class="step" href={`/quotes/${prev}`} rel="prev">← Previous</a>
     <a href={`/questions/${card.slug}`}>Question {card.id}</a>
     <a href="/quotes">All images</a>
-  </p>
+    <a class="step" href={`/quotes/${next}`} rel="next">Next →</a>
+  </nav>
+  <link rel="prefetch" href={`/quotes/${next}-480.jpg`} />
+  <link rel="prefetch" href={`/quotes/${next}`} />
 </Main>
 
 <style>
   .quote-links {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 0.5rem 1.5rem;
     margin-top: 1.25rem;
     font-size: 0.95rem;
+  }
+  /* Phones use the swipe arrows instead (QuestionSwipe, same breakpoint). */
+  @media (max-width: 640px) {
+    .quote-links .step {
+      display: none;
+    }
   }
 </style>
