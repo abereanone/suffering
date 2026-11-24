@@ -1,0 +1,75 @@
+---
+// Every question as a shareable image (public/quotes/, made by scripts/quote-cards/render.mjs).
+import Main from "@/layouts/Main.astro";
+import { siteSettings } from "@/config/siteSettings";
+import cards from "@/data/quote-cards.json";
+import credits from "@/data/quote-credits.json";
+
+const siteName = siteSettings.branding.siteName;
+---
+
+<Main
+  title={`Images | ${siteName}`}
+  description="Every question and answer of the Catechism of Suffering as an image to download and share."
+  openGraph={{ image: `/quotes/${cards[0].slug}.jpg`, imageAlt: cards[0].question }}
+>
+  <h1>Images</h1>
+  <p>
+    Every question and answer as an image to share. Tap one to open its question, where you can
+    download or share it.
+  </p>
+  <ul class="quote-grid">
+    {
+      cards.map((c) => (
+        <li>
+          <a href={`/questions/${c.slug}`}>
+            <img
+              src={`/quotes/${c.slug}-480.jpg`}
+              alt={`${c.question} ${c.answer}`}
+              width="480"
+              height="480"
+              loading="lazy"
+            />
+          </a>
+          <a class="quote-download" href={`/quotes/${c.slug}.jpg`} download={`${c.slug}.jpg`}>
+            Download Q. {c.id}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="quote-credits">
+    Backgrounds, all public domain: <Fragment
+      set:html={credits
+        .map((c) => `<a href="${c.url}">${c.title}</a>, ${c.artist.replace(/\s*\(.*\)$/, "")}`)
+        .join("; ")}
+    />.
+  </p>
+</Main>
+
+<style>
+  .quote-grid {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 1.25rem;
+  }
+  .quote-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+  }
+  .quote-download {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+  }
+  .quote-credits {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+</style>

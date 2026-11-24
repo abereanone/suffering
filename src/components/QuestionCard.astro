@@ -1,0 +1,89 @@
+---
+// The question's quote card (public/quotes/<slug>.jpg, made by scripts/quote-cards/render.mjs),
+// with Download and Share. Share sends the picture itself where the browser can (phones),
+// otherwise it downloads it.
+interface Props {
+  slug: string;
+  title: string;
+}
+const { slug, title } = Astro.props;
+const src = `/quotes/${slug}.jpg`;
+---
+
+<figure class="question-card">
+  <a href={src} class="question-card-image">
+    <img src={`/quotes/${slug}-480.jpg`} alt={title} width="480" height="480" loading="lazy" />
+  </a>
+  <figcaption class="question-card-actions">
+    <a class="question-card-button" href={src} download={`${slug}.jpg`}>Download image</a>
+    <button
+      type="button"
+      class="question-card-button"
+      data-card-share={src}
+      data-card-name={`${slug}.jpg`}
+      hidden
+    >
+      Share image
+    </button>
+    <a class="question-card-more" href="/quotes">All images</a>
+  </figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-card-share]").forEach((button) => {
+    if (!navigator.canShare) return;
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      try {
+        const blob = await (await fetch(button.dataset.cardShare!)).blob();
+        const file = new File([blob], button.dataset.cardName!, { type: "image/jpeg" });
+        if (navigator.canShare({ files: [file] }))
+          await navigator.share({ files: [file], url: location.href });
+        else await navigator.share({ url: location.href });
+      } catch {
+        /* cancelled */
+      }
+    });
+  });
+</script>
+
+<style>
+  .question-card {
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    align-items: center;
+  }
+  .question-card-image img {
+    display: block;
+    width: 240px;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+  }
+  .question-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .question-card-button {
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--surface-border-strong);
+    background: var(--surface-bg-muted);
+    color: var(--color-link);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .question-card-button:hover {
+    background: var(--surface-bg-hover);
+    color: var(--color-link-hover);
+  }
+  .question-card-more {
+    font-size: 0.9rem;
+  }
+</style>

@@ -17,6 +17,7 @@ import QuestionSwipe from "@/components/QuestionSwipe.astro";
 import QuestionAnswer from "@/components/QuestionAnswer.astro";
 import QuestionNav from "@/components/QuestionNav.astro";
 import QuestionShare from "@/components/QuestionShare.astro";
+import QuestionCard from "@/components/QuestionCard.astro";
 import BibleReferencesScript from "@/components/BibleReferencesScript.astro";
 import QuestionReferenceHighlightScript from "@/components/QuestionReferenceHighlightScript.astro";
 import { siteSettings } from "@/config/siteSettings";
@@ -289,6 +290,8 @@ function buildStructuredData(entry: Question): string | null {
         title: question.title,
         description: questionOgDescription,
         url: canonicalQuestionPath,
+        image: `/quotes/${question.slug}.jpg`,
+        imageAlt: question.title,
       }}
     >
       {structuredDataJson ? (
@@ -340,6 +343,8 @@ function buildStructuredData(entry: Question): string | null {
         <div class="question-share-row">
           <QuestionShare shareUrl={shareUrl} shareText={shareText} />
         </div>
+
+        <QuestionCard slug={question.slug} title={question.title} />
 
         {previousQuestion || nextQuestion ? (
           <QuestionNav
