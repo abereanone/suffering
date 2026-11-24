@@ -258,6 +258,12 @@ const first = cards[0];
     color: var(--color-text);
     max-width: 100%;
   }
+  /* The list itself needs a solid colour: with the see-through one above, the browser draws
+     the open list on white while the text stays the theme's (light text on white in dark mode). */
+  .qf-book select option {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
   .quote-grid {
     list-style: none;
     margin: 0 0 1.5rem;
