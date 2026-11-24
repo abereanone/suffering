@@ -14,10 +14,6 @@ const siteName = siteSettings.branding.siteName;
   openGraph={{ image: `/quotes/${cards[0].slug}.jpg`, imageAlt: cards[0].question }}
 >
   <h1>Images</h1>
-  <p>
-    Every question and answer as an image to share. Tap one to open its question, where you can
-    download or share it.
-  </p>
   <ul class="quote-grid">
     {
       cards.map((c) => (
