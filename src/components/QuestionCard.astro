@@ -38,6 +38,7 @@ const urls = Object.fromEntries(
     height="1080"
     fetchpriority="high"
     decoding="async"
+    crossorigin="anonymous"
     style={`background-image:url('${quoteImage(slug, tone, true)}')`}
   />
   <div class="share-card-tones" role="group" aria-label="Look">
@@ -73,7 +74,8 @@ const urls = Object.fromEntries(
 <script>
   // Phones open the share menu only straight from a tap: anything the tap has to wait for
   // (a download) makes Android refuse, so the first tap did nothing. So each look's picture is
-  // fetched once it is shown (from the browser's cache, no second download) and kept ready;
+  // fetched once it is shown (from the browser's cache, no second download: the picture is loaded
+  // with crossorigin so its cached copy also serves this CORS fetch) and kept ready;
   // the tap then shares at once. Computers copy the picture; failing that, save it.
   document.querySelectorAll<HTMLElement>("figure.share-card").forEach((figure) => {
     const d = figure.dataset;

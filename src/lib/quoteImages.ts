@@ -1,9 +1,11 @@
 // Where the share images live, and their names. Made by C:/code/quote-cards (render.mjs); each
 // card comes in three looks: <slug>-dark.jpg, <slug>-light.jpg, <slug>-solid.jpg, plus a
 // 480px <name>-480.jpg thumbnail of each.
-// Until they are on R2 the dev server serves a local copy from public/quotes/ (gitignored);
-// set PUBLIC_QUOTE_IMAGE_BASE to the R2 address (e.g. https://images.catechize.ing/suffering).
-export const QUOTE_IMAGE_BASE: string = import.meta.env.PUBLIC_QUOTE_IMAGE_BASE || "/quotes";
+// They live in R2 bucket quote-cards (uploaded by C:/code/quote-cards/upload.mjs), each site under
+// its own folder and address. PUBLIC_QUOTE_IMAGE_BASE=/quotes points at a local copy instead
+// (public/quotes/, gitignored), for trying new cards before they are uploaded.
+export const QUOTE_IMAGE_BASE: string =
+  import.meta.env.PUBLIC_QUOTE_IMAGE_BASE || "https://images.catechize.ing/suffering";
 
 export const TONES = ["dark", "light", "solid"] as const;
 export type Tone = (typeof TONES)[number];
