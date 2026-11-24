@@ -21,27 +21,81 @@ const src = `/quotes/${slug}.jpg`;
       class="question-card-button"
       data-card-share={src}
       data-card-name={`${slug}.jpg`}
-      hidden
+      data-card-text={title}
     >
       Share image
     </button>
     <a class="question-card-more" href="/quotes">All images</a>
+    <p class="question-card-status" role="status" aria-live="polite"></p>
   </figcaption>
 </figure>
 
 <script>
+  // Same approach as the books.freely.giving quote page. The picture is fetched when the page
+  // loads, because phones only open the share menu straight from a tap: waiting for a download
+  // after the tap loses that permission and the menu never opens.
+  // Phones: share menu with the picture and a link. Computers: copy the picture. Else: save it.
   document.querySelectorAll<HTMLButtonElement>("[data-card-share]").forEach((button) => {
-    if (!navigator.canShare) return;
-    button.hidden = false;
+    const status = button.parentElement!.querySelector<HTMLElement>(".question-card-status")!;
+    const say = (t: string) => (status.textContent = t);
+    const name = button.dataset.cardName!;
+    let blob: Promise<Blob> | null = null;
+    const getBlob = () =>
+      (blob ||= fetch(button.dataset.cardShare!)
+        .then((r) => {
+          if (!r.ok) throw new Error(String(r.status));
+          return r.blob();
+        })
+        .catch((e) => {
+          blob = null;
+          throw e;
+        }));
+    getBlob().catch(() => {});
+    const save = (b: Blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(b);
+      a.download = name;
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    };
+    const isPhone = matchMedia("(pointer: coarse)").matches;
     button.addEventListener("click", async () => {
+      say("");
       try {
-        const blob = await (await fetch(button.dataset.cardShare!)).blob();
-        const file = new File([blob], button.dataset.cardName!, { type: "image/jpeg" });
-        if (navigator.canShare({ files: [file] }))
-          await navigator.share({ files: [file], url: location.href });
-        else await navigator.share({ url: location.href });
-      } catch {
-        /* cancelled */
+        if (isPhone && navigator.canShare) {
+          const file = new File([await getBlob()], name, { type: "image/jpeg" });
+          const withLink = { files: [file], text: `${button.dataset.cardText} ${location.href}` };
+          if (navigator.canShare(withLink)) return await navigator.share(withLink);
+          if (navigator.canShare({ files: [file] }))
+            return await navigator.share({ files: [file] });
+        }
+        if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
+          // Clipboards take PNG, not JPEG; the promise keeps the copy tied to this tap.
+          const png = getBlob().then(async (b) => {
+            const bmp = await createImageBitmap(b);
+            const c = document.createElement("canvas");
+            c.width = bmp.width;
+            c.height = bmp.height;
+            c.getContext("2d")!.drawImage(bmp, 0, 0);
+            return new Promise<Blob>((res, rej) =>
+              c.toBlob((x) => (x ? res(x) : rej(new Error("png"))), "image/png")
+            );
+          });
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": png })]);
+          return say("Picture copied. Paste it into your post or chat.");
+        }
+        save(await getBlob());
+        say("Picture saved to your downloads.");
+      } catch (e) {
+        if ((e as DOMException).name === "AbortError") return;
+        try {
+          save(await getBlob());
+          say("Picture saved to your downloads.");
+        } catch {
+          say("Couldn’t get the picture. Press and hold it to save it.");
+        }
       }
     });
   });
@@ -85,5 +139,13 @@ const src = `/quotes/${slug}.jpg`;
   }
   .question-card-more {
     font-size: 0.9rem;
+  }
+  .question-card-status {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+  .question-card-status:empty {
+    display: none;
   }
 </style>
