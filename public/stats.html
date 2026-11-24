@@ -103,6 +103,7 @@
   .bars { display: flex; flex-direction: column; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
   .bars li { display: grid; grid-template-columns: minmax(0, 21rem) minmax(0, 1fr) 3.6rem; gap: 0.75rem; align-items: center; font-size: 0.95rem; }
   .bars .name { min-width: 0; overflow-wrap: anywhere; }
+  .bars .name a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
   .bars .track { background: var(--bg-soft); border-radius: 4px; height: 14px; }
   /* Bars are drawn with borders, not fills, so they still print when the browser's "Background graphics" option is off. */
   .bars .fill { display: block; box-sizing: border-box; height: 14px; border: 7px solid var(--bar-main); border-radius: 4px; }
@@ -144,9 +145,9 @@
     <div class="eyebrow">Catechism of Suffering · suffering.catechize.ing</div>
     <h1>How people are using Catechism of Suffering</h1>
     <dl class="period">
-      <dt>Period covered</dt><dd>October 24, 2026 – November 22, 2026 (the last 30 days)</dd>
-      <dt>Compared with</dt><dd>September 24, 2026 – October 23, 2026</dd>
-      <dt>Numbers pulled</dt><dd>November 23, 2026</dd>
+      <dt>Period covered</dt><dd>October 25, 2026 – November 23, 2026 (the last 30 days)</dd>
+      <dt>Compared with</dt><dd>September 25, 2026 – October 24, 2026</dd>
+      <dt>Numbers pulled</dt><dd>November 24, 2026</dd>
     </dl>
   </header>
 
@@ -189,12 +190,12 @@
   <section>
     <h2>What people look at</h2>
     <ul class="bars" aria-label="Most viewed pages">
-      <li><span class="name">Home page</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">31</span></li>
-      <li><span class="name">Question and answer pages</span><span class="track"><span class="fill" style="width:77%"></span></span><span class="val">24</span></li>
-      <li><span class="name">Categories – Reality</span><span class="track"><span class="fill" style="width:19%"></span></span><span class="val">6</span></li>
-      <li><span class="name">Search</span><span class="track"><span class="fill" style="width:19%"></span></span><span class="val">6</span></li>
-      <li><span class="name">Scriptures</span><span class="track"><span class="fill" style="width:10%"></span></span><span class="val">3</span></li>
-      <li><span class="name">Categories – Reigns</span><span class="track"><span class="fill" style="width:6%"></span></span><span class="val">2</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/" data-no-go>Home page</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">31</span></li>
+      <li><span class="name">Question and answer pages</span><span class="track"><span class="fill" style="width:74%"></span></span><span class="val">23</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/categories/reality" data-no-go>Categories – Reality</a></span><span class="track"><span class="fill" style="width:19%"></span></span><span class="val">6</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/search" data-no-go>Search</a></span><span class="track"><span class="fill" style="width:19%"></span></span><span class="val">6</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/scriptures" data-no-go>Scriptures</a></span><span class="track"><span class="fill" style="width:10%"></span></span><span class="val">3</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/categories/reigns" data-no-go>Categories – Reigns</a></span><span class="track"><span class="fill" style="width:6%"></span></span><span class="val">2</span></li>
     </ul>
 
   </section>
@@ -224,18 +225,18 @@
       <div class="stat"><div class="num">6</div><div class="label">different links followed</div></div>
     </div>
     <ul class="bars" aria-label="Links followed">
-      <li><span class="name">freely-tbb8qk</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
-      <li><span class="name">github-18s40d</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
-      <li><span class="name">twitter-1qujdi</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
-      <li><span class="name">facebook-2javt3</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
-      <li><span class="name">freely-1i227h</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
-      <li><span class="name">facebook-27nzm3</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/about" data-no-go>books.freely.giving (About)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://github.com/abereanone/suffering/issues/new" data-no-go>Report an Issue (github.com, every page)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/questions/cos-5" data-no-go>twitter.com (Has anyone ever suffered apart from sin?)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/questions/cos-22" data-no-go>facebook.com (Did Jesus experience suffering?)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://books.freely.giving/people/matthew-statler/" data-no-go>Matthew Statler (books.freely.giving, every page)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
+      <li><span class="name"><a href="https://suffering.catechize.ing/questions/cos-12" data-no-go>facebook.com (Is God good even when we suffer?)</a></span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1</span></li>
     </ul>
     <p class="sowhat">Each click on a link that leaves this site is counted on the way out. Named search engines and scripts are left out. Clicks have been counted for 15 of the 30 days.</p>
   </section>
 
   <div class="foot">
-    <p>Updated November 23, 2026. Numbers come from Cloudflare, covering October 24, 2026 – November 22, 2026. All figures are rounded estimates. The tool does not use cookies or track individuals.</p>
+    <p>Updated November 23, 2026. Numbers come from Cloudflare, covering October 25, 2026 – November 23, 2026. All figures are rounded estimates. The tool does not use cookies or track individuals.</p>
   </div>
 </div>
 </body>

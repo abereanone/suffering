@@ -26,7 +26,7 @@ src/components/QuestionAnswer.astro
 scripts/go-links.mjs
 
 # Generated monthly by site-stats/scripts/publish-pages.ps1
-public/site-stats.html
+public/stats.html
 
 # Shared question tooling: the same file in every question site, changed only in catechize.ing (see scripts/shared-tooling.mjs).
 scripts/shared-tooling.mjs
