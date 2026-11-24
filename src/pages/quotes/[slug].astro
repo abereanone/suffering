@@ -12,7 +12,7 @@ const cards = data.cards;
 
 // Cards in question order; previous/next follow it (wrapping at the ends).
 export function getStaticPaths() {
-  const ordered = [...data.cards].sort((a, b) => a.id - b.id);
+  const ordered = data.cards; // by topic, then question (export.mjs)
   return ordered.map((card, i) => ({
     params: { slug: card.slug },
     props: {

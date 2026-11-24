@@ -271,899 +271,6 @@
  ],
  "cards": [
   {
-   "id": 41,
-   "slug": "cos-41",
-   "question": "What comfort does God give to His suffering people?",
-   "answer": "God comforts us by His presence, His promises, and His people, assuring us that He is with us in every trial.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "2 Corinthians 1:3-4",
-    "Isaiah 43:1-2"
-   ],
-   "words": [
-    "comfort",
-    "trial",
-    "promise"
-   ],
-   "books": [
-    "2 Corinthians",
-    "Isaiah"
-   ]
-  },
-  {
-   "id": 42,
-   "slug": "cos-42",
-   "question": "What role does Scripture play in our suffering?",
-   "answer": "The Word of God revives the weary soul, teaches us in our affliction, interprets our pain rightly, and anchors our hope in His truth.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Psalm 119:50, 71",
-    "Romans 15:4"
-   ],
-   "words": [
-    "hope",
-    "pain",
-    "affliction",
-    "soul"
-   ],
-   "books": [
-    "Psalm",
-    "Romans"
-   ]
-  },
-  {
-   "id": 43,
-   "slug": "cos-43",
-   "question": "How does prayer sustain us in affliction?",
-   "answer": "Prayer draws our hearts to God, turns despair into dependence, and teaches us to rest in His will.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Philippians 4:6-7",
-    "Psalm 62:8"
-   ],
-   "words": [
-    "affliction",
-    "heart",
-    "rest"
-   ],
-   "books": [
-    "Philippians",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 44,
-   "slug": "cos-44",
-   "question": "What if we cannot find words to pray?",
-   "answer": "The Spirit Himself intercedes for us with groanings too deep for words.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Romans 8:26-27"
-   ],
-   "words": [
-    "spirit"
-   ],
-   "books": [
-    "Romans"
-   ]
-  },
-  {
-   "id": 45,
-   "slug": "cos-45",
-   "question": "How does the church comfort the suffering?",
-   "answer": "The church bears one another’s burdens, weeps with those who weep, and reminds the hurting of God’s steadfast love.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Galatians 6:2",
-    "Romans 12:15"
-   ],
-   "words": [
-    "comfort",
-    "love"
-   ],
-   "books": [
-    "Galatians",
-    "Romans"
-   ]
-  },
-  {
-   "id": 46,
-   "slug": "cos-46",
-   "question": "Why must suffering not be faced alone?",
-   "answer": "Because Christ designed His people for fellowship, where comfort multiplies and faith is strengthened together.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "1 Thessalonians 5:11",
-    "Ecclesiastes 4:9-10"
-   ],
-   "words": [
-    "christ",
-    "comfort",
-    "faith"
-   ],
-   "books": [
-    "1 Thessalonians",
-    "Ecclesiastes"
-   ]
-  },
-  {
-   "id": 47,
-   "slug": "cos-47",
-   "question": "What part does worship play in enduring suffering?",
-   "answer": "Worship lifts our eyes from pain to the beauty of God, teaching us to rejoice even in the midst of sorrow.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Habakkuk 3:17-18",
-    "Psalm 42:11"
-   ],
-   "words": [
-    "pain",
-    "sorrow"
-   ],
-   "books": [
-    "Habakkuk",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 48,
-   "slug": "cos-48",
-   "question": "How does remembering God’s faithfulness bring comfort?",
-   "answer": "Remembering His past mercies strengthens present trust, fuels future hope, and, in the testimony of the saints, displays His glory to help others endure.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Lamentations 3:21-23",
-    "Psalm 77:11-12",
-    "Revelation 12:11"
-   ],
-   "words": [
-    "comfort",
-    "glory",
-    "hope",
-    "trust",
-    "others"
-   ],
-   "books": [
-    "Lamentations",
-    "Psalm",
-    "Revelation"
-   ]
-  },
-  {
-   "id": 49,
-   "slug": "cos-49",
-   "question": "How should we speak to one another in times of suffering?",
-   "answer": "With gentleness and grace-filled truth, speaking words seasoned with wisdom that offer the same comfort we have received from God.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "2 Corinthians 1:3-4",
-    "Isaiah 50:4",
-    "Colossians 4:6"
-   ],
-   "words": [
-    "comfort",
-    "grace"
-   ],
-   "books": [
-    "2 Corinthians",
-    "Isaiah",
-    "Colossians"
-   ]
-  },
-  {
-   "id": 50,
-   "slug": "cos-50",
-   "question": "What promise enables believers to persevere through suffering?",
-   "answer": "That the God who began a good work in us will carry it on to completion in Christ Jesus.",
-   "topics": [
-    "comfort"
-   ],
-   "scripture": [
-    "Philippians 1:6",
-    "Jude 24-25"
-   ],
-   "words": [
-    "christ",
-    "believer",
-    "jesus",
-    "promise"
-   ],
-   "books": [
-    "Philippians",
-    "Jude"
-   ]
-  },
-  {
-   "id": 51,
-   "slug": "cos-51",
-   "question": "Will suffering last forever?",
-   "answer": "No. For those in Christ, every sorrow will end when death is destroyed and all things are made new.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Revelation 21:4",
-    "1 Corinthians 15:26"
-   ],
-   "words": [
-    "christ",
-    "sorrow",
-    "death"
-   ],
-   "books": [
-    "Revelation",
-    "1 Corinthians"
-   ]
-  },
-  {
-   "id": 52,
-   "slug": "cos-52",
-   "question": "What happens to the believer after death?",
-   "answer": "The believer’s soul departs to be with Christ, which is far better, while the body rests until the resurrection.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Philippians 1:23",
-    "1 Thessalonians 4:14"
-   ],
-   "words": [
-    "christ",
-    "believer",
-    "death",
-    "rest",
-    "soul"
-   ],
-   "books": [
-    "Philippians",
-    "1 Thessalonians"
-   ]
-  },
-  {
-   "id": 53,
-   "slug": "cos-53",
-   "question": "What hope awaits the church at Christ’s return?",
-   "answer": "The resurrection of the body, the renewal of creation, and the everlasting joy of dwelling with God.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Romans 8:21-23",
-    "Revelation 21:1-3"
-   ],
-   "words": [
-    "christ",
-    "hope",
-    "creation"
-   ],
-   "books": [
-    "Romans",
-    "Revelation"
-   ]
-  },
-  {
-   "id": 54,
-   "slug": "cos-54",
-   "question": "How does this future hope shape our present suffering?",
-   "answer": "It teaches us that present afflictions are light and momentary, preparing us for an eternal weight of glory.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "2 Corinthians 4:17-18",
-    "Romans 8:18"
-   ],
-   "words": [
-    "glory",
-    "hope",
-    "affliction"
-   ],
-   "books": [
-    "2 Corinthians",
-    "Romans"
-   ]
-  },
-  {
-   "id": 55,
-   "slug": "cos-55",
-   "question": "What will happen to pain and tears in the new creation?",
-   "answer": "God Himself will wipe away every tear, and pain, sorrow, and death shall be no more.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Revelation 21:4-5",
-    "Isaiah 25:8"
-   ],
-   "words": [
-    "pain",
-    "sorrow",
-    "death",
-    "creation"
-   ],
-   "books": [
-    "Revelation",
-    "Isaiah"
-   ]
-  },
-  {
-   "id": 56,
-   "slug": "cos-56",
-   "question": "What will we see in the age to come?",
-   "answer": "We will see the face of Christ, our Redeemer, and be perfectly satisfied in His glory forever.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Revelation 22:4",
-    "Psalm 17:15"
-   ],
-   "words": [
-    "christ",
-    "glory"
-   ],
-   "books": [
-    "Revelation",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 57,
-   "slug": "cos-57",
-   "question": "How does the hope of glory purify us now?",
-   "answer": "Those who hope in Christ’s appearing purify themselves, living in holiness as He is holy.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "1 John 3:2-3",
-    "Titus 2:11-13"
-   ],
-   "words": [
-    "christ",
-    "glory",
-    "hope",
-    "holy"
-   ],
-   "books": [
-    "1 John",
-    "Titus"
-   ]
-  },
-  {
-   "id": 58,
-   "slug": "cos-58",
-   "question": "What song will the redeemed sing in eternity?",
-   "answer": "\"Worthy is the Lamb who was slain, for He has redeemed us by His blood and made us a kingdom of priests to our God.\"",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Revelation 5:9-10"
-   ],
-   "words": [],
-   "books": [
-    "Revelation"
-   ]
-  },
-  {
-   "id": 59,
-   "slug": "cos-59",
-   "question": "What will the end of all suffering reveal?",
-   "answer": "The perfect wisdom, goodness, and faithfulness of God, who works all things for His glory and our joy in Him.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Romans 11:36",
-    "Psalm 16:11"
-   ],
-   "words": [
-    "glory"
-   ],
-   "books": [
-    "Romans",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 60,
-   "slug": "cos-60",
-   "question": "How should believers live while they wait for glory?",
-   "answer": "With endurance, joy, and steadfast faith, fixing their eyes on Jesus, the founder and perfecter of their faith.",
-   "topics": [
-    "glory"
-   ],
-   "scripture": [
-    "Hebrews 12:1-2",
-    "James 5:7-8"
-   ],
-   "words": [
-    "glory",
-    "believer",
-    "faith",
-    "jesus",
-    "endurance"
-   ],
-   "books": [
-    "Hebrews",
-    "James"
-   ]
-  },
-  {
-   "id": 21,
-   "slug": "cos-21",
-   "question": "How does God draw near to the suffering?",
-   "answer": "God draws near through His Son, Jesus Christ, who entered our world of sorrow to redeem and comfort His people.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "John 1:14",
-    "Hebrews 2:14-15"
-   ],
-   "words": [
-    "christ",
-    "comfort",
-    "jesus",
-    "sorrow"
-   ],
-   "books": [
-    "John",
-    "Hebrews"
-   ]
-  },
-  {
-   "id": 22,
-   "slug": "cos-22",
-   "question": "Did Jesus experience suffering?",
-   "answer": "Yes. Jesus suffered in body and soul, bearing grief, rejection, and pain, and was even deeply troubled by it, that He might become our merciful High Priest.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Isaiah 53:3",
-    "John 11:33",
-    "Hebrews 4:15"
-   ],
-   "words": [
-    "pain",
-    "jesus",
-    "soul",
-    "grief"
-   ],
-   "books": [
-    "Isaiah",
-    "John",
-    "Hebrews"
-   ]
-  },
-  {
-   "id": 23,
-   "slug": "cos-23",
-   "question": "Why did the Son of God suffer?",
-   "answer": "He suffered to take the punishment of our sin, to destroy death, and to bring us to God.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "1 Peter 3:18",
-    "Hebrews 2:9"
-   ],
-   "words": [
-    "death"
-   ],
-   "books": [
-    "1 Peter",
-    "Hebrews"
-   ]
-  },
-  {
-   "id": 24,
-   "slug": "cos-24",
-   "question": "Does Jesus understand my pain?",
-   "answer": "Yes. He is able to sympathize with every weakness, for He has been tested in every way yet without sin.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Hebrews 4:15",
-    "Psalm 34:19"
-   ],
-   "words": [
-    "pain",
-    "jesus",
-    "weakness"
-   ],
-   "books": [
-    "Hebrews",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 25,
-   "slug": "cos-25",
-   "question": "How does Christ’s suffering help us?",
-   "answer": "His suffering shows the depth of His love, secures our redemption, and teaches us to trust our Father in trials.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Romans 5:8",
-    "Hebrews 5:8"
-   ],
-   "words": [
-    "christ",
-    "trust",
-    "love",
-    "trial",
-    "father"
-   ],
-   "books": [
-    "Romans",
-    "Hebrews"
-   ]
-  },
-  {
-   "id": 26,
-   "slug": "cos-26",
-   "question": "Where is Christ when I suffer?",
-   "answer": "Christ is present by His Spirit, interceding for you and sustaining you with grace that cannot fail.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Romans 8:26-27",
-    "Hebrews 7:25"
-   ],
-   "words": [
-    "christ",
-    "grace",
-    "spirit"
-   ],
-   "books": [
-    "Romans",
-    "Hebrews"
-   ]
-  },
-  {
-   "id": 27,
-   "slug": "cos-27",
-   "question": "What does the Holy Spirit do for the suffering believer?",
-   "answer": "He comforts the heart, strengthens faith, and assures us we are God’s children even in affliction.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Romans 8:15-17",
-    "John 14:16-18"
-   ],
-   "words": [
-    "comfort",
-    "believer",
-    "faith",
-    "affliction",
-    "heart",
-    "holy",
-    "spirit"
-   ],
-   "books": [
-    "Romans",
-    "John"
-   ]
-  },
-  {
-   "id": 28,
-   "slug": "cos-28",
-   "question": "What comfort does the gospel bring to the sufferer?",
-   "answer": "That the One who bore our griefs now reigns over them, and nothing can separate us from His love.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Romans 8:35-39",
-    "2 Corinthians 1:5"
-   ],
-   "words": [
-    "comfort",
-    "love",
-    "grief"
-   ],
-   "books": [
-    "Romans",
-    "2 Corinthians"
-   ]
-  },
-  {
-   "id": 29,
-   "slug": "cos-29",
-   "question": "What example did Christ leave for us in suffering?",
-   "answer": "He entrusted Himself to the One who judges justly, overcame evil with steadfast obedience, and set the pattern for us to follow in obedience to God, by not returning evil for evil, but doing good.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "1 Peter 2:21-23",
-    "1 Peter 4:19",
-    "Romans 12:21"
-   ],
-   "words": [
-    "christ",
-    "evil"
-   ],
-   "books": [
-    "1 Peter",
-    "Romans"
-   ]
-  },
-  {
-   "id": 30,
-   "slug": "cos-30",
-   "question": "What promise assures us of God’s nearness?",
-   "answer": "\"I will never leave you nor forsake you,\" says the Lord, whose presence is our peace.",
-   "topics": [
-    "nearness"
-   ],
-   "scripture": [
-    "Hebrews 13:5",
-    "John 14:27"
-   ],
-   "words": [
-    "lord",
-    "promise"
-   ],
-   "books": [
-    "Hebrews",
-    "John"
-   ]
-  },
-  {
-   "id": 31,
-   "slug": "cos-31",
-   "question": "What is God’s purpose in the suffering of His people?",
-   "answer": "God uses suffering to make His people more like Christ, deepening faith, producing holiness, endurance and hope.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "Romans 8:28-29",
-    "James 1:2-4"
-   ],
-   "words": [
-    "christ",
-    "hope",
-    "faith",
-    "endurance",
-    "purpose"
-   ],
-   "books": [
-    "Romans",
-    "James"
-   ]
-  },
-  {
-   "id": 32,
-   "slug": "cos-32",
-   "question": "How does suffering reveal our hearts?",
-   "answer": "Suffering exposes what we love, trust, and treasure, revealing the desires and conflicts within that show where our hope truly lies.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "Deuteronomy 8:2",
-    "James 4:1-3",
-    "1 Peter 1:6-7"
-   ],
-   "words": [
-    "hope",
-    "trust",
-    "love",
-    "heart"
-   ],
-   "books": [
-    "Deuteronomy",
-    "James",
-    "1 Peter"
-   ]
-  },
-  {
-   "id": 33,
-   "slug": "cos-33",
-   "question": "What does suffering teach us about sin?",
-   "answer": "It teaches us that sin is destructive and that only God’s grace can heal what is broken.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "Psalm 119:67, 71",
-    "Romans 7:24-25"
-   ],
-   "words": [
-    "grace"
-   ],
-   "books": [
-    "Psalm",
-    "Romans"
-   ]
-  },
-  {
-   "id": 34,
-   "slug": "cos-34",
-   "question": "How does suffering produce endurance?",
-   "answer": "By teaching us to rely on God’s strength rather than our own and to persevere in faith when comfort is absent.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "2 Corinthians 1:8-9",
-    "James 1:3-4"
-   ],
-   "words": [
-    "comfort",
-    "faith",
-    "endurance"
-   ],
-   "books": [
-    "2 Corinthians",
-    "James"
-   ]
-  },
-  {
-   "id": 35,
-   "slug": "cos-35",
-   "question": "How does suffering shape our character?",
-   "answer": "It refines our faith like gold, growing humility, patience, and compassion for others.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "1 Peter 1:6-7",
-    "Romans 5:3-5"
-   ],
-   "words": [
-    "faith",
-    "others"
-   ],
-   "books": [
-    "1 Peter",
-    "Romans"
-   ]
-  },
-  {
-   "id": 36,
-   "slug": "cos-36",
-   "question": "How does suffering strengthen hope?",
-   "answer": "Through trials, we learn that this world cannot satisfy and that eternal glory far outweighs present pain.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "2 Corinthians 4:17-18",
-    "Romans 8:18, 25"
-   ],
-   "words": [
-    "glory",
-    "hope",
-    "pain",
-    "trial"
-   ],
-   "books": [
-    "2 Corinthians",
-    "Romans"
-   ]
-  },
-  {
-   "id": 37,
-   "slug": "cos-37",
-   "question": "Does suffering make us more dependent on God?",
-   "answer": "Yes. In weakness we discover God’s power, and in affliction we learn that His grace is sufficient.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "2 Corinthians 12:9-10",
-    "Psalm 119:75-76"
-   ],
-   "words": [
-    "affliction",
-    "grace",
-    "weakness"
-   ],
-   "books": [
-    "2 Corinthians",
-    "Psalm"
-   ]
-  },
-  {
-   "id": 38,
-   "slug": "cos-38",
-   "question": "What happens when we resist God in suffering?",
-   "answer": "We forfeit peace and growth, revealing pride that trusts self over God, allowing bitterness to take root instead of trust and repentance.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "Hebrews 12:15",
-    "Jonah 4:1-4",
-    "1 Peter 5:6-7",
-    "James 4:6-8"
-   ],
-   "words": [
-    "trust"
-   ],
-   "books": [
-    "Hebrews",
-    "Jonah",
-    "1 Peter",
-    "James"
-   ]
-  },
-  {
-   "id": 39,
-   "slug": "cos-39",
-   "question": "What happens when we submit to God in suffering?",
-   "answer": "We find rest for our souls, joy in trials, and a deeper communion with Christ who suffered for us.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "Matthew 11:28-29",
-    "Philippians 3:10"
-   ],
-   "words": [
-    "christ",
-    "trial",
-    "rest",
-    "soul"
-   ],
-   "books": [
-    "Matthew",
-    "Philippians"
-   ]
-  },
-  {
-   "id": 40,
-   "slug": "cos-40",
-   "question": "How should believers interpret suffering in light of the cross?",
-   "answer": "The cross proves that God brings life through death, victory through weakness, and glory through pain.",
-   "topics": [
-    "purpose"
-   ],
-   "scripture": [
-    "1 Corinthians 1:23-25",
-    "John 12:24"
-   ],
-   "words": [
-    "glory",
-    "believer",
-    "pain",
-    "death",
-    "weakness"
-   ],
-   "books": [
-    "1 Corinthians",
-    "John"
-   ]
-  },
-  {
    "id": 1,
    "slug": "cos-1",
    "question": "What is suffering?",
@@ -1596,6 +703,899 @@
    "books": [
     "Psalm",
     "Revelation"
+   ]
+  },
+  {
+   "id": 21,
+   "slug": "cos-21",
+   "question": "How does God draw near to the suffering?",
+   "answer": "God draws near through His Son, Jesus Christ, who entered our world of sorrow to redeem and comfort His people.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "John 1:14",
+    "Hebrews 2:14-15"
+   ],
+   "words": [
+    "christ",
+    "comfort",
+    "jesus",
+    "sorrow"
+   ],
+   "books": [
+    "John",
+    "Hebrews"
+   ]
+  },
+  {
+   "id": 22,
+   "slug": "cos-22",
+   "question": "Did Jesus experience suffering?",
+   "answer": "Yes. Jesus suffered in body and soul, bearing grief, rejection, and pain, and was even deeply troubled by it, that He might become our merciful High Priest.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Isaiah 53:3",
+    "John 11:33",
+    "Hebrews 4:15"
+   ],
+   "words": [
+    "pain",
+    "jesus",
+    "soul",
+    "grief"
+   ],
+   "books": [
+    "Isaiah",
+    "John",
+    "Hebrews"
+   ]
+  },
+  {
+   "id": 23,
+   "slug": "cos-23",
+   "question": "Why did the Son of God suffer?",
+   "answer": "He suffered to take the punishment of our sin, to destroy death, and to bring us to God.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "1 Peter 3:18",
+    "Hebrews 2:9"
+   ],
+   "words": [
+    "death"
+   ],
+   "books": [
+    "1 Peter",
+    "Hebrews"
+   ]
+  },
+  {
+   "id": 24,
+   "slug": "cos-24",
+   "question": "Does Jesus understand my pain?",
+   "answer": "Yes. He is able to sympathize with every weakness, for He has been tested in every way yet without sin.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Hebrews 4:15",
+    "Psalm 34:19"
+   ],
+   "words": [
+    "pain",
+    "jesus",
+    "weakness"
+   ],
+   "books": [
+    "Hebrews",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 25,
+   "slug": "cos-25",
+   "question": "How does Christ’s suffering help us?",
+   "answer": "His suffering shows the depth of His love, secures our redemption, and teaches us to trust our Father in trials.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Romans 5:8",
+    "Hebrews 5:8"
+   ],
+   "words": [
+    "christ",
+    "trust",
+    "love",
+    "trial",
+    "father"
+   ],
+   "books": [
+    "Romans",
+    "Hebrews"
+   ]
+  },
+  {
+   "id": 26,
+   "slug": "cos-26",
+   "question": "Where is Christ when I suffer?",
+   "answer": "Christ is present by His Spirit, interceding for you and sustaining you with grace that cannot fail.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Romans 8:26-27",
+    "Hebrews 7:25"
+   ],
+   "words": [
+    "christ",
+    "grace",
+    "spirit"
+   ],
+   "books": [
+    "Romans",
+    "Hebrews"
+   ]
+  },
+  {
+   "id": 27,
+   "slug": "cos-27",
+   "question": "What does the Holy Spirit do for the suffering believer?",
+   "answer": "He comforts the heart, strengthens faith, and assures us we are God’s children even in affliction.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Romans 8:15-17",
+    "John 14:16-18"
+   ],
+   "words": [
+    "comfort",
+    "believer",
+    "faith",
+    "affliction",
+    "heart",
+    "holy",
+    "spirit"
+   ],
+   "books": [
+    "Romans",
+    "John"
+   ]
+  },
+  {
+   "id": 28,
+   "slug": "cos-28",
+   "question": "What comfort does the gospel bring to the sufferer?",
+   "answer": "That the One who bore our griefs now reigns over them, and nothing can separate us from His love.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Romans 8:35-39",
+    "2 Corinthians 1:5"
+   ],
+   "words": [
+    "comfort",
+    "love",
+    "grief"
+   ],
+   "books": [
+    "Romans",
+    "2 Corinthians"
+   ]
+  },
+  {
+   "id": 29,
+   "slug": "cos-29",
+   "question": "What example did Christ leave for us in suffering?",
+   "answer": "He entrusted Himself to the One who judges justly, overcame evil with steadfast obedience, and set the pattern for us to follow in obedience to God, by not returning evil for evil, but doing good.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "1 Peter 2:21-23",
+    "1 Peter 4:19",
+    "Romans 12:21"
+   ],
+   "words": [
+    "christ",
+    "evil"
+   ],
+   "books": [
+    "1 Peter",
+    "Romans"
+   ]
+  },
+  {
+   "id": 30,
+   "slug": "cos-30",
+   "question": "What promise assures us of God’s nearness?",
+   "answer": "“I will never leave you nor forsake you,” says the Lord, whose presence is our peace.",
+   "topics": [
+    "nearness"
+   ],
+   "scripture": [
+    "Hebrews 13:5",
+    "John 14:27"
+   ],
+   "words": [
+    "lord",
+    "promise"
+   ],
+   "books": [
+    "Hebrews",
+    "John"
+   ]
+  },
+  {
+   "id": 31,
+   "slug": "cos-31",
+   "question": "What is God’s purpose in the suffering of His people?",
+   "answer": "God uses suffering to make His people more like Christ, deepening faith, producing holiness, endurance and hope.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "Romans 8:28-29",
+    "James 1:2-4"
+   ],
+   "words": [
+    "christ",
+    "hope",
+    "faith",
+    "endurance",
+    "purpose"
+   ],
+   "books": [
+    "Romans",
+    "James"
+   ]
+  },
+  {
+   "id": 32,
+   "slug": "cos-32",
+   "question": "How does suffering reveal our hearts?",
+   "answer": "Suffering exposes what we love, trust, and treasure, revealing the desires and conflicts within that show where our hope truly lies.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "Deuteronomy 8:2",
+    "James 4:1-3",
+    "1 Peter 1:6-7"
+   ],
+   "words": [
+    "hope",
+    "trust",
+    "love",
+    "heart"
+   ],
+   "books": [
+    "Deuteronomy",
+    "James",
+    "1 Peter"
+   ]
+  },
+  {
+   "id": 33,
+   "slug": "cos-33",
+   "question": "What does suffering teach us about sin?",
+   "answer": "It teaches us that sin is destructive and that only God’s grace can heal what is broken.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "Psalm 119:67, 71",
+    "Romans 7:24-25"
+   ],
+   "words": [
+    "grace"
+   ],
+   "books": [
+    "Psalm",
+    "Romans"
+   ]
+  },
+  {
+   "id": 34,
+   "slug": "cos-34",
+   "question": "How does suffering produce endurance?",
+   "answer": "By teaching us to rely on God’s strength rather than our own and to persevere in faith when comfort is absent.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "2 Corinthians 1:8-9",
+    "James 1:3-4"
+   ],
+   "words": [
+    "comfort",
+    "faith",
+    "endurance"
+   ],
+   "books": [
+    "2 Corinthians",
+    "James"
+   ]
+  },
+  {
+   "id": 35,
+   "slug": "cos-35",
+   "question": "How does suffering shape our character?",
+   "answer": "It refines our faith like gold, growing humility, patience, and compassion for others.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "1 Peter 1:6-7",
+    "Romans 5:3-5"
+   ],
+   "words": [
+    "faith",
+    "others"
+   ],
+   "books": [
+    "1 Peter",
+    "Romans"
+   ]
+  },
+  {
+   "id": 36,
+   "slug": "cos-36",
+   "question": "How does suffering strengthen hope?",
+   "answer": "Through trials, we learn that this world cannot satisfy and that eternal glory far outweighs present pain.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "2 Corinthians 4:17-18",
+    "Romans 8:18, 25"
+   ],
+   "words": [
+    "glory",
+    "hope",
+    "pain",
+    "trial"
+   ],
+   "books": [
+    "2 Corinthians",
+    "Romans"
+   ]
+  },
+  {
+   "id": 37,
+   "slug": "cos-37",
+   "question": "Does suffering make us more dependent on God?",
+   "answer": "Yes. In weakness we discover God’s power, and in affliction we learn that His grace is sufficient.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "2 Corinthians 12:9-10",
+    "Psalm 119:75-76"
+   ],
+   "words": [
+    "affliction",
+    "grace",
+    "weakness"
+   ],
+   "books": [
+    "2 Corinthians",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 38,
+   "slug": "cos-38",
+   "question": "What happens when we resist God in suffering?",
+   "answer": "We forfeit peace and growth, revealing pride that trusts self over God, allowing bitterness to take root instead of trust and repentance.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "Hebrews 12:15",
+    "Jonah 4:1-4",
+    "1 Peter 5:6-7",
+    "James 4:6-8"
+   ],
+   "words": [
+    "trust"
+   ],
+   "books": [
+    "Hebrews",
+    "Jonah",
+    "1 Peter",
+    "James"
+   ]
+  },
+  {
+   "id": 39,
+   "slug": "cos-39",
+   "question": "What happens when we submit to God in suffering?",
+   "answer": "We find rest for our souls, joy in trials, and a deeper communion with Christ who suffered for us.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "Matthew 11:28-29",
+    "Philippians 3:10"
+   ],
+   "words": [
+    "christ",
+    "trial",
+    "rest",
+    "soul"
+   ],
+   "books": [
+    "Matthew",
+    "Philippians"
+   ]
+  },
+  {
+   "id": 40,
+   "slug": "cos-40",
+   "question": "How should believers interpret suffering in light of the cross?",
+   "answer": "The cross proves that God brings life through death, victory through weakness, and glory through pain.",
+   "topics": [
+    "purpose"
+   ],
+   "scripture": [
+    "1 Corinthians 1:23-25",
+    "John 12:24"
+   ],
+   "words": [
+    "glory",
+    "believer",
+    "pain",
+    "death",
+    "weakness"
+   ],
+   "books": [
+    "1 Corinthians",
+    "John"
+   ]
+  },
+  {
+   "id": 41,
+   "slug": "cos-41",
+   "question": "What comfort does God give to His suffering people?",
+   "answer": "God comforts us by His presence, His promises, and His people, assuring us that He is with us in every trial.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "2 Corinthians 1:3-4",
+    "Isaiah 43:1-2"
+   ],
+   "words": [
+    "comfort",
+    "trial",
+    "promise"
+   ],
+   "books": [
+    "2 Corinthians",
+    "Isaiah"
+   ]
+  },
+  {
+   "id": 42,
+   "slug": "cos-42",
+   "question": "What role does Scripture play in our suffering?",
+   "answer": "The Word of God revives the weary soul, teaches us in our affliction, interprets our pain rightly, and anchors our hope in His truth.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Psalm 119:50, 71",
+    "Romans 15:4"
+   ],
+   "words": [
+    "hope",
+    "pain",
+    "affliction",
+    "soul"
+   ],
+   "books": [
+    "Psalm",
+    "Romans"
+   ]
+  },
+  {
+   "id": 43,
+   "slug": "cos-43",
+   "question": "How does prayer sustain us in affliction?",
+   "answer": "Prayer draws our hearts to God, turns despair into dependence, and teaches us to rest in His will.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Philippians 4:6-7",
+    "Psalm 62:8"
+   ],
+   "words": [
+    "affliction",
+    "heart",
+    "rest"
+   ],
+   "books": [
+    "Philippians",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 44,
+   "slug": "cos-44",
+   "question": "What if we cannot find words to pray?",
+   "answer": "The Spirit Himself intercedes for us with groanings too deep for words.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Romans 8:26-27"
+   ],
+   "words": [
+    "spirit"
+   ],
+   "books": [
+    "Romans"
+   ]
+  },
+  {
+   "id": 45,
+   "slug": "cos-45",
+   "question": "How does the church comfort the suffering?",
+   "answer": "The church bears one another’s burdens, weeps with those who weep, and reminds the hurting of God’s steadfast love.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Galatians 6:2",
+    "Romans 12:15"
+   ],
+   "words": [
+    "comfort",
+    "love"
+   ],
+   "books": [
+    "Galatians",
+    "Romans"
+   ]
+  },
+  {
+   "id": 46,
+   "slug": "cos-46",
+   "question": "Why must suffering not be faced alone?",
+   "answer": "Because Christ designed His people for fellowship, where comfort multiplies and faith is strengthened together.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "1 Thessalonians 5:11",
+    "Ecclesiastes 4:9-10"
+   ],
+   "words": [
+    "christ",
+    "comfort",
+    "faith"
+   ],
+   "books": [
+    "1 Thessalonians",
+    "Ecclesiastes"
+   ]
+  },
+  {
+   "id": 47,
+   "slug": "cos-47",
+   "question": "What part does worship play in enduring suffering?",
+   "answer": "Worship lifts our eyes from pain to the beauty of God, teaching us to rejoice even in the midst of sorrow.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Habakkuk 3:17-18",
+    "Psalm 42:11"
+   ],
+   "words": [
+    "pain",
+    "sorrow"
+   ],
+   "books": [
+    "Habakkuk",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 48,
+   "slug": "cos-48",
+   "question": "How does remembering God’s faithfulness bring comfort?",
+   "answer": "Remembering His past mercies strengthens present trust, fuels future hope, and, in the testimony of the saints, displays His glory to help others endure.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Lamentations 3:21-23",
+    "Psalm 77:11-12",
+    "Revelation 12:11"
+   ],
+   "words": [
+    "comfort",
+    "glory",
+    "hope",
+    "trust",
+    "others"
+   ],
+   "books": [
+    "Lamentations",
+    "Psalm",
+    "Revelation"
+   ]
+  },
+  {
+   "id": 49,
+   "slug": "cos-49",
+   "question": "How should we speak to one another in times of suffering?",
+   "answer": "With gentleness and grace-filled truth, speaking words seasoned with wisdom that offer the same comfort we have received from God.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "2 Corinthians 1:3-4",
+    "Isaiah 50:4",
+    "Colossians 4:6"
+   ],
+   "words": [
+    "comfort",
+    "grace"
+   ],
+   "books": [
+    "2 Corinthians",
+    "Isaiah",
+    "Colossians"
+   ]
+  },
+  {
+   "id": 50,
+   "slug": "cos-50",
+   "question": "What promise enables believers to persevere through suffering?",
+   "answer": "That the God who began a good work in us will carry it on to completion in Christ Jesus.",
+   "topics": [
+    "comfort"
+   ],
+   "scripture": [
+    "Philippians 1:6",
+    "Jude 24-25"
+   ],
+   "words": [
+    "christ",
+    "believer",
+    "jesus",
+    "promise"
+   ],
+   "books": [
+    "Philippians",
+    "Jude"
+   ]
+  },
+  {
+   "id": 51,
+   "slug": "cos-51",
+   "question": "Will suffering last forever?",
+   "answer": "No. For those in Christ, every sorrow will end when death is destroyed and all things are made new.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Revelation 21:4",
+    "1 Corinthians 15:26"
+   ],
+   "words": [
+    "christ",
+    "sorrow",
+    "death"
+   ],
+   "books": [
+    "Revelation",
+    "1 Corinthians"
+   ]
+  },
+  {
+   "id": 52,
+   "slug": "cos-52",
+   "question": "What happens to the believer after death?",
+   "answer": "The believer’s soul departs to be with Christ, which is far better, while the body rests until the resurrection.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Philippians 1:23",
+    "1 Thessalonians 4:14"
+   ],
+   "words": [
+    "christ",
+    "believer",
+    "death",
+    "rest",
+    "soul"
+   ],
+   "books": [
+    "Philippians",
+    "1 Thessalonians"
+   ]
+  },
+  {
+   "id": 53,
+   "slug": "cos-53",
+   "question": "What hope awaits the church at Christ’s return?",
+   "answer": "The resurrection of the body, the renewal of creation, and the everlasting joy of dwelling with God.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Romans 8:21-23",
+    "Revelation 21:1-3"
+   ],
+   "words": [
+    "christ",
+    "hope",
+    "creation"
+   ],
+   "books": [
+    "Romans",
+    "Revelation"
+   ]
+  },
+  {
+   "id": 54,
+   "slug": "cos-54",
+   "question": "How does this future hope shape our present suffering?",
+   "answer": "It teaches us that present afflictions are light and momentary, preparing us for an eternal weight of glory.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "2 Corinthians 4:17-18",
+    "Romans 8:18"
+   ],
+   "words": [
+    "glory",
+    "hope",
+    "affliction"
+   ],
+   "books": [
+    "2 Corinthians",
+    "Romans"
+   ]
+  },
+  {
+   "id": 55,
+   "slug": "cos-55",
+   "question": "What will happen to pain and tears in the new creation?",
+   "answer": "God Himself will wipe away every tear, and pain, sorrow, and death shall be no more.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Revelation 21:4-5",
+    "Isaiah 25:8"
+   ],
+   "words": [
+    "pain",
+    "sorrow",
+    "death",
+    "creation"
+   ],
+   "books": [
+    "Revelation",
+    "Isaiah"
+   ]
+  },
+  {
+   "id": 56,
+   "slug": "cos-56",
+   "question": "What will we see in the age to come?",
+   "answer": "We will see the face of Christ, our Redeemer, and be perfectly satisfied in His glory forever.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Revelation 22:4",
+    "Psalm 17:15"
+   ],
+   "words": [
+    "christ",
+    "glory"
+   ],
+   "books": [
+    "Revelation",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 57,
+   "slug": "cos-57",
+   "question": "How does the hope of glory purify us now?",
+   "answer": "Those who hope in Christ’s appearing purify themselves, living in holiness as He is holy.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "1 John 3:2-3",
+    "Titus 2:11-13"
+   ],
+   "words": [
+    "christ",
+    "glory",
+    "hope",
+    "holy"
+   ],
+   "books": [
+    "1 John",
+    "Titus"
+   ]
+  },
+  {
+   "id": 58,
+   "slug": "cos-58",
+   "question": "What song will the redeemed sing in eternity?",
+   "answer": "“Worthy is the Lamb who was slain, for He has redeemed us by His blood and made us a kingdom of priests to our God.”",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Revelation 5:9-10"
+   ],
+   "words": [],
+   "books": [
+    "Revelation"
+   ]
+  },
+  {
+   "id": 59,
+   "slug": "cos-59",
+   "question": "What will the end of all suffering reveal?",
+   "answer": "The perfect wisdom, goodness, and faithfulness of God, who works all things for His glory and our joy in Him.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Romans 11:36",
+    "Psalm 16:11"
+   ],
+   "words": [
+    "glory"
+   ],
+   "books": [
+    "Romans",
+    "Psalm"
+   ]
+  },
+  {
+   "id": 60,
+   "slug": "cos-60",
+   "question": "How should believers live while they wait for glory?",
+   "answer": "With endurance, joy, and steadfast faith, fixing their eyes on Jesus, the founder and perfecter of their faith.",
+   "topics": [
+    "glory"
+   ],
+   "scripture": [
+    "Hebrews 12:1-2",
+    "James 5:7-8"
+   ],
+   "words": [
+    "glory",
+    "believer",
+    "faith",
+    "jesus",
+    "endurance"
+   ],
+   "books": [
+    "Hebrews",
+    "James"
    ]
   }
  ]

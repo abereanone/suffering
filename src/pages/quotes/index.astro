@@ -11,7 +11,7 @@ import data from "@/data/quote-cards.json";
 import { defaultTone, quoteImage, QUOTE_IMAGE_BASE, TONES, TONE_LABELS } from "@/lib/quoteImages";
 
 const siteName = siteSettings.branding.siteName;
-const cards = [...data.cards].sort((a, b) => a.id - b.id);
+const cards = data.cards; // in the order export.mjs gives: by topic, then question
 const label = data.topicLabel;
 const maxN = Math.max(...data.keywords.map((k) => k.n));
 const minN = Math.min(...data.keywords.map((k) => k.n));
@@ -120,7 +120,7 @@ const first = cards[0];
           <a href={`/quotes/${c.slug}`}>
             <img
               src={quoteImage(c.slug, defaultTone(c.id), true)}
-              alt={`${c.question} ${c.answer}`}
+              alt={c.question}
               width="480"
               height="480"
               loading="lazy"
@@ -289,7 +289,7 @@ const first = cards[0];
     /* Long option names (usa: "Courts, States, and Constitutional Order") must not widen the page. */
     flex: 1;
     min-width: 0;
-    max-width: 100%;
+    max-width: min(100%, 24rem);
   }
   /* The list itself needs a solid colour: with the see-through one above, the browser draws
      the open list on white while the text stays the theme's (light text on white in dark mode). */
