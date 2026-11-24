@@ -1,16 +1,18 @@
 ---
 // Every question as a shareable image, with filters: look (Mixed / Dark / Light / Solid), topic
-// (the catechism's sections), keyword chips (the most common meaningful words, larger when more
-// common) and Scripture book. Filters combine and live in the address (?topic=&word=&book=&look=),
-// so a filtered view can be shared. Data: src/data/quote-cards.json (C:/code/quote-cards/export.mjs).
+// (the site's sections; on catechize.ing its catechisms), keyword chips (the most common meaningful
+// words, larger when more common) and Scripture book. Filters combine and live in the address
+// (?topic=&word=&book=&look=), so a filtered view can be shared. Topic and Scripture are left out
+// on sites without them. Data: src/data/quote-cards.json (C:/code/quote-cards/export.mjs).
+// Shared by the catechism template family: keep this file identical across the six sites.
 import Main from "@/layouts/Main.astro";
 import { siteSettings } from "@/config/siteSettings";
 import data from "@/data/quote-cards.json";
-import { defaultTone, quoteImage, TONES, TONE_LABELS } from "@/lib/quoteImages";
+import { defaultTone, quoteImage, QUOTE_IMAGE_BASE, TONES, TONE_LABELS } from "@/lib/quoteImages";
 
 const siteName = siteSettings.branding.siteName;
 const cards = [...data.cards].sort((a, b) => a.id - b.id);
-const book = (ref: string) => ref.replace(/\s+\d+([:.,\-–\d\s]*)$/, "").trim();
+const label = data.topicLabel;
 const maxN = Math.max(...data.keywords.map((k) => k.n));
 const minN = Math.min(...data.keywords.map((k) => k.n));
 const size = (n: number) =>
@@ -39,31 +41,34 @@ const first = cards[0];
     <details class="qf-more">
       <summary class="qf-chip">Filter<span class="qf-active"></span></summary>
       <div class="qf-panel">
-        {/* Phones: topics as a list (the chips took several rows); wider screens: chips. */}
-        <label class="qf-book qf-topic-select">
-          <span>Topic</span>
-          <select data-topic-select>
-            <option value="">All topics</option>
-            {
-              data.topics.map((t) => (
-                <option value={t.id}>
-                  {t.name} ({t.n})
-                </option>
-              ))
-            }
-          </select>
-        </label>
-        <div class="qf-row qf-topic-chips" role="group" aria-label="Topic">
-          <button type="button" class="qf-chip" data-topic="" aria-pressed="true">All topics</button
-          >
-          {
-            data.topics.map((t) => (
-              <button type="button" class="qf-chip" data-topic={t.id} aria-pressed="false">
-                {t.name}
-              </button>
-            ))
-          }
-        </div>
+        {
+          data.topics.length > 0 && (
+            <>
+              {/* Phones: topics as a list (the chips took several rows); wider screens: chips. */}
+              <label class="qf-select qf-topic-select">
+                <span>{label}</span>
+                <select data-topic-select>
+                  <option value="">All</option>
+                  {data.topics.map((t) => (
+                    <option value={t.id}>
+                      {t.name} ({t.n})
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div class="qf-row qf-topic-chips" role="group" aria-label={label}>
+                <button type="button" class="qf-chip" data-topic="" aria-pressed="true">
+                  All
+                </button>
+                {data.topics.map((t) => (
+                  <button type="button" class="qf-chip" data-topic={t.id} aria-pressed="false">
+                    {t.name}
+                  </button>
+                ))}
+              </div>
+            </>
+          )
+        }
         <div class="qf-row qf-words" role="group" aria-label="Keyword">
           {
             data.keywords.map((k) => (
@@ -79,31 +84,38 @@ const first = cards[0];
             ))
           }
         </div>
-        <label class="qf-book">
-          <span>Scripture</span>
-          <select data-book>
-            <option value="">All books</option>
-            {
-              data.books.map((b) => (
-                <option value={b.name}>
-                  {b.name} ({b.n})
-                </option>
-              ))
-            }
-          </select>
-        </label>
+        {
+          data.books.length > 0 && (
+            <label class="qf-select">
+              <span>Scripture</span>
+              <select data-book>
+                <option value="">All books</option>
+                {data.books.map((b) => (
+                  <option value={b.name}>
+                    {b.name} ({b.n})
+                  </option>
+                ))}
+              </select>
+            </label>
+          )
+        }
       </div>
     </details>
   </div>
 
-  <ul class="quote-grid">
+  {
+    /* Each card carries only its slug, first look, topics, keyword chips and Scripture books; the
+      script builds image addresses from data-base (page weight: catechize.ing has 600+ cards). */
+  }
+  <ul class="quote-grid" data-base={QUOTE_IMAGE_BASE}>
     {
       cards.map((c) => (
         <li
           data-slug={c.slug}
-          data-topic={c.topic}
-          data-text={`${c.question} ${c.answer}`.toLowerCase()}
-          data-books={[...new Set(c.scripture.map(book))].join("|")}
+          data-tone={defaultTone(c.id)}
+          data-topics={c.topics.join("|")}
+          data-words={c.words.join("|")}
+          data-books={c.books.join("|")}
         >
           <a href={`/quotes/${c.slug}`}>
             <img
@@ -112,8 +124,6 @@ const first = cards[0];
               width="480"
               height="480"
               loading="lazy"
-              {...Object.fromEntries(TONES.map((t) => [`data-${t}`, quoteImage(c.slug, t, true)]))}
-              data-mixed={quoteImage(c.slug, defaultTone(c.id), true)}
             />
           </a>
         </li>
@@ -130,40 +140,40 @@ const first = cards[0];
   // Wide screens show the filters open; phones keep them folded behind the Filter button.
   const more = document.querySelector<HTMLDetailsElement>(".qf-more")!;
   if (matchMedia("(min-width: 641px)").matches) more.open = true;
-  const items = [...document.querySelectorAll<HTMLLIElement>(".quote-grid li")];
+  const grid = document.querySelector<HTMLElement>(".quote-grid")!;
+  const items = [...grid.querySelectorAll<HTMLLIElement>("li")];
   const none = document.querySelector<HTMLElement>(".qf-none")!;
-  const select = document.querySelector<HTMLSelectElement>("[data-book]")!;
-  const topicSelect = document.querySelector<HTMLSelectElement>("[data-topic-select]")!;
-  const wordHas = (text: string, w: string) => new RegExp(`\\b${w}`, "i").test(text);
+  const bookSelect = document.querySelector<HTMLSelectElement>("[data-book]");
+  const topicSelect = document.querySelector<HTMLSelectElement>("[data-topic-select]");
+  const has = (list: string | undefined, v: string) => (list || "").split("|").includes(v);
 
   function apply(remember: boolean) {
     let shown = 0;
     for (const li of items) {
       const d = li.dataset;
       const ok =
-        (!state.topic || d.topic === state.topic) &&
-        (!state.word || wordHas(d.text!, state.word)) &&
-        (!state.book || d.books!.split("|").includes(state.book));
+        (!state.topic || has(d.topics, state.topic)) &&
+        (!state.word || has(d.words, state.word)) &&
+        (!state.book || has(d.books, state.book));
       li.hidden = !ok;
       if (ok) shown++;
       const img = li.querySelector("img")!;
-      const src = img.dataset[state.look]!;
+      const look = state.look === "mixed" ? d.tone : state.look;
+      const src = `${grid.dataset.base}/${d.slug}-${look}-480.jpg`;
       if (img.getAttribute("src") !== src) img.src = src;
       li.querySelector("a")!.href =
         `/quotes/${d.slug}${state.look === "mixed" ? "" : `?bg=${state.look}`}`;
     }
     none.hidden = shown > 0;
-    document
-      .querySelectorAll<HTMLButtonElement>("[data-look]")
-      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.look === state.look)));
-    document
-      .querySelectorAll<HTMLButtonElement>("[data-topic]")
-      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.topic === state.topic)));
-    document
-      .querySelectorAll<HTMLButtonElement>("[data-word]")
-      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.word === state.word)));
-    select.value = state.book;
-    topicSelect.value = state.topic;
+    const press = (sel: string, key: string, value: string) =>
+      document
+        .querySelectorAll<HTMLButtonElement>(sel)
+        .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset[key] === value)));
+    press("[data-look]", "look", state.look);
+    press("[data-topic]", "topic", state.topic);
+    press("[data-word]", "word", state.word);
+    if (bookSelect) bookSelect.value = state.book;
+    if (topicSelect) topicSelect.value = state.topic;
     const active = [
       state.topic && document.querySelector(`[data-topic="${state.topic}"]`)?.textContent?.trim(),
       state.word,
@@ -197,12 +207,12 @@ const first = cards[0];
     else return;
     apply(true);
   });
-  topicSelect.addEventListener("change", () => {
+  topicSelect?.addEventListener("change", () => {
     state.topic = topicSelect.value;
     apply(true);
   });
-  select.addEventListener("change", () => {
-    state.book = select.value;
+  bookSelect?.addEventListener("change", () => {
+    state.book = bookSelect.value;
     apply(true);
   });
 </script>
@@ -263,13 +273,13 @@ const first = cards[0];
     gap: 0.75rem;
     margin-top: 0.75rem;
   }
-  .qf-book {
+  .qf-select {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
   }
-  .qf-book select {
+  .qf-select select {
     font: inherit;
     padding: 0.3rem 0.5rem;
     border-radius: 6px;
@@ -280,6 +290,10 @@ const first = cards[0];
   }
   /* The list itself needs a solid colour: with the see-through one above, the browser draws
      the open list on white while the text stays the theme's (light text on white in dark mode). */
+  .qf-select select option {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
   .qf-topic-select {
     display: none;
   }
@@ -290,10 +304,6 @@ const first = cards[0];
     .qf-topic-chips {
       display: none;
     }
-  }
-  .qf-book select option {
-    background: var(--color-bg);
-    color: var(--color-text);
   }
   .quote-grid {
     list-style: none;
