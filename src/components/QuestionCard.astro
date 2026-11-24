@@ -1,21 +1,19 @@
 ---
 // The question's quote card (public/quotes/<slug>.jpg, made by scripts/quote-cards/render.mjs),
-// with Download and Share. Share sends the picture itself where the browser can (phones),
-// otherwise it downloads it.
+// full size, with Download and Share. Used on the image page, /quotes/<slug>. Share sends the
+// picture itself where the browser can (phones), otherwise it copies or downloads it.
 interface Props {
   slug: string;
   title: string;
+  alt: string;
 }
-const { slug, title } = Astro.props;
+const { slug, title, alt } = Astro.props;
 const src = `/quotes/${slug}.jpg`;
 ---
 
 <figure class="question-card">
-  <a href={src} class="question-card-image">
-    <img src={`/quotes/${slug}-480.jpg`} alt={title} width="480" height="480" loading="lazy" />
-  </a>
+  <img src={src} alt={alt} width="1080" height="1080" />
   <figcaption class="question-card-actions">
-    <a class="question-card-button" href={src} download={`${slug}.jpg`}>Download image</a>
     <button
       type="button"
       class="question-card-button"
@@ -25,7 +23,7 @@ const src = `/quotes/${slug}.jpg`;
     >
       Share image
     </button>
-    <a class="question-card-more" href="/quotes">All images</a>
+    <a class="question-card-button" href={src} download={`${slug}.jpg`}>Download</a>
     <p class="question-card-status" role="status" aria-live="polite"></p>
   </figcaption>
 </figure>
@@ -103,24 +101,27 @@ const src = `/quotes/${slug}.jpg`;
 
 <style>
   .question-card {
-    margin: 1.5rem 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 1.25rem;
-    align-items: center;
+    margin: 0 auto;
+    max-width: 540px;
   }
-  .question-card-image img {
+  .question-card img {
     display: block;
-    width: 240px;
+    width: 100%;
     height: auto;
     border-radius: 6px;
     border: 1px solid var(--surface-border);
   }
   .question-card-actions {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .question-card-status {
+    flex-basis: 100%;
+    text-align: center;
   }
   .question-card-button {
     font: inherit;
@@ -136,9 +137,6 @@ const src = `/quotes/${slug}.jpg`;
   .question-card-button:hover {
     background: var(--surface-bg-hover);
     color: var(--color-link-hover);
-  }
-  .question-card-more {
-    font-size: 0.9rem;
   }
   .question-card-status {
     margin: 0;

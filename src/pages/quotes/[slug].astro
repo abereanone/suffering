@@ -1,0 +1,43 @@
+---
+// One question as a share image: /quotes/<slug>. Reached from the image icon in a question's
+// Share row and from the Images page.
+import Main from "@/layouts/Main.astro";
+import QuestionCard from "@/components/QuestionCard.astro";
+import { siteSettings } from "@/config/siteSettings";
+import cards from "@/data/quote-cards.json";
+
+export function getStaticPaths() {
+  return cards.map((card) => ({ params: { slug: card.slug }, props: { card } }));
+}
+
+const { card } = Astro.props;
+const siteName = siteSettings.branding.siteName;
+---
+
+<Main
+  title={`${card.question} | ${siteName}`}
+  description={card.answer}
+  openGraph={{
+    title: card.question,
+    description: card.answer,
+    url: `/quotes/${card.slug}`,
+    image: `/quotes/${card.slug}.jpg`,
+    imageAlt: `${card.question} ${card.answer}`,
+  }}
+>
+  <QuestionCard slug={card.slug} title={card.question} alt={`${card.question} ${card.answer}`} />
+  <p class="quote-links">
+    <a href={`/questions/${card.slug}`}>Question {card.id}</a>
+    <a href="/quotes">All images</a>
+  </p>
+</Main>
+
+<style>
+  .quote-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
+</style>
