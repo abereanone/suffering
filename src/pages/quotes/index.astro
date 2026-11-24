@@ -39,7 +39,21 @@ const first = cards[0];
     <details class="qf-more">
       <summary class="qf-chip">Filter<span class="qf-active"></span></summary>
       <div class="qf-panel">
-        <div class="qf-row" role="group" aria-label="Topic">
+        {/* Phones: topics as a list (the chips took several rows); wider screens: chips. */}
+        <label class="qf-book qf-topic-select">
+          <span>Topic</span>
+          <select data-topic-select>
+            <option value="">All topics</option>
+            {
+              data.topics.map((t) => (
+                <option value={t.id}>
+                  {t.name} ({t.n})
+                </option>
+              ))
+            }
+          </select>
+        </label>
+        <div class="qf-row qf-topic-chips" role="group" aria-label="Topic">
           <button type="button" class="qf-chip" data-topic="" aria-pressed="true">All topics</button
           >
           {
@@ -119,6 +133,7 @@ const first = cards[0];
   const items = [...document.querySelectorAll<HTMLLIElement>(".quote-grid li")];
   const none = document.querySelector<HTMLElement>(".qf-none")!;
   const select = document.querySelector<HTMLSelectElement>("[data-book]")!;
+  const topicSelect = document.querySelector<HTMLSelectElement>("[data-topic-select]")!;
   const wordHas = (text: string, w: string) => new RegExp(`\\b${w}`, "i").test(text);
 
   function apply(remember: boolean) {
@@ -148,8 +163,9 @@ const first = cards[0];
       .querySelectorAll<HTMLButtonElement>("[data-word]")
       .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.word === state.word)));
     select.value = state.book;
+    topicSelect.value = state.topic;
     const active = [
-      state.topic && document.querySelector(`[data-topic="${state.topic}"]`)?.textContent,
+      state.topic && document.querySelector(`[data-topic="${state.topic}"]`)?.textContent?.trim(),
       state.word,
       state.book,
     ].filter(Boolean);
@@ -179,6 +195,10 @@ const first = cards[0];
     else if (b.classList.contains("qf-clear"))
       Object.assign(state, { topic: "", word: "", book: "" });
     else return;
+    apply(true);
+  });
+  topicSelect.addEventListener("change", () => {
+    state.topic = topicSelect.value;
     apply(true);
   });
   select.addEventListener("change", () => {
@@ -260,6 +280,17 @@ const first = cards[0];
   }
   /* The list itself needs a solid colour: with the see-through one above, the browser draws
      the open list on white while the text stays the theme's (light text on white in dark mode). */
+  .qf-topic-select {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    .qf-topic-select {
+      display: flex;
+    }
+    .qf-topic-chips {
+      display: none;
+    }
+  }
   .qf-book select option {
     background: var(--color-bg);
     color: var(--color-text);
