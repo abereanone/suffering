@@ -1,106 +1,170 @@
 ---
-// The question's share image (public/quotes/<slug>.jpg, made by scripts/quote-cards/render.mjs),
-// full size, with Share and Download. Used on the image page, /quotes/<slug>.
+// The question's share image, full size, with a Dark / Light / Solid switch, Share and Download.
+// Used on the image page, /quotes/<slug>. "?bg=light" in the address opens that look, so a
+// shared link shows the look that was chosen.
 // Class names start with "share-card": the site already uses "question-card" for its
 // related-question links, with a side-by-side layout.
+import { quoteImage, TONES, TONE_LABELS, type Tone } from "@/lib/quoteImages";
+
 interface Props {
   slug: string;
   title: string;
   alt: string;
+  tone: Tone;
 }
-const { slug, title, alt } = Astro.props;
-const src = `/quotes/${slug}.jpg`;
-const thumb = `/quotes/${slug}-480.jpg`;
+const { slug, title, alt, tone } = Astro.props;
+const urls = Object.fromEntries(
+  TONES.flatMap((t) => [
+    [t, quoteImage(slug, t)],
+    [`${t}Thumb`, quoteImage(slug, t, true)],
+  ])
+);
 ---
 
-<figure class="share-card">
+<figure
+  class="share-card"
+  data-slug={slug}
+  data-tone={tone}
+  {...Object.fromEntries(Object.entries(urls).map(([k, v]) => [`data-${k.toLowerCase()}`, v]))}
+>
   {
     /* The small version paints at once as the background; the full one covers it when it arrives. */
   }
   <img
     class="share-card-image"
-    src={src}
+    src={quoteImage(slug, tone)}
     alt={alt}
     width="1080"
     height="1080"
     fetchpriority="high"
     decoding="async"
-    style={`background-image:url('${thumb}')`}
+    style={`background-image:url('${quoteImage(slug, tone, true)}')`}
   />
+  <div class="share-card-tones" role="group" aria-label="Look">
+    {
+      TONES.map((t) => (
+        <button
+          type="button"
+          class="share-card-tone"
+          data-tone={t}
+          aria-pressed={String(t === tone)}
+        >
+          {TONE_LABELS[t]}
+        </button>
+      ))
+    }
+  </div>
   <figcaption class="share-card-actions">
-    <button
-      type="button"
-      class="share-card-button"
-      data-card-share={src}
-      data-card-name={`${slug}.jpg`}
-      data-card-text={title}
-    >
+    <button type="button" class="share-card-button" data-card-share data-card-text={title}>
       Share image
     </button>
-    <a class="share-card-button" href={src} download={`${slug}.jpg`}>Download</a>
+    <a
+      class="share-card-button"
+      href={quoteImage(slug, tone)}
+      download={`${slug}-${tone}.jpg`}
+      data-card-download
+    >
+      Download
+    </a>
     <p class="share-card-status" role="status" aria-live="polite"></p>
   </figcaption>
 </figure>
 
 <script>
   // Phones open the share menu only straight from a tap: anything the tap has to wait for
-  // (a download) makes Android refuse, so the first tap did nothing. So the picture is fetched
-  // once the page's image has loaded (from the browser's cache, no second download) and kept
-  // ready; the tap then shares at once. Computers copy the picture; failing that, save it.
-  document.querySelectorAll<HTMLButtonElement>("[data-card-share]").forEach((button) => {
-    const figure = button.closest("figure")!;
-    const img = figure.querySelector("img")!;
+  // (a download) makes Android refuse, so the first tap did nothing. So each look's picture is
+  // fetched once it is shown (from the browser's cache, no second download) and kept ready;
+  // the tap then shares at once. Computers copy the picture; failing that, save it.
+  document.querySelectorAll<HTMLElement>("figure.share-card").forEach((figure) => {
+    const d = figure.dataset;
+    const img = figure.querySelector<HTMLImageElement>(".share-card-image")!;
+    const share = figure.querySelector<HTMLButtonElement>("[data-card-share]")!;
+    const download = figure.querySelector<HTMLAnchorElement>("[data-card-download]")!;
     const status = figure.querySelector<HTMLElement>(".share-card-status")!;
     const say = (t: string) => (status.textContent = t);
-    const name = button.dataset.cardName!;
-    let ready: Blob | null = null;
-    let pending: Promise<Blob> | null = null;
-    const getBlob = () =>
-      ready
-        ? Promise.resolve(ready)
-        : (pending ||= fetch(button.dataset.cardShare!)
+    const toneButtons = [...figure.querySelectorAll<HTMLButtonElement>(".share-card-tone")];
+    let tone = d.tone!;
+    const src = (t: string) => d[t]!;
+    const nameFor = (t: string) => `${d.slug}-${t}.jpg`;
+
+    const ready: Record<string, Blob> = {};
+    const pending: Record<string, Promise<Blob>> = {};
+    const getBlob = (t: string): Promise<Blob> =>
+      ready[t]
+        ? Promise.resolve(ready[t])
+        : (pending[t] ||= fetch(src(t))
             .then((r) => {
               if (!r.ok) throw new Error(String(r.status));
               return r.blob();
             })
-            .then((b) => (ready = b))
+            .then((b) => (ready[t] = b))
             .catch((e) => {
-              pending = null;
+              delete pending[t];
               throw e;
             }));
-    if (img.complete) getBlob().catch(() => {});
-    else img.addEventListener("load", () => getBlob().catch(() => {}), { once: true });
+    const fetchWhenShown = () => {
+      const t = tone;
+      if (img.complete) getBlob(t).catch(() => {});
+      else img.addEventListener("load", () => getBlob(t).catch(() => {}), { once: true });
+    };
+
+    function setTone(t: string, remember: boolean) {
+      tone = t;
+      img.style.backgroundImage = `url('${d[`${t}thumb`]}')`;
+      img.src = src(t);
+      download.href = src(t);
+      download.download = nameFor(t);
+      toneButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tone === t)));
+      if (remember) {
+        const u = new URL(location.href);
+        u.searchParams.set("bg", t);
+        history.replaceState(null, "", u);
+      }
+      say("");
+      fetchWhenShown();
+    }
+    toneButtons.forEach((b) => b.addEventListener("click", () => setTone(b.dataset.tone!, true)));
+    const asked = new URLSearchParams(location.search).get("bg");
+    if (asked && asked !== tone && toneButtons.some((b) => b.dataset.tone === asked))
+      setTone(asked, false);
+    else fetchWhenShown();
 
     const save = (b: Blob) => {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(b);
-      a.download = name;
+      a.download = nameFor(tone);
       document.body.append(a);
       a.click();
       a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
     };
     const isPhone = matchMedia("(pointer: coarse)").matches;
+    const link = () => {
+      const u = new URL(location.href);
+      u.searchParams.set("bg", tone);
+      return u.href;
+    };
 
-    button.addEventListener("click", async () => {
+    share.addEventListener("click", async () => {
+      const t = tone;
       say("");
       try {
         if (isPhone && navigator.canShare) {
-          if (!ready) {
+          if (!ready[t]) {
             // Still downloading: wait for it, then ask for one more tap (the wait used up this one).
             say("Getting the picture…");
-            await getBlob();
+            await getBlob(t);
             return say("Ready. Tap Share image again.");
           }
-          const file = new File([ready], name, { type: "image/jpeg" });
-          const withLink = { files: [file], text: `${button.dataset.cardText} ${location.href}` };
+          const file = new File([ready[t]], nameFor(t), { type: "image/jpeg" });
+          const withLink = { files: [file], text: `${share.dataset.cardText} ${link()}` };
           if (navigator.canShare(withLink)) return await navigator.share(withLink);
           if (navigator.canShare({ files: [file] }))
             return await navigator.share({ files: [file] });
         }
         if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
           // Clipboards take PNG, not JPEG; the promise keeps the copy tied to this tap.
-          const png = getBlob().then(async (b) => {
+          const png = getBlob(t).then(async (b) => {
             const bmp = await createImageBitmap(b);
             const c = document.createElement("canvas");
             c.width = bmp.width;
@@ -113,12 +177,12 @@ const thumb = `/quotes/${slug}-480.jpg`;
           await navigator.clipboard.write([new ClipboardItem({ "image/png": png })]);
           return say("Picture copied. Paste it into your post or chat.");
         }
-        save(await getBlob());
+        save(await getBlob(t));
         say("Picture saved to your downloads.");
       } catch (e) {
         if ((e as DOMException).name === "AbortError") return;
         try {
-          save(await getBlob());
+          save(await getBlob(t));
           say("Picture saved to your downloads.");
         } catch {
           say("Couldn’t get the picture. Press and hold it to save it.");
@@ -142,13 +206,40 @@ const thumb = `/quotes/${slug}-480.jpg`;
     border: 1px solid var(--surface-border);
     background-size: cover;
   }
+  .share-card-tones {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.85rem;
+  }
+  .share-card-tone {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--surface-border-strong);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+  }
+  .share-card-tone + .share-card-tone {
+    border-left: 0;
+  }
+  .share-card-tone:first-child {
+    border-radius: 999px 0 0 999px;
+  }
+  .share-card-tone:last-child {
+    border-radius: 0 999px 999px 0;
+  }
+  .share-card-tone[aria-pressed="true"] {
+    background: var(--surface-bg-strong);
+    color: var(--color-heading);
+  }
   .share-card-actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 0.6rem;
-    margin-top: 1rem;
+    margin-top: 0.85rem;
   }
   .share-card-button {
     font: inherit;

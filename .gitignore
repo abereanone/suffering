@@ -28,3 +28,5 @@ devserver*.log
 # pulled out of it (scripts/catechism_suffering_extracted.txt) IS tracked, because
 # scripts/import-suffering-catechism.mjs reads it.
 Catechism_Suffering_KDP.pdf
+# Share images live on R2 (C:/code/quote-cards); a local copy for the dev server goes here.
+public/quotes/

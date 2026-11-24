@@ -17,6 +17,8 @@ import QuestionSwipe from "@/components/QuestionSwipe.astro";
 import QuestionAnswer from "@/components/QuestionAnswer.astro";
 import QuestionNav from "@/components/QuestionNav.astro";
 import QuestionShare from "@/components/QuestionShare.astro";
+import quoteData from "@/data/quote-cards.json";
+import { defaultTone, quoteImage } from "@/lib/quoteImages";
 import BibleReferencesScript from "@/components/BibleReferencesScript.astro";
 import QuestionReferenceHighlightScript from "@/components/QuestionReferenceHighlightScript.astro";
 import { siteSettings } from "@/config/siteSettings";
@@ -63,6 +65,9 @@ if (!question && !listingMatches) {
 }
 
 const siteName = siteSettings.branding.siteName;
+// This question's share image, if it has one (long answers and ones that need the question
+// before them have none).
+const shareCard = question ? quoteData.cards.find((c) => c.slug === question.slug) : undefined;
 const showAuthors = siteSettings.showAuthor;
 
 let questionSlug = "";
@@ -289,7 +294,7 @@ function buildStructuredData(entry: Question): string | null {
         title: question.title,
         description: questionOgDescription,
         url: canonicalQuestionPath,
-        image: `/quotes/${question.slug}.jpg`,
+        ...(shareCard ? { image: quoteImage(shareCard.slug, defaultTone(shareCard.id)) } : {}),
         imageAlt: question.title,
       }}
     >
@@ -343,7 +348,7 @@ function buildStructuredData(entry: Question): string | null {
           <QuestionShare
             shareUrl={shareUrl}
             shareText={shareText}
-            imageHref={`/quotes/${question.slug}`}
+            imageHref={shareCard ? `/quotes/${shareCard.slug}` : undefined}
           />
         </div>
 

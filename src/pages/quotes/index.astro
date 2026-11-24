@@ -1,48 +1,273 @@
 ---
-// Every question as a shareable image (public/quotes/, made by scripts/quote-cards/render.mjs).
+// Every question as a shareable image, with filters: look (Mixed / Dark / Light / Solid), topic
+// (the catechism's sections), keyword chips (the most common meaningful words, larger when more
+// common) and Scripture book. Filters combine and live in the address (?topic=&word=&book=&look=),
+// so a filtered view can be shared. Data: src/data/quote-cards.json (C:/code/quote-cards/export.mjs).
 import Main from "@/layouts/Main.astro";
 import { siteSettings } from "@/config/siteSettings";
-import cards from "@/data/quote-cards.json";
+import data from "@/data/quote-cards.json";
+import { defaultTone, quoteImage, TONES, TONE_LABELS } from "@/lib/quoteImages";
 
 const siteName = siteSettings.branding.siteName;
+const cards = [...data.cards].sort((a, b) => a.id - b.id);
+const book = (ref: string) => ref.replace(/\s+\d+([:.,\-–\d\s]*)$/, "").trim();
+const maxN = Math.max(...data.keywords.map((k) => k.n));
+const minN = Math.min(...data.keywords.map((k) => k.n));
+const size = (n: number) =>
+  (0.8 + (maxN === minN ? 0.2 : ((n - minN) / (maxN - minN)) * 0.45)).toFixed(2);
+const first = cards[0];
 ---
 
 <Main
   title={`Images | ${siteName}`}
   description="Every question and answer of the Catechism of Suffering as an image to download and share."
-  openGraph={{ image: `/quotes/${cards[0].slug}.jpg`, imageAlt: cards[0].question }}
+  openGraph={{ image: quoteImage(first.slug, defaultTone(first.id)), imageAlt: first.question }}
 >
   <h1>Images</h1>
+
+  <div class="qf">
+    <div class="qf-row" role="group" aria-label="Look">
+      <button type="button" class="qf-chip" data-look="mixed" aria-pressed="true">Mixed</button>
+      {
+        TONES.map((t) => (
+          <button type="button" class="qf-chip" data-look={t} aria-pressed="false">
+            {TONE_LABELS[t]}
+          </button>
+        ))
+      }
+    </div>
+    <details class="qf-more">
+      <summary class="qf-chip">Filter<span class="qf-active"></span></summary>
+      <div class="qf-panel">
+        <div class="qf-row" role="group" aria-label="Topic">
+          <button type="button" class="qf-chip" data-topic="" aria-pressed="true">All topics</button
+          >
+          {
+            data.topics.map((t) => (
+              <button type="button" class="qf-chip" data-topic={t.id} aria-pressed="false">
+                {t.name}
+              </button>
+            ))
+          }
+        </div>
+        <div class="qf-row qf-words" role="group" aria-label="Keyword">
+          {
+            data.keywords.map((k) => (
+              <button
+                type="button"
+                class="qf-word"
+                data-word={k.word}
+                aria-pressed="false"
+                style={`font-size:${size(k.n)}rem`}
+              >
+                {k.word}
+              </button>
+            ))
+          }
+        </div>
+        <label class="qf-book">
+          <span>Scripture</span>
+          <select data-book>
+            <option value="">All books</option>
+            {
+              data.books.map((b) => (
+                <option value={b.name}>
+                  {b.name} ({b.n})
+                </option>
+              ))
+            }
+          </select>
+        </label>
+      </div>
+    </details>
+  </div>
+
   <ul class="quote-grid">
     {
       cards.map((c) => (
-        <li>
+        <li
+          data-slug={c.slug}
+          data-topic={c.topic}
+          data-text={`${c.question} ${c.answer}`.toLowerCase()}
+          data-books={[...new Set(c.scripture.map(book))].join("|")}
+        >
           <a href={`/quotes/${c.slug}`}>
             <img
-              src={`/quotes/${c.slug}-480.jpg`}
+              src={quoteImage(c.slug, defaultTone(c.id), true)}
               alt={`${c.question} ${c.answer}`}
               width="480"
               height="480"
               loading="lazy"
+              {...Object.fromEntries(TONES.map((t) => [`data-${t}`, quoteImage(c.slug, t, true)]))}
+              data-mixed={quoteImage(c.slug, defaultTone(c.id), true)}
             />
-          </a>
-          <a class="quote-download" href={`/quotes/${c.slug}.jpg`} download={`${c.slug}.jpg`}>
-            Download Q. {c.id}
           </a>
         </li>
       ))
     }
   </ul>
+  <p class="qf-none" hidden>
+    No images match. <button type="button" class="qf-clear">Clear filters</button>
+  </p>
 </Main>
 
+<script>
+  const state = { look: "mixed", topic: "", word: "", book: "" };
+  // Wide screens show the filters open; phones keep them folded behind the Filter button.
+  const more = document.querySelector<HTMLDetailsElement>(".qf-more")!;
+  if (matchMedia("(min-width: 641px)").matches) more.open = true;
+  const items = [...document.querySelectorAll<HTMLLIElement>(".quote-grid li")];
+  const none = document.querySelector<HTMLElement>(".qf-none")!;
+  const select = document.querySelector<HTMLSelectElement>("[data-book]")!;
+  const wordHas = (text: string, w: string) => new RegExp(`\\b${w}`, "i").test(text);
+
+  function apply(remember: boolean) {
+    let shown = 0;
+    for (const li of items) {
+      const d = li.dataset;
+      const ok =
+        (!state.topic || d.topic === state.topic) &&
+        (!state.word || wordHas(d.text!, state.word)) &&
+        (!state.book || d.books!.split("|").includes(state.book));
+      li.hidden = !ok;
+      if (ok) shown++;
+      const img = li.querySelector("img")!;
+      const src = img.dataset[state.look]!;
+      if (img.getAttribute("src") !== src) img.src = src;
+      li.querySelector("a")!.href =
+        `/quotes/${d.slug}${state.look === "mixed" ? "" : `?bg=${state.look}`}`;
+    }
+    none.hidden = shown > 0;
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-look]")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.look === state.look)));
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-topic]")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.topic === state.topic)));
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-word]")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.word === state.word)));
+    select.value = state.book;
+    const active = [
+      state.topic && document.querySelector(`[data-topic="${state.topic}"]`)?.textContent,
+      state.word,
+      state.book,
+    ].filter(Boolean);
+    document.querySelector(".qf-active")!.textContent = active.length
+      ? `: ${active.join(", ")}`
+      : "";
+    if (remember) {
+      const u = new URL(location.href);
+      for (const [k, v] of Object.entries(state)) {
+        if (v && !(k === "look" && v === "mixed")) u.searchParams.set(k, v);
+        else u.searchParams.delete(k);
+      }
+      history.replaceState(null, "", u);
+    }
+  }
+
+  const q = new URLSearchParams(location.search);
+  for (const k of Object.keys(state) as (keyof typeof state)[]) if (q.get(k)) state[k] = q.get(k)!;
+  apply(false);
+
+  document.addEventListener("click", (e) => {
+    const b = (e.target as Element).closest<HTMLButtonElement>("button");
+    if (!b) return;
+    if (b.dataset.look) state.look = b.dataset.look;
+    else if (b.dataset.topic !== undefined) state.topic = b.dataset.topic;
+    else if (b.dataset.word) state.word = state.word === b.dataset.word ? "" : b.dataset.word;
+    else if (b.classList.contains("qf-clear"))
+      Object.assign(state, { topic: "", word: "", book: "" });
+    else return;
+    apply(true);
+  });
+  select.addEventListener("change", () => {
+    state.book = select.value;
+    apply(true);
+  });
+</script>
+
 <style>
+  .qf {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .qf-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .qf-chip,
+  .qf-word {
+    font: inherit;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-bg-muted);
+    color: var(--color-text);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .qf-chip {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.75rem;
+  }
+  .qf-word {
+    padding: 0.15rem 0.6rem;
+    line-height: 1.5;
+  }
+  .qf-words {
+    align-items: center;
+    gap: 0.35rem 0.45rem;
+  }
+  .qf-chip[aria-pressed="true"],
+  .qf-word[aria-pressed="true"] {
+    background: var(--surface-bg-strong);
+    border-color: var(--surface-border-strong);
+    color: var(--color-heading);
+  }
+  .qf-more > summary {
+    display: inline-block;
+    list-style: none;
+  }
+  .qf-more > summary::-webkit-details-marker {
+    display: none;
+  }
+  .qf-more[open] > summary {
+    background: var(--surface-bg-strong);
+    color: var(--color-heading);
+  }
+  .qf-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .qf-book {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .qf-book select {
+    font: inherit;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-bg-muted);
+    color: var(--color-text);
+    max-width: 100%;
+  }
   .quote-grid {
     list-style: none;
-    margin: 1.5rem 0;
+    margin: 0 0 1.5rem;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(46%, 220px), 1fr));
+    gap: 0.9rem;
+  }
+  .quote-grid li[hidden] {
+    display: none;
   }
   .quote-grid img {
     display: block;
@@ -51,13 +276,13 @@ const siteName = siteSettings.branding.siteName;
     border-radius: 6px;
     border: 1px solid var(--surface-border);
   }
-  .quote-download {
-    display: inline-block;
-    margin-top: 0.35rem;
-    font-size: 0.9rem;
-  }
-  .quote-credits {
-    font-size: 0.85rem;
-    color: var(--color-muted);
+  .qf-clear {
+    font: inherit;
+    background: none;
+    border: 0;
+    color: var(--color-link);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
   }
 </style>
