@@ -16,7 +16,8 @@ export const siteSettings = {
   branding,
   issueReportURL: "https://github.com/abereanone/suffering/issues/new",
   integrations: {
-    googleAnalyticsId: "G-8WGWSDD1T2",
+    // Google Analytics removed 2026-11-24: stats come from Cloudflare (C:/code/site-stats).
+    googleAnalyticsId: "",
   },
   openGraph: {
     title: branding.siteName,
