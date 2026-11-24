@@ -286,6 +286,9 @@ const first = cards[0];
     border: 1px solid var(--surface-border);
     background: var(--surface-bg-muted);
     color: var(--color-text);
+    /* Long option names (usa: "Courts, States, and Constitutional Order") must not widen the page. */
+    flex: 1;
+    min-width: 0;
     max-width: 100%;
   }
   /* The list itself needs a solid colour: with the see-through one above, the browser draws
