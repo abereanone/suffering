@@ -3,7 +3,6 @@
 import Main from "@/layouts/Main.astro";
 import { siteSettings } from "@/config/siteSettings";
 import cards from "@/data/quote-cards.json";
-import credits from "@/data/quote-credits.json";
 
 const siteName = siteSettings.branding.siteName;
 ---
@@ -34,13 +33,6 @@ const siteName = siteSettings.branding.siteName;
       ))
     }
   </ul>
-  <p class="quote-credits">
-    Backgrounds, all public domain: <Fragment
-      set:html={credits
-        .map((c) => `<a href="${c.url}">${c.title}</a>, ${c.artist.replace(/\s*\(.*\)$/, "")}`)
-        .join("; ")}
-    />.
-  </p>
 </Main>
 
 <style>
